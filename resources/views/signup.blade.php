@@ -5,7 +5,7 @@
     <div class="row mx-0 form-padding">
         <!-- Sign Up form -->
         <form class="form-margin text-center rounded my-5 bg-white border border-light p-5 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" method="post" enctype="multipart/form-data" action="signup">
-
+            @csrf
             <p class="h2 mb-4">Registrate</p>
 
             <div class="form-row">

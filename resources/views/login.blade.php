@@ -5,7 +5,7 @@
     <div class="row mx-0 form-padding">
         <!-- Default form login -->
         <form class="text-center form-margin rounded bg-white border border-light p-5 my-4 col-xl-6 offset-xl-3 col-lg-12 justify-content-center z-depth-1-half" method="POST" action="">
-
+            @csrf
             <p class="h2 mb-4">Iniciar sesión</p>
 
             <!-- Email -->

@@ -17,7 +17,7 @@ class CreateLocationsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('postal_code');
-            $table->tinyInteger('active');
+            $table->tinyInteger('active')->nullable();
             $table->string('address', 100);
             $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')->references('id')->on('cities');

@@ -22,7 +22,7 @@ class CreateCardsTable extends Migration
             $table->date('valid_date');
             $table->string('card_owner_name', 45);
             $table->string('card_owner_surname', 45);
-            $table->tinyInteger('active');
+            $table->tinyInteger('active')->nullable();
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
         });

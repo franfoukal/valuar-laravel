@@ -1,0 +1,31 @@
+
+.img-profile{
+    display: block;
+    font-size: 30vw;
+}
+
+.fa-times{
+    bottom: 2rem;
+    right: 1rem;
+}
+.profile-info h2{
+    font-weight: 700;
+}
+
+
+@media screen and (max-width: 767px){
+    .profile-info{
+        text-align: center;
+        margin-top: 1rem!important;
+    }
+}
+@media screen and (min-width: 768px){
+    .fa-times{
+        bottom: 1rem;
+    }
+}
+@media screen and (min-width: 992px){
+    .img-profile{
+        font-size: 8rem;
+    } 
+}

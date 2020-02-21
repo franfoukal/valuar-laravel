@@ -1,0 +1,201 @@
+*{
+  box-sizing: border-box;
+}
+.container-fluid{
+  padding: 0;
+  margin:0;
+}
+/* GLOBALES */
+body{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.btn{
+  font-family: 'Roboto', sans-serif;
+}
+
+.bg-noche{
+  background-color: rgb(5, 5, 23);
+}
+.bg-piel{
+  background-color: rgb(247, 212, 188);
+}
+.bg-verde{
+  background-color: rgb(72, 169, 166);
+}
+.bg-crema{
+  background-color: rgb(247, 244, 234);
+}
+.bg-rojo{
+  background-color: rgb(193, 102, 107);
+}
+.bd-noche{
+  border-color: #050517;
+  border-width: 1px;
+  border-style: solid;
+}
+.bd-piel{
+  border-color: #F7D4BC;
+  border-width: 1px;
+  border-style: solid;
+}
+.bd-verde{
+  border-color: #48A9A6;
+  border-width: 1px;
+  border-style: solid;
+}
+.bd-crema{
+  border-color: #F7F4EA;
+  border-width: 1px;
+  border-style: solid;
+}
+.bd-rojo{
+  border-color: #C1666B;
+  border-width: 1px;
+  border-style: solid;
+}
+.noche{
+  color: #050517!important;
+}
+.piel{
+  color: #F7D4BC;
+}
+.verde{
+  color: #48A9A6;
+}
+.crema{
+  color: #F7F4EA;
+}
+.rojo{
+  color: #C1666B;
+}
+.bg-transparent{
+  background-color: transparent;
+}
+.iframe_container{
+  margin-top: 5vh;
+  position:relative;
+  padding-bottom: 50.625%;
+  height: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.iframe_container iframe{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.text-shadow{
+  text-shadow: 1px 2px 20px #050517;
+}
+.clearlist{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+/* HEADER
+*
+* recomiendo dejar los breakpoints
+* solo para el header y crear nuevos
+* de ser necesario, para mantener bien global el estilo
+*
+*/
+.navbar{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+.navbar-brand{
+  width: 40%;
+}
+.cart{
+  color: white;
+  font-size: 1rem;
+  padding: .5rem;
+  margin-left: auto;
+}
+
+.bg-transparent{
+  background-color: transparent;
+}
+
+.bg-image-collar{
+  background: url("../img/ctg/collar-bg-1.jpg") no-repeat center rgba(0, 0, 0, 0.3);
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+.form-padding{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 667px){
+  .form-margin{
+    margin-top: 0!important;
+    margin-bottom: 0!important;
+  }
+}
+@media (min-width: 500px){
+  .navbar-brand{
+    width: 30%;
+  }
+}
+
+@media (min-width: 768px)  {
+
+  .navbar-brand{
+    width: 15%;
+  }
+  .cart{
+    order: 3;
+  }
+  .dejanosTuMensaje{
+    margin-top: 5vh;
+  }
+}
+@media (min-width: 1025px)  {
+  .navbar-brand{
+    width: 15%;
+  }
+  .cart{
+    order: 3;
+  }
+  .dejanosTuMensaje{
+    margin: 10vh 20vw;
+  }
+}
+@media (min-width: 1281px) {
+  .navbar-brand{
+    width: 10%;
+  }
+  .cart{
+    order: 3;
+  }
+}
+
+/* FOOTER */
+
+.main-footer {
+  display: flex;
+  align-items: center;
+  padding: 5rem 1rem .5rem 1rem;
+}
+.footer-item{
+  margin-bottom: 3rem;
+}
+.footer-title{
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding-bottom: 1.5rem;
+}
+.footer-list li a{
+  color: white;
+}
+.footer-copy{
+  justify-content: center;
+}
+.copy{
+  color: white;
+  align-self: center;
+}

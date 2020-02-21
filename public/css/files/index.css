@@ -1,0 +1,159 @@
+header.index{
+  background-image: url('../img/anillo2.jpg');
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* height: 45vh!important; */
+}
+.jumbotron{
+  margin-bottom: 0;
+}
+.navbar.home{
+  box-shadow: none;
+}
+.navbar-brand{
+  width: 40%;
+}
+.jumbotron{
+  /* margin: 0;
+  padding: 0; */
+  background-color: transparent;
+  box-shadow: none;
+}
+.cart{
+  color: white;
+  font-size: 1rem;
+  padding: .5rem;
+  margin-left: auto;
+}
+.arrow{
+  font-size: 4rem;
+  display: block;
+  opacity: 0.5;
+  text-align: center;
+}
+
+/* SERVICES */
+
+.services{
+  text-align: center;
+}
+
+.svc-wrapper{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.service{
+  text-align: center;
+  padding: 2rem 2rem;
+  border-radius: 2%;
+}
+/*
+.service:hover{
+  background-color: rgba(72, 169, 166, 0.5);
+  color: white;
+}*/
+.service i{
+  font-size: 6rem;
+  padding-bottom: 1rem;
+}
+
+/* CATEGORIES */
+.categories .row{
+  display: flex;
+  justify-content: space-around;
+}
+.category{
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  margin: 0.5rem 0rem;
+}
+.zoom:hover{
+  transform: scale(1.02);
+  transition: all 0.2s linear;
+}
+.zoom-child>*:hover{
+  transform: scale(1);
+  transition: all 0.2s linear;
+}
+.ctg-prompt{
+  text-align: center;
+  width: 100%;
+  font-size: 1rem;
+  text-transform: uppercase;
+  position: absolute;
+  display: block;
+  top: 70%;
+  padding: .8rem 1.2rem;
+  opacity: 0.8;
+}
+.ctg-prompt.dark{
+  color: white;
+}
+.ctg-prompt.light{
+  color: black;
+}
+
+
+/* MAS VENDIDO */
+
+
+
+
+
+/* MEDIA QUERYS */
+
+@media (min-width: 500px){
+  .navbar-brand{
+    width: 30%;
+  }
+}
+
+@media (min-width: 768px)  {
+  header.index{
+    background-position: 0;  
+    height: 100vh;
+    max-height: 80vh;
+  }
+  .navbar-brand{
+    width: 15%;
+  }
+  .cart{
+    order: 3;
+  }
+}
+@media (min-width: 1025px)  {
+  header.index{
+    background-position: 0;  
+    height: 100vh;
+    max-height: 80vh;
+  }
+  .navbar-brand{
+    width: 15%;
+  }
+  .cart{
+    order: 3;
+  }
+}
+@media (min-width: 1281px) {
+  header.index{
+    background-position: 0;  
+    height: 100vh;
+  }
+  .navbar-brand{
+    width: 10%;
+  }
+  .cart{
+    order: 3;
+  }
+}
+@media screen and (max-width: 320px){
+  .display-4{
+    font-size: 2rem;
+  }
+}
+
+

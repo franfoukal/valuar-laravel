@@ -1,0 +1,61 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none!important;
+    -moz-appearance: none!important;
+    appearance: none;
+    margin: 0; 
+}
+.item-title{
+    font-weight: 500;
+}
+.breadcrumb{
+    background: none;
+}
+
+.cantidad{
+    background: none;
+    display: block;
+    border: none;
+    width: 100%;
+}
+.bg-negro{
+    background-color: #212121;
+}
+
+footer .container{
+    max-width: 100%;
+}
+
+.product-img{
+    max-width: 100%;
+}
+.talle-select{
+    text-align: center;
+}
+.product{
+    margin-bottom: 1rem;
+}
+.precio{
+    font-family: 'Open Sans', sans-serif;
+}
+@media screen and (min-width: 1024px){
+    .talle-select{
+        width: 70%;
+    }
+}
+@media screen and (max-width: 768px){
+    .talle-select{
+        width: 75%;
+    }
+}
+@media screen and (max-width: 412px){
+    footer{
+        display: none;
+    }
+    .talle-select{
+        width: 80%;  
+    }
+    .card-img{
+        width: 90%;
+    }
+}

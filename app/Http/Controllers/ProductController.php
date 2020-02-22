@@ -90,7 +90,7 @@ class ProductController extends Controller
      */
     public function displayProduct(int $id){
         $product = Product::find($id);
-        
-        return view('product', compact('product'));
+        $photos = $product->photos;
+        return view('product', compact('product', 'photos'));
     }
 }

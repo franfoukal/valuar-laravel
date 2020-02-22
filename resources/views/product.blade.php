@@ -2,6 +2,10 @@
 @section('title', 'Producto')
 @section('main-content')
 <div class="container-fluid bg-crema">
+    <?php
+    $prod = json_decode($product, true);
+    ?>
+
     <div class="container bg-crema pt-3">
         <div class="card p-0  mb-3">
             <div class="container">
@@ -19,19 +23,18 @@
                                 <!--Slides-->
                                 <div class="carousel-inner" role="listbox">
                                     <!--First slide-->
+
+
+                                    @foreach($product['photos'] as $photo)
+                                    @if ($loop->first)
                                     <div class="carousel-item active">
-                                        <img class="d-block img-fluid product-img" src="{{$photos[0]}}" alt="First slide">
+                                        <img class="d-block img-fluid product-img" src="{{asset($photo['path'])}}" alt="">
                                     </div>
-
-                                    <!--Second slide-->
+                                    @endif
                                     <div class="carousel-item">
-                                        <img class="d-block img-fluid product-img" src="{{$photos[1]}}" alt="Second slide">
+                                        <img class="d-block w-100" src="{{asset($photo['path'])}}" alt="Third slide">
                                     </div>
-
-                                    <!--Third slide-->
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="<?= "/valuar/" . $productView["photos"][2] ?>" alt="Third slide">
-                                    </div>
+                                    @endforeach
 
                                 </div>
                                 <!--/.Slides-->
@@ -52,7 +55,7 @@
                     <div class="col-12 col-md-7 mt-auto">
                         <div class="row mb-4">
                             <div class="col-12">
-                                <h3 class='my-1 item-title card-title'>Anillo <?= $productView["name"] ?></h3>
+                                <h3 class='my-1 item-title card-title'>Anillo {{$product['name']}}</h3>
                                 <ol class="breadcrumb font-small p-0">
                                     <li class="breadcrumb-item">
                                         <a class='' href="#">Joyas</a>
@@ -61,22 +64,20 @@
                                         <a class='' href="#">Colgantes</a>
                                     </li>
                                 </ol>
-                                <p class='card-text my-1'>Lorem ipsum dolor sit amet,
-                                    consectetur adipisicing elit.
-                                    Id laboriosam cupiditate magnam provident
-                                    tempore tempora facilis dicta minima nesciunt eveniet.
+                                <p class='card-text my-1'>
+                                    {{$product['description']}}
                                 </p>
                             </div>
                         </div>
                         <div class="row my-3">
                             <div class="col-12">
-                                <h3 class='h3 amount plain-text my-3 mx-auto'>$ <span id='precio'><?= $productView["price"] ?></span></h3>
+                                <h3 class='h3 amount plain-text my-3 mx-auto'>${{$product['price']}} <span id='precio'></span></h3>
                             </div>
                         </div>
                         <div class="row my-3">
                             <div class="col-12">
                                 <form id="buy-form" action="" method="POST">
-                                    <input name="product-id" type="hidden" value="<?= $productView['id'] ?>">
+                                    <input name="product-id" type="hidden" value="">
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-4 d-flex flex-direction-column justify-content-center">
@@ -161,7 +162,7 @@
                         <div class="row mt-2">
                             <div class="col-12 col-md-6 mb-2">
                                 <form action="/valuar/product/add-to-cart" method="post">
-                                    <input name="cart" type="hidden" value='<?= $encoded ?>'>
+                                    <input name="cart" type="hidden" value=''>
                                     <button name="agregar" type="submit" class='btn btn-block rounded text-white bg-verde bd-verde'>Añadir al carrito</button>
                                 </form>
                             </div>
@@ -176,16 +177,10 @@
         <div class="row">
             <div class="col-12 mb-3">
                 <h4>También te puede interesar...</h4>
+                <!-- INCLUIR PRODUCTOS -->
             </div>
-            <?php foreach ($products as $i => $product) {
-                if ($i == 4) {
-                    break;
-                }
-                require "components/single-product.php";
-            } ?>
         </div>
     </div>
 </div>
-</div>
-<script src='/valuar/assets/js/product.js'></script>
+<!-- <script src='/valuar/assets/js/product.js'></script> -->
 @endsection

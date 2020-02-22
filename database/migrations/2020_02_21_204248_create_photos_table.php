@@ -19,9 +19,9 @@ class CreatePhotosTable extends Migration
             $table->string('path',200)->unique();
             $table->string('extension',200)->nullable();
             $table->tinyInteger('active')->default(1);
-            $table->unsignedBigInteger('products_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
             // $table->foreign('products_id')->references('products')->on('id');
-            $table->unsignedBigInteger('users_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             // $table->foreign('users_id')->references('users')->on('id');
         });
     }

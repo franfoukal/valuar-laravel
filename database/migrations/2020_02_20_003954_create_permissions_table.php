@@ -18,7 +18,7 @@ class CreatePermissionsTable extends Migration
             $table->timestamps();
             $table->string('name', 45);
             $table->string('description', 45);
-            $table->tinyInteger('active');
+            $table->tinyInteger('active')->default(1);
         });
     }
 

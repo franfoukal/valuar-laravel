@@ -19,16 +19,16 @@ class CreateProductsTable extends Migration
             $table->string('name', 100)->unique();
             $table->unsignedBigInteger('price')->nullable();
             $table->unsignedBigInteger('barcode')->nullable()->unique();
-            $table->int('has_size')->nullable();
+            $table->tinyInteger('has_size')->default(0);
             $table->string('description', 200)->nullable();
             $table->unsignedBigInteger('stock')->nullable();
-            $table->int('rating')->nullable();
+            $table->integer('rating')->nullable();
             $table->unsignedBigInteger('amount_sold')->nullable();
-            $table->int('active')->nullable();
+            $table->tinyInteger('active')->default(1);
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('categories')->on('id');
-            $table->unsignedBigInteger('materials_id')->nullable();
-            $table->foreign('materials_id')->references('materials')->on('id');
+            // $table->foreign('category_id')->references('categories')->on('id');
+            $table->unsignedBigInteger('material_id')->nullable();
+            // $table->foreign('material_id')->references('materials')->on('id');
         });
     }
 

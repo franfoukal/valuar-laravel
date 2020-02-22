@@ -18,7 +18,7 @@ class CreateMaterialsTable extends Migration
             $table->timestamps();
             $table->string('name',45)->unique();
             $table->string('description',200)->nullable();
-            $table->int('active')->nullable();
+            $table->tinyInteger('active')->default(1);
         });
     }
 

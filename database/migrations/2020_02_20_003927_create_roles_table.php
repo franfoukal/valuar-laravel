@@ -18,9 +18,9 @@ class CreateRolesTable extends Migration
             $table->timestamps();
             $table->string('name', 45);
             $table->string('description', 45);
-            $table->tinyInteger('active');
+            $table->tinyInteger('active')->default(1);
             $table->unsignedBigInteger('permissions_id');
-            $table->foreign('permissions_id')->references('permissions')->on('id');
+            // $table->foreign('permissions_id')->references('permissions')->on('id');
         });
     }
 

@@ -1,5 +1,5 @@
 @extends('template')
-@section('title', 'Contact')
+@section('title', 'Producto')
 @section('main-content')
 <div class="container-fluid bg-crema">
     <div class="container bg-crema pt-3">
@@ -20,12 +20,12 @@
                                 <div class="carousel-inner" role="listbox">
                                     <!--First slide-->
                                     <div class="carousel-item active">
-                                        <img class="d-block img-fluid product-img" src="<?= "/valuar/" . $productView["photos"][0] ?>" alt="First slide">
+                                        <img class="d-block img-fluid product-img" src="{{$photos[0]}}" alt="First slide">
                                     </div>
 
                                     <!--Second slide-->
                                     <div class="carousel-item">
-                                        <img class="d-block img-fluid product-img" src="<?= "/valuar/" . $productView["photos"][1] ?>" alt="Second slide">
+                                        <img class="d-block img-fluid product-img" src="{{$photos[1]}}" alt="Second slide">
                                     </div>
 
                                     <!--Third slide-->

@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\ProductController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -36,3 +38,4 @@ Route::get('/signup', function () {
 Route::get('/faq', function () {
     return view('faq');
 });
+Route::get('/product/{id}', 'ProductController@displayProduct');

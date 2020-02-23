@@ -14,11 +14,12 @@
 use App\Http\Controllers\ProductController;
 
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', function () {
-    return view('home');
-});
+
+
+Route::get('/', 'ProductController@bestSellers');
+
 Route::get('/home', 'ProductController@bestSellers');
+
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -39,12 +40,8 @@ Route::get('/faq', function () {
     return view('faq');
 });
 Route::get('/product/{id}', 'ProductController@displayProduct');
-<<<<<<< HEAD
+
+
 Auth::routes();
 
-
-
-
-=======
 Route::get('/products', 'ProductController@productList');
->>>>>>> 0434553e8520c8e31b6859a972f428e81de53dfe

@@ -1,6 +1,6 @@
 <header id="header" class="z-depth-1-half" :class="locationLog ? 'index' : ''">
     <nav class=" navbar navbar-expand-md navbar-dark transparent home" :class="locationLog ? 'transparent' : 'bg-noche'">
-        <a class="navbar-brand" href="/home"><img class="logo img-responsive" src="img/valuar-logo23.svg" alt=""></a>
+        <a class="navbar-brand" href="/home"><img class="logo img-responsive" src="{{asset('img/valuar-logo23.svg')}}" alt=""></a>
         <a type="button" class="btn bg-rojo cart" href="/cart">
             <i class="fas fa-shopping-cart"></i>
             <span class="badge badge-light">4</span>

@@ -24,7 +24,7 @@
 
     <!-- Roboto Font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="{{asset('css/all.css')}}">
     <title>Valuar | @yield('title')</title>
 </head>
 

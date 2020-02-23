@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use App\Photo;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -11,6 +11,8 @@ class Product extends Model
         'description', 'stock', 'active', 'category_id', 
         'material_id'
     ];
-
     
+    public function photos(){
+        return $this->hasMany(Photo::class, 'product_id');
+    }
 }

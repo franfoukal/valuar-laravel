@@ -27,12 +27,31 @@
                     </a>
                 </li>
                 @endif
+                @if (Route::has('login'))
                 <li class="nav-item">
                     <a class="nav-link waves-effect waves-light" href="/login">
                         <i class="far fa-user"></i> Login
                     </a>
                 </li>
-                @endguest   
+                @endif
+                @endguest
+                @auth
+                <li class="nav-item dropdown">
+                    <a href='/profile' class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> {{Auth::user()->name}} 
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                        <a class="dropdown-item waves-effect waves-light" href="/profile">Mi cuenta</a>
+                        <a class="dropdown-item waves-effect waves-light" 
+                            href="{{url('/logout')}}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">Salir
+                        </a>
+                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                @endauth
             </ul>
         </div>
     </nav>

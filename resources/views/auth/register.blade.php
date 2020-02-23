@@ -75,15 +75,7 @@
                 <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe">
                 <label class="custom-control-label" for="rememberMe">Recordar usuario</label>
             </div>
-            @if($errors->any())
-        <div class="row collapse">
-            <ul class="alert-box warning radius">
-                @foreach($errors->all() as $error)
-                    <li> {{ $error }} </li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+            
             <!-- Terms of service -->
             <p>
                 Al clickear

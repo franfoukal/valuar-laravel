@@ -19,17 +19,20 @@
                         <i class="fas fa-envelope"></i> Contacto
                     </a>
                 </li>
-                
+                @guest
+                @if (Route::has('register'))
                 <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="/signup">
+                    <a class="nav-link waves-effect waves-light" href="{{route('register')}}">
                         <i class="fas fa-user"></i> Registrate
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link waves-effect waves-light" href="/login">
                         <i class="far fa-user"></i> Login
                     </a>
                 </li>
+                @endguest   
             </ul>
         </div>
     </nav>

@@ -4,20 +4,25 @@
 <div class="jumbotron bg-image-collar z-depth-5">
     <div class="row mx-0 form-padding">
         <!-- Default form login -->
-        <form class="text-center form-margin rounded bg-white border border-light p-5 my-4 col-xl-6 offset-xl-3 col-lg-12 justify-content-center z-depth-1-half" method="POST" action="">
+        <form class="text-center form-margin rounded bg-white border border-light p-5 my-4 col-xl-6 offset-xl-3 col-lg-12 justify-content-center z-depth-1-half" method="POST" action="{{ action('Auth\LoginController@login') }}">
             @csrf
-            <p class="h2 mb-4">Iniciar sesión</p>
+            <p class="h2 mb-4">{{__('Iniciar sesión')}}</p>
 
             <!-- Email -->
             <div class="md-form">
-                <input type="email" id="email" class="form-control" name="email" value="" required>
-                <label for="email">E-mail</label>
+                <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="" required>
+                <label for="email">{{__('E-mail')}}</label>
             </div>
 
             <!-- Password -->
             <div class="md-form">
-                <input type="password" id="password" class="form-control" name='password' required>
-                <label for="password">Contraseña</label>
+                <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name='password' required>
+                <label for="password">{{__('Contraseña')}}</label>
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
 
             <div class="d-flex justify-content-around">
@@ -32,11 +37,12 @@
 
             <!-- Sign in button -->
             <button class="btn bg-verde btn-block my-4 text-white" type="submit" style="width:80%;margin:auto">Enviar</button>
-
+            @if (route::has('password.request'))
             <p>
                 <!-- Forgot password -->
-                <a href="forgottenPassword">¿Olvidaste tu contaseña?</a>
+                <a href="{{ route('password.request') }}">¿Olvidaste tu contaseña?</a>
             </p>
+            @endif
             <!-- Register -->
             <p>¿No sos miembro?
                 <a href="signup">Registrate acá</a>

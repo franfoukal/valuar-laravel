@@ -13,8 +13,10 @@
 
 use App\Http\Controllers\ProductController;
 
+
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 Route::get('/home', function () {
     return view('home');
@@ -28,14 +30,22 @@ Route::get('/product-list', function () {
 Route::get('/cart', function () {
     return view('cart');
 });
-Route::get('/login', function () {
+/*Route::get('login', function () {
     return view('login');
 });
-Route::get('/signup', function () {
-    return view('signup');
+Route::get('register', function () {
+    return view('register');
+});*/
+Route::get('profile', function () {
+    return view('profile');
 });
 
 Route::get('/faq', function () {
     return view('faq');
 });
 Route::get('/product/{id}', 'ProductController@displayProduct');
+Auth::routes();
+
+
+
+

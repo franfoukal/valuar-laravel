@@ -4,7 +4,7 @@
 <div class="jumbotron z-depth-5 bg-image-collar">
     <div class="row mx-0 form-padding">
         <!-- Sign Up form -->
-        <form class="form-margin text-center rounded my-5 bg-white border border-light p-5 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" method="post" enctype="multipart/form-data" action="signup">
+        <form class="form-margin text-center rounded my-5 bg-white border border-light p-5 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" method="post" enctype="multipart/form-data" action="{{action('Auth\RegisterController@register')}}">
             @csrf
             <p class="h2 mb-4">Registrate</p>
 
@@ -12,14 +12,14 @@
                 <div class="col">
                     <!-- First name -->
                     <div class="md-form">
-                        <input type="text" id="name" name="name" class="form-control" value="">
+                        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}" required>
                         <label for="name">Nombre</label>
                     </div>
                 </div>
                 <div class="col">
                     <!-- Last name -->
                     <div class="md-form">
-                        <input type="text" id="surname" name="surname" class="form-control" value="">
+                        <input type="text" id="surname" name="surname" class="form-control @error('surname') is-invalid @enderror" value=" {{ old('surname') }}">
                         <label for="surname">Apellido</label>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
 
             <!-- E-mail -->
             <div class="md-form mt-0">
-                <input type="email" id="email" class="form-control" name="email" value="">
+                <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
                 <label for="email">E-mail</label>
             </div>
 
@@ -38,7 +38,7 @@
 
             </div>
             <div class="md-form">
-                <input type="password" id="passwordConfirm" class="form-control" aria-describedby="passwordHelpBlock" name="passwordConfirm">
+                <input type="password" id="passwordConfirm" class="form-control" aria-describedby="passwordHelpBlock" name="password_confirmation">
                 <label for="passwordConfirm">Confirmar contraseña</label>
                 <small id="passwordHelpBlock" class="form-text text-muted mb-4">
                     Mínimo 8 caracteres, 1 número y 1 caracter especial.
@@ -75,7 +75,15 @@
                 <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe">
                 <label class="custom-control-label" for="rememberMe">Recordar usuario</label>
             </div>
-
+            @if($errors->any())
+        <div class="row collapse">
+            <ul class="alert-box warning radius">
+                @foreach($errors->all() as $error)
+                    <li> {{ $error }} </li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
             <!-- Terms of service -->
             <p>
                 Al clickear

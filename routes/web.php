@@ -16,14 +16,9 @@ use App\Http\Controllers\ProductController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/home', 'ProductController@bestSellers');
 Route::get('/contact', function () {
     return view('contact');
-});
-Route::get('/product-list', function () {
-    return view('product-list');
 });
 Route::get('/cart', function () {
     return view('cart');
@@ -39,3 +34,4 @@ Route::get('/faq', function () {
     return view('faq');
 });
 Route::get('/product/{id}', 'ProductController@displayProduct');
+Route::get('/products', 'ProductController@productList');

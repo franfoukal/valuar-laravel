@@ -10,20 +10,21 @@
             <div class="row zoom-child">
 
                 <!-- <p v-for="(product, index) in products" :key="index">@{{product.name + " "+ product.price + '\n'}}</p> -->
-                <span v-for="(product, index) in products" :key="index" class="col-12 col-md-4 col-lg-3 product">
-                    @component('partials.single-product',
-                    [
-                    'name' => '@{{product.name}}',
-                    'price' => '@{{product.price}}',
-                    'material' => '@{{product.material}}',
-                    'photo' => '@{{product.photos}}'
-                    ])
+                @foreach($products as $product)
+                @component('partials.single-product',
+                [
+                'name' => $product->name,
+                'material' => $product->material,
+                'price' => $product->price,
+                'id' => $product->id,
+                'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png'
+                ])
+                @endcomponent
+                @endforeach
 
-                    @endcomponent
-                </span>
             </div>
             <div class="text-center">
-                <a class="btn transparent bd-noche noche waves-effect waves-light mx-0 my-4 rounded" href="/product-list" role="button">Descubrí más »</a>
+                <a class="btn transparent bd-noche noche waves-effect waves-light mx-0 my-4 rounded" href="/products" role="button">Descubrí más »</a>
             </div>
         </div>
     </section>
@@ -99,43 +100,5 @@
 
 </main>
 
-<script>
-    var app = new Vue({
-        el: '#home',
-        data: {
-            products: []
-        },
-        computed: {
-            locationLog: function() {
-                return window.location.pathname == '/home' || window.location.pathname == '/';
-            }
-        },
-        methods: {
-            listarProductos() {
-                let me = this;
-                axios.get('http://localhost:8888/valuar/v2/product/get/4')
-                    .then(function(response) {
-                        // handle success
-                        me.products = response.data;
-                        me.products.map(function(product) {
-                            product.photos = product.photos.split(', ')
-                        });
-                        console.log(me.products);
-
-                    })
-                    .catch(function(error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .finally(function() {
-                        // always executed
-                    });
-            },
-        },
-        mounted() {
-            this.listarProductos();
-        }
-    });
-</script>
 
 @endsection

@@ -93,4 +93,17 @@ class ProductController extends Controller
         $photos = $product->photos;
         return view('product', compact('product', 'photos'));
     }
+
+    public function productList(){
+        $products = Product::paginate(20);
+        return view("product-list", compact('products'));
+    }
+
+    public function bestSellers()
+    {
+        $products = Product::limit(4)->get();
+        return view("home", compact('products'));
+    }
+
+
 }

@@ -18,14 +18,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
     return view('home');
 });
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/home', 'ProductController@bestSellers');
 Route::get('/contact', function () {
     return view('contact');
-});
-Route::get('/product-list', function () {
-    return view('product-list');
 });
 Route::get('/cart', function () {
     return view('cart');
@@ -44,8 +39,12 @@ Route::get('/faq', function () {
     return view('faq');
 });
 Route::get('/product/{id}', 'ProductController@displayProduct');
+<<<<<<< HEAD
 Auth::routes();
 
 
 
 
+=======
+Route::get('/products', 'ProductController@productList');
+>>>>>>> 0434553e8520c8e31b6859a972f428e81de53dfe

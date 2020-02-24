@@ -1,17 +1,23 @@
-
-.img-profile{
-    display: block;
-    font-size: 30vw;
+.profile-nav{
+    padding: 0px;
 }
-
-.fa-times{
-    bottom: 2rem;
-    right: 1rem;
+.profile-list-link{
+    align-items: center;
 }
-.profile-info h2{
-    font-weight: 700;
+.profile-list-link>*{
+    padding: 0;
 }
-
+.profile-nav-list-text{
+    margin: 0;
+    align-self: flex-start;
+}
+.profile-nav-list-icon{
+    margin-left: 1rem;
+    font-size: 1.2rem;
+}
+.profile-nav-list-arrow{
+    text-align: right;
+}
 
 @media screen and (max-width: 767px){
     .profile-info{

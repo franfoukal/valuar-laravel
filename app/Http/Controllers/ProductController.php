@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -91,7 +91,8 @@ class ProductController extends Controller
     public function displayProduct(int $id){
         $product = Product::find($id);
         $photos = $product->photos;
-        return view('product', compact('product', 'photos'));
+        $recomended = Product::limit(4)->get();
+        return view('product', compact('product', 'photos', 'recomended'));
     }
 
     public function productList(){
@@ -105,5 +106,15 @@ class ProductController extends Controller
         return view("home", compact('products'));
     }
 
+    public function adminProducts(){
+        if(isset($_GET['search'])){
+            $search = $_GET['search'];
+            $products = Product::where('name', 'like', "%$search%")->paginate(12);
+            return view("admin.product-admin", compact('products'));
+        }else{
+            $products = Product::paginate(12);
+            return view("admin.product-admin", compact('products'));
+        }
+    }
 
 }

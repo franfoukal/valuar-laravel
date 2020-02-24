@@ -178,6 +178,19 @@
             <div class="col-12 mb-3">
                 <h4>También te puede interesar...</h4>
                 <!-- INCLUIR PRODUCTOS -->
+                <div class="row">
+                    @foreach($recomended as $product)
+                    @component('partials.single-product',
+                    [
+                    'name' => $product->name,
+                    'material' => $product->material,
+                    'price' => $product->price,
+                    'id' => $product->id,
+                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png'
+                    ])
+                    @endcomponent
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

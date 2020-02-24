@@ -39,9 +39,16 @@ Route::get('profile', function () {
 Route::get('/faq', function () {
     return view('faq');
 });
+
 Route::get('/product/{id}', 'ProductController@displayProduct');
 
 
 Auth::routes();
 
 Route::get('/products', 'ProductController@productList');
+
+
+// ADMIN
+
+Route::get('/admin/products', 'ProductController@adminProducts');
+Route::post('/admin/products','ProductController@adminProducts');

@@ -105,10 +105,10 @@
                         <h6 class='noche'>Material: </h6>
                     </li>
                     <li>
-                        <a class='noche' href="">Oro</a>
+                        <a class='noche' href="/products/filter/{{'oro'}}">Oro</a>
                     </li>
                     <li>
-                        <a class='noche' href="">Plata</a>
+                        <a class='noche' href="/products/filter/{{'plata'}}">Plata</a>
                     </li>
                 </ul>
             </nav>

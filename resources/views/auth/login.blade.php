@@ -7,7 +7,15 @@
         <form class="text-center form-margin rounded bg-white border border-light p-5 my-4 col-xl-6 offset-xl-3 col-lg-12 justify-content-center z-depth-1-half" method="POST" action="{{ action('Auth\LoginController@login') }}">
             @csrf
             <p class="h2 mb-4">{{__('Iniciar sesión')}}</p>
-
+                    @if($errors)
+                        <div class='rounded bg-rojo'>
+                            @foreach ($errors->all() as $error)
+                                <div class="py-2">
+                                    {{ 'Usuario o contraseña incorrecta' }}
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
             <!-- Email -->
             <div class="md-form">
                 <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="" required>

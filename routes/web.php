@@ -13,8 +13,7 @@
 
 use App\Http\Controllers\ProductController;
 
-
-
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'ProductController@bestSellers');
 
@@ -32,16 +31,22 @@ Route::get('/cart', function () {
 Route::get('register', function () {
     return view('register');
 });*/
-Route::get('profile', function () {
-    return view('profile');
-});
+Route::get('profile', 'PhotoController@profilePhoto');
 
 Route::get('/faq', function () {
     return view('faq');
 });
 Route::get('/product/{id}', 'ProductController@displayProduct');
 
+Route::get('/products/filter/{filter}', 'ProductController@filter');
+
 
 Auth::routes();
 
 Route::get('/products', 'ProductController@productList');
+
+Route::get('/profile-edit', function(){
+
+    return view('profile-edit');
+});
+Route::post('/profile-edit', 'PhotoController@store');

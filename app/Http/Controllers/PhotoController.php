@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PhotoController extends Controller
 {
@@ -35,7 +36,20 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_profile' => ['required', 'mimes:jpeg, png, jpg, svg, bmp', 'max:2048']
+        ]);
+        $photo = new Photo();
+        $path = $request->file('user_profile')->store('public');
+        $filename = basename($path);
+        $extension = $request->file('user_profile')->getClientOriginalExtension();
+        $photo->user_id = Auth::user()->id; 
+        $photo->path = $filename;
+        $photo->extension = $extension;
+        $photo->save();
+
+        return view('profile');
+
     }
 
     /**
@@ -46,7 +60,7 @@ class PhotoController extends Controller
      */
     public function show(Photo $photo)
     {
-        //
+   
     }
 
     /**
@@ -57,7 +71,7 @@ class PhotoController extends Controller
      */
     public function edit(Photo $photo)
     {
-        //
+         
     }
 
     /**
@@ -81,5 +95,10 @@ class PhotoController extends Controller
     public function destroy(Photo $photo)
     {
         //
+    }
+    public function profilePhoto(){
+        $photo = Auth::user()->photo;
+        
+        return view('profile', compact('photo'));
     }
 }

@@ -1,0 +1,24 @@
+.admin-prod-name{
+    align-self: center;
+    justify-self: left;
+}
+.admin-prod-description{
+    margin: 0;
+    color: gray;
+    font-weight: 300;
+}
+.admin-prod-item{
+    align-items: center;
+}
+.admin-top-list-controls{
+    display: flex;
+    justify-items: space-between;
+    align-content: center;
+}
+.admin-prod-search-btn{
+    text-align: right;
+}
+.admin-prod-back-btn{
+    text-align: center;
+    align-self: center;
+}

@@ -36,6 +36,7 @@ Route::get('profile', 'PhotoController@profilePhoto');
 Route::get('/faq', function () {
     return view('faq');
 });
+
 Route::get('/product/{id}', 'ProductController@displayProduct');
 
 Route::get('/products/filter/{filter}', 'ProductController@filter');
@@ -45,8 +46,16 @@ Auth::routes();
 
 Route::get('/products', 'ProductController@productList');
 
+<<<<<<< HEAD
 Route::get('/profile-edit', function(){
 
     return view('profile-edit');
 });
 Route::post('/profile-edit', 'PhotoController@store');
+=======
+
+// ADMIN
+
+Route::get('/admin/products', 'ProductController@adminProducts');
+Route::post('/admin/products','ProductController@adminProducts');
+>>>>>>> 1549bf9a6a17969ab65513398d737cba42de02d8

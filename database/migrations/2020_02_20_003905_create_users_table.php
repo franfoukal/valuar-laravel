@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string('name', 45);
             $table->string('surname', 45);
-            $table->string('email', 45);
+            $table->string('email', 255);
             $table->string('password', 255);
-            $table->unsignedBigInteger('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->tinyInteger('active')->nullable();
             $table->unsignedBigInteger('roles_id');
             // $table->foreign('roles_id')->references('roles')->on('id');

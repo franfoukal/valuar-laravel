@@ -11,5 +11,14 @@
     align-items: center;
 }
 .admin-top-list-controls{
-    justify-content: space-between;
+    display: flex;
+    justify-items: space-between;
+    align-content: center;
+}
+.admin-prod-search-btn{
+    text-align: right;
+}
+.admin-prod-back-btn{
+    text-align: center;
+    align-self: center;
 }

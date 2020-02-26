@@ -19,4 +19,5 @@ class Product extends Model
     public function firstPhoto(){
         return $this->hasOne(Photo::class)->oldest();
     }
+    
 }

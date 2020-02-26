@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Material;
 use phpDocumentor\Reflection\Types\Integer;
 
 class ProductController extends Controller
@@ -99,6 +100,7 @@ class ProductController extends Controller
         $products = Product::paginate(20);
         return view("product-list", compact('products'));
     }
+
 
     public function bestSellers()
     {

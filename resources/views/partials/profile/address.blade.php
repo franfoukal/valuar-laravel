@@ -16,7 +16,7 @@
                          <a class="col-1" href="#"><i class="far fa-edit verde"></i></a>
                          <a href="#" class="col-1"><i class="fas fa-times rojo"></i></a>
                      </div>
-                     <button @click.prevent='saludo'>Test @{{address}}</button>
+                     <!-- <button @click.prevent='saludo'>Test @{{address}}</button> -->
                  </li>
 
              </ul>
@@ -77,7 +77,6 @@
          },
          mounted() {
             //   this.getProvince();
-             this.saludo();
          },
      });
  </script>

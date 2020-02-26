@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Photo;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -41,6 +42,9 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+
+        
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -54,9 +58,19 @@ class RegisterController extends Controller
             'surname' => ['required', 'string', 'max:45'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
-            'phone' => ['integer']
-        ]);
+            'phone' => ['integer'],
+        ],
+        [
+            'name.required' => 'Falta poner el nombre',
+            'surname.required' => 'Falta poner el apellido',
+            'email.unique' => 'Este email ya está registrado',
+            'password.required' => 'Falta la contraseña',
+            'password.min' => 'El minimo para la contraseña son 8 caracteres',
+            'password.confirmed' => 'Las contraseñas no coinciden',
+            'phone.integer' => 'En el teléfono solo van números'
+         ]);
     }
+     
 
     /**
      * Create a new user instance after a valid registration.
@@ -66,14 +80,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone' => $data['phone'],
-            'active' => 1,
-            'roles_id' => 1,   
+        return
+            User::create([
+                'name' => $data['name'],
+                'surname' => $data['surname'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'phone' => $data['phone'],
+                'active' => 1,
+                'roles_id' => 1,
         ]);
+        
     }
+    
 }

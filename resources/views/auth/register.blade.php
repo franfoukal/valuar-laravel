@@ -4,11 +4,22 @@
 <div class="jumbotron z-depth-5 bg-image-collar">
     <div class="row mx-0 form-padding">
         <!-- Sign Up form -->
-        <form class="form-margin text-center rounded my-5 bg-white border border-light p-5 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" method="post" enctype="multipart/form-data" action="{{action('Auth\RegisterController@register')}}">
+        <form class="form-margin text-center rounded my-5 bg-white border border-light p-5 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" method="post" action="{{action('Auth\RegisterController@register')}}">
             @csrf
             <p class="h2 mb-4">Registrate</p>
 
             <div class="form-row">
+                <div class="col-12">
+                    @if($errors)
+                        <div class='rounded bg-rojo'>
+                            @foreach ($errors->all() as $error)
+                                <div class="py-2">
+                                    {{ $error }}
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
                 <div class="col">
                     <!-- First name -->
                     <div class="md-form">
@@ -19,7 +30,7 @@
                 <div class="col">
                     <!-- Last name -->
                     <div class="md-form">
-                        <input type="text" id="surname" name="surname" class="form-control @error('surname') is-invalid @enderror" value=" {{ old('surname') }}">
+                        <input type="text" id="surname" name="surname" class="form-control @error('surname') is-invalid @enderror" value="{{ old('surname')}}" required>
                         <label for="surname">Apellido</label>
                     </div>
                 </div>
@@ -27,18 +38,18 @@
 
             <!-- E-mail -->
             <div class="md-form mt-0">
-                <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
+                <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
                 <label for="email">E-mail</label>
             </div>
 
             <!-- Password -->
             <div class="md-form">
-                <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" name="password">
+                <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" name="password" required>
                 <label for="password">Contraseña</label>
 
             </div>
             <div class="md-form">
-                <input type="password" id="passwordConfirm" class="form-control" aria-describedby="passwordHelpBlock" name="password_confirmation">
+                <input type="password" id="passwordConfirm" class="form-control" aria-describedby="passwordHelpBlock" name="password_confirmation" required>
                 <label for="passwordConfirm">Confirmar contraseña</label>
                 <small id="passwordHelpBlock" class="form-text text-muted mb-4">
                     Mínimo 8 caracteres, 1 número y 1 caracter especial.
@@ -47,35 +58,12 @@
 
             <!-- Phone number -->
             <div class="md-form">
-                <input type="number" id="phone" class="form-control" aria-describedby="phoneHelpBlock" name="phone" value="">
+                <input type="number" id="phone" class="form-control" aria-describedby="phoneHelpBlock" name="phone" value="{{old('phone')}}">
                 <label for="phone">Número de teléfono</label>
                 <small id="phoneHelpBlock" class="form-text text-muted mb-4">
                     Opcional
                 </small>
             </div>
-
-            <!-- PROFILE IMG INPUT -->
-            <div class="file-field">
-                <span>Subir foto de perfil</span>
-                <div class="d-flex justify-content-center">
-                    <div class="btn bg-transparent btn-rounded float-left">
-                        <input type="file" name="profile">
-                    </div>
-                </div>
-                <small class="form-text text-muted mb-4">
-                    Opcional
-                </small>
-            </div>
-
-            @if (count($errors) > 0)
-    <div class="error">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
             <!-- Sign up button -->
             <button class="btn bg-verde btn-block my-4 text-white" type="submit" style="width:80%;margin:auto">Registrate</button>
 
@@ -85,6 +73,9 @@
                 <label class="custom-control-label" for="rememberMe">Recordar usuario</label>
             </div>
             
+
+
+
             <!-- Terms of service -->
             <p>
                 Al clickear

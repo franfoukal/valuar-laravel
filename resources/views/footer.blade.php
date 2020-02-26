@@ -5,18 +5,18 @@
                  <div class="footer-item col-12 col-md-3">
                      <h5 class="footer-title">Valuar</h5>
                      <ul class="clearlist footer-list">
-                         <li><a href="#">Categorias</a></li>
-                         <li><a href="product-list">Productos</a></li>
-                         <li><a href="#">Temporadas</a></li>
-                         <li><a href="#">Promociones</a></li>
+                         <li><a href="products">Categorias</a></li>
+                         <li><a href="products">Productos</a></li>
+                         <li><a href="products">Temporadas</a></li>
+                         <li><a href="products">Promociones</a></li>
                      </ul>
                  </div>
                  <div class="footer-item col-12 col-md-3">
                      <h5 class="footer-title">Ayuda</h5>
                      <ul class="clearlist footer-list">
-                         <li><a href="#">F.A.Q.</a></li>
-                         <li><a href="#">Garantia</a></li>
-                         <li><a href="#">Devoluciones</a></li>
+                         <li><a href="faq">F.A.Q.</a></li>
+                         <li><a href="faq">Garantia</a></li>
+                         <li><a href="faq">Devoluciones</a></li>
                      </ul>
                  </div>
                  <div class="footer-item col-12 col-md-3">

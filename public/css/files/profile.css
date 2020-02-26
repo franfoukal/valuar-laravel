@@ -1,37 +1,55 @@
-.profile-nav{
-    padding: 0px;
-}
-.profile-list-link{
+.profile-wrapper{
     align-items: center;
 }
-.profile-list-link>*{
-    padding: 0;
+.profile-nav{
+    /* border-right: solid 1px red; */
+    padding: 2rem 5rem;
 }
-.profile-nav-list-text{
+.profile-img{
+    position: relative;
+    border-width: 1px;
+    /* right: 2rem; */
+}
+.profile-header{
     margin: 0;
-    align-self: flex-start;
+    margin-top: 0.7rem;
+    align-items: center;
 }
-.profile-nav-list-icon{
+.profile-name{
+    margin-bottom: 0;
+}
+.profile-edit-icon{
+    font-size: 1.5rem;
     margin-left: 1rem;
-    font-size: 1.2rem;
 }
-.profile-nav-list-arrow{
-    text-align: right;
+.profile-list{
+    margin-top: 1.5rem;
+}
+.profile-list-item{
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+.profile-list-item a{
+    color: #c9c9ca !important;
+}
+.profile-list-item a:hover{
+    color: #474747 !important;
 }
 
-@media screen and (max-width: 767px){
-    .profile-info{
-        text-align: center;
-        margin-top: 1rem!important;
-    }
+/* ADDRESS COMPONENT */
+.address-card-heading{
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    margin-bottom: 1rem;
 }
-@media screen and (min-width: 768px){
-    .fa-times{
-        bottom: 1rem;
-    }
+.address-card-add-btn{
+    margin-right: 1rem;
+    font-size: 1.2rem;
 }
-@media screen and (min-width: 992px){
-    .img-profile{
-        font-size: 8rem;
-    } 
+.address-item{
+    align-items: center;
+}
+.address-item-icon{
+    font-size: 1.3rem;
 }

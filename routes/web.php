@@ -32,9 +32,13 @@ Route::get('/cart', function () {
 Route::get('register', function () {
     return view('register');
 });*/
-Route::get('profile', function () {
+Route::get('/profile', function () {
     return view('profile');
 });
+
+// Route::get('/profile', function () {
+//     return view('partials.profile.address');
+// });
 
 Route::get('/faq', function () {
     return view('faq');

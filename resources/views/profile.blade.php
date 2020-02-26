@@ -1,57 +1,52 @@
 @extends('template')
 @section('title', 'Mi Cuenta')
 @section('main-content')
-
-
-<div class="container-fluid">
-    <div class="row">
-        <aside class="profile-nav col-12 col-md-4 col-lg-4 z-depth-1-half">
-            <div class="profile-img-wrapper text-center bg-crema py-4">
-                <img src="/img/profiles/profile-default.jpeg" alt="avatar" class="rounded-circle col-6">
-                <h2 class="pt-3">{{Auth::user()->name}}</h2>
+<main class="container-fluid" id="profile">
+    <div class="row m-0 profile-wrapper">
+        <aside class="profile-nav col-12 col-md-5 col-lg-4">
+            <div class="profile-img-wrapper text-center text-md-left">
+                <img src="/img/profile/profile-default.jpeg" alt="" class="profile-img shadow p-0 rounded-circle col-9 col-md-8 col-lg-6 bd-crema">
             </div>
+            <div class="row profile-header">
+                <h1 class="profile-name">{{ucfirst(Auth::user()->name)}}</h1>
+                <a href="#" class="profile-edit-icon"><i class="fas fa-cog verde"></i></a>
+            </div>
+            <h5 class="profile-email">{{Auth::user()->email}}</h5>
 
-            <ul class="list-group list-group-flush" id="accordion">
-                <li class="list-group-item">
-                    <a class="row profile-list-link" data-toggle="collapse" data-target="#direccionCollapse" aria-expanded="true" aria-controls="direccionCollapse">
-                        <i class="col-1 fas fa-map-marker-alt profile-nav-list-icon"></i>
-                        <h4 class="col-8 profile-nav-list-text">Direcciones</h4>
-                        <i class="col-2 fas fa-chevron-right profile-nav-list-arrow"></i>
-                    </a>
-                    <div id="direccionCollapse" class="collapse d-md-none" aria-labelledby="headingOne" data-parent="#accordion">
-                    <hr>    
-                        <div class="card">
-                            @yield('content')
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. At nostrum dolores sapiente ipsum mollitia laudantium unde possimus soluta ipsa est.
-                        </div>
-                    </div>
-
-                </li>
-                <li class="list-group-item">
-                    <a class="row profile-list-link">
-                        <i class="col-1 fas fa-file-invoice-dollar profile-nav-list-icon"></i>
-                        <h4 class="col-8 profile-nav-list-text">Órdenes</h4>
-                        <i class="col-2 fas fa-chevron-right profile-nav-list-arrow"></i>
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <a class="row profile-list-link">
-                        <i class="col-1 far fa-heart profile-nav-list-icon"></i>
-                        <h4 class="col-8 profile-nav-list-text">Favoritos</h4>
-                        <i class="col-2 fas fa-chevron-right profile-nav-list-arrow"></i>
-                    </a>
-                </li>
-            </ul>
+            <nav>
+                <ul class="clearlist profile-list">
+                    <li class="profile-list-item" @click="select('ordenes')"><a href="#">Órdenes</a></li>
+                    <li class="profile-list-item"><a href="#">Favoritos</a></li>
+                    <li class="profile-list-item" @click="select('direcciones')"><a href="#">Direcciones</a></li>
+                </ul>
+            </nav>
         </aside>
 
-        <main class="d-none d-md-block">
-            <div class="container">
-                @yield('content')
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, architecto? Eveniet quis, dolorum animi explicabo nihil rerum voluptate id sequi.
-            </div>
-        </main>
-
+        <div class="profile-main d-none d-md-block col-md-7 col-lg-5">
+            <section id="profile-address" v-if="selectedPage == 'direcciones'">
+                @include('partials.profile.address')
+            </section>
+            <section id="profile-address" v-if="selectedPage == 'ordenes'">
+                ordenes
+            </section>
+        </div>
     </div>
-</div>
+</main>
 
+<script>
+    var profile = new Vue({
+        el: '#profile',
+        data: {
+            selectedPage: 'direcciones',
+        },
+        computed: {
+
+        },
+        methods: {
+            select: function(page) {
+                this.selectedPage = page;
+            }
+        },
+    });
+</script>
 @endsection

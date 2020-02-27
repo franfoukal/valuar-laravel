@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Product;
-use App\Material;
-use phpDocumentor\Reflection\Types\Integer;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
-class ProductController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-
+        $products = Product::where('active', 1)->count();
+        $totalProducts = Product::count();
+        $totalUsers = User::count();
+        $usersOnline = 0;
+        $users = User::all();         
+        foreach ($users as $user) {
+            if (Cache::has('user-is-online-' . $user->id)) {
+                $usersOnline += 1;
+            }    
+        }
+        return view('admin.admin-index', compact('products', 'totalProducts', 'totalUsers', 'usersOnline'));
     }
 
     /**
@@ -84,38 +95,11 @@ class ProductController extends Controller
     {
         //
     }
-
-    /**
-     * Retorna el producto solicitado a la vista producto
-     * @param int $id
-     */
-    public function displayProduct(int $id){
-        $product = Product::findOrFail($id);
-        $photos = $product->photos;
-        $recomended = Product::limit(4)->get();
-        return view('product', compact('product', 'photos', 'recomended'));
+    public function users(){
+        $allUsers = User::all();
+        return view('admin.users-admin', compact('allUsers'));
     }
-
-    public function productList(){
-        $products = Product::paginate(20);
-        return view("product-list", compact('products'));
+    public function sells(){
+        return view('admin.sells-admin');
     }
-    public function bestSellers()
-    {
-        $products = Product::limit(4)->get();
-        return view("home", compact('products'));
-    }
-
-    public function adminProducts(){
-        if(isset($_GET['search'])){
-            $search = $_GET['search'];
-            $products = Product::where('name', 'like', "%$search%")->paginate(12);
-            return view("admin.product-admin", compact('products'));
-        }else{
-            $products = Product::paginate(12);
-            return view("admin.product-admin", compact('products'));
-        }
-    }
-    
-
 }

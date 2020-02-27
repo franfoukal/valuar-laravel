@@ -15,6 +15,6 @@ class Photo extends Model
         return $this->belongsTo(Product::class, 'product_id');
     }
     public function profile(){
-        return $this->belongsTo(User::class)->newest();
+        return $this->belongsTo(User::class)->latest();
     }
 }

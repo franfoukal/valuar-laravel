@@ -17,8 +17,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" crossorigin="anonymous">
     <!-- Theme style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.2/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Google Font: Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"> 
+        <!-- Google Font: Montserrat -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="/css/all.css">
     <link rel="stylesheet" href="@yield('css')">
 </head>
@@ -37,17 +39,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="/home" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/products" class="nav-link">Products</a>
+                    <a href="/products" class="nav-link">Productos</a>
                 </li>
             </ul>
 
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-    
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i class="fas fa-th-large"></i></a>
-                </li>
-            </ul>
+            
         </nav>
         <!-- /.navbar -->
 
@@ -69,47 +65,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div> -->
                     <div class="info">
-                        <a href="#" class="d-block">{{Auth::user()->name}}</a>
+                        <a href="/profile" class="d-block">{{Auth::user()->name}}</a>
                     </div>
                 </div>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">                        
                         <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="/admin/products" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Productos</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="/admin/users" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Roles</p>
+                                        <p>Usuarios</p>
+                                    </a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a href="/admin/sells" class='nav-link'>
+                                        <i class='far fa-circle nav-icon'></i>
+                                        <p>Ventas</p>
                                     </a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
-                        </li>
+                        </li>                     
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -145,15 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
+        
 
        
     </div>

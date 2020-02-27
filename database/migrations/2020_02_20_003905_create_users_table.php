@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 255);
             $table->string('phone')->nullable();
             $table->tinyInteger('active')->nullable();
+            $table->timestamp('last_seen')->nullable();
             $table->unsignedBigInteger('roles_id');
             // $table->foreign('roles_id')->references('roles')->on('id');
         });

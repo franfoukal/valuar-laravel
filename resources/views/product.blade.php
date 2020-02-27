@@ -140,7 +140,7 @@
                                             <div class="col-8">
                                                 <div class="row mx-1 justify-content-center">
                                                     <div class="col-4 text-center px-0">
-                                                        <div class='form-control waves-effect bg-crema cantidad' id='minus' onclick='resta()'>
+                                                        <div class='form-control waves-effect cantidad' id='minus' onclick='resta()'>
                                                             <i class="fas fa-minus"></i>
                                                         </div>
                                                     </div>
@@ -148,7 +148,7 @@
                                                         <input class='cantidad text-center px-0 h-100' min='1' type="number" name="cantidad" id="cantidad" disabled></input>
                                                     </div>
                                                     <div class="col-4 text-center px-0">
-                                                        <div class='form-control waves-effect bg-crema text-center cantidad' id='plus' onclick="suma()">
+                                                        <div class='form-control waves-effect text-center cantidad' id='plus' onclick="suma()">
                                                             <i class="fas fa-plus"></i>
                                                         </div>
                                                     </div>

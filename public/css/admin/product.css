@@ -1,8 +1,11 @@
 body{
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
+label {
+    margin-bottom: 0!important;
+    margin-top: 1rem;
+}
 .btn{
-    
     border-radius: 0;
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     letter-spacing: 0.04rem;

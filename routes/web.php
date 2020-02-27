@@ -79,3 +79,11 @@ Route::get('/admin', 'AdminController@index')->middleware('admin');
 Route::get('/admin/users', 'AdminController@users')->middleware('admin');
 
 Route::get('/admin/sells', 'AdminController@sells')->middleware('admin');
+
+Route::get('/admin/edit-user/{id}', 'AdminController@getEditUsers')->middleware('admin');
+
+Route::post('/admin/edit-user/{id}', 'AdminController@editUsers')->middleware('admin');
+
+Route::get('/admin/add-user', 'AdminController@getAddUser')->middleware('admin');
+
+Route::post('/admin/add-user', 'AdminController@addUser')->middleware('admin');

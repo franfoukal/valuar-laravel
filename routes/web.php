@@ -25,8 +25,20 @@ Route::get('/contact', function () {
 Route::get('/cart', function () {
     return view('cart');
 });
+/*Route::get('login', function () {
+    return view('login');
+});
+Route::get('register', function () {
+    return view('register');
+});*/
+Route::get('/profile', function () {
+    return view('newprofile');
+});
+// Route::get('profile', 'PhotoController@profilePhoto');
 
-Route::get('profile', 'PhotoController@profilePhoto');
+// Route::get('/profile', function () {
+//     return view('partials.profile.address');
+// });
 
 Route::get('/faq', function () {
     return view('faq');
@@ -40,6 +52,9 @@ Auth::routes();
 
 Route::get('/products', 'ProductController@productList');
 
+/*
+Route::get('/profile-edit', function(){   <<--- Llegó roto con el pull :s 
+*/
 
 // PARA DEBUGEAR: 
 
@@ -47,7 +62,13 @@ Route::get('/dd', function() {
     return dd(Auth::user());
 });
 
+Route::post('/profile-edit', 'PhotoController@store');
+
 // ADMIN
+
+Route::get('/admin/products', 'ProductController@adminProducts')->middleware('admin');
+
+Route::post('/admin/products','ProductController@adminProducts')->middleware('admin');
 
 Route::get('/admin/products', 'ProductController@adminProducts')->middleware('admin');
 
@@ -58,4 +79,3 @@ Route::get('/admin', 'AdminController@index')->middleware('admin');
 Route::get('/admin/users', 'AdminController@users')->middleware('admin');
 
 Route::get('/admin/sells', 'AdminController@sells')->middleware('admin');
-

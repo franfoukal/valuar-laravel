@@ -1,3 +1,17 @@
+body{
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
+.btn{
+    
+    border-radius: 0;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    letter-spacing: 0.04rem;
+    font-weight: 400!important;
+}
+
+.admin-btn{
+    border-top: 1px solid rgba(31, 45, 61, 0.4);
+}
 .admin-prod-name{
     align-self: center;
     justify-self: left;

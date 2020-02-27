@@ -37,7 +37,7 @@
 
                 <article class=" col-12 col-md-5 col-lg-3">
                     <div class="category z-depth-1-half mr-2 zoom rounded">
-                        <a href="/product-list">
+                        <a href="/products">
                             <img src="img/ctg/anillos-mod.png" alt="" class="img-fluid ctg-img">
                             <span class="ctg-prompt bg-noche dark">Anillos</span>
                         </a>
@@ -46,7 +46,7 @@
 
                 <article class=" col-12 col-md-5 col-lg-3">
                     <div class="category z-depth-1-half mr-2 zoom rounded">
-                        <a href="/product-list">
+                        <a href="/products">
                             <img src="img/ctg/collar-mod.png" alt="" class="img-fluid ctg-img">
                             <span class="ctg-prompt bg-noche dark">Collares</span>
                         </a>
@@ -55,7 +55,7 @@
 
                 <article class=" col-12 col-md-5 col-lg-3">
                     <div class="category z-depth-1-half mr-2 zoom rounded">
-                        <a href="/product-list">
+                        <a href="/products">
                             <img src="img/ctg/pulsera-mod.png" alt="" class="img-fluid ctg-img">
                             <span class="ctg-prompt bg-noche dark">Pulseras</span>
                         </a>
@@ -64,7 +64,7 @@
 
                 <article class="col-12 col-md-5 col-lg-3">
                     <div class="category z-depth-1-half mr-2 zoom rounded">
-                        <a href="/product-list">
+                        <a href="/products">
                             <img src="img/ctg/aro-mod.png" alt="" class="img-fluid ctg-img zoom">
                             <span class="ctg-prompt bg-noche dark"> Aros</span>
                         </a>

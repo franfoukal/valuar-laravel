@@ -11,8 +11,8 @@
 |
 */
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
-
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'ProductController@bestSellers');
@@ -25,12 +25,7 @@ Route::get('/contact', function () {
 Route::get('/cart', function () {
     return view('cart');
 });
-/*Route::get('login', function () {
-    return view('login');
-});
-Route::get('register', function () {
-    return view('register');
-});*/
+
 Route::get('profile', 'PhotoController@profilePhoto');
 
 Route::get('/faq', function () {
@@ -41,21 +36,26 @@ Route::get('/product/{id}', 'ProductController@displayProduct');
 
 Route::get('/products/filter/{filter}', 'ProductController@filter');
 
-
 Auth::routes();
 
 Route::get('/products', 'ProductController@productList');
 
-<<<<<<< HEAD
-Route::get('/profile-edit', function(){
 
-    return view('profile-edit');
+// PARA DEBUGEAR: 
+
+Route::get('/dd', function() {
+    return dd(Auth::user());
 });
-Route::post('/profile-edit', 'PhotoController@store');
-=======
 
 // ADMIN
 
-Route::get('/admin/products', 'ProductController@adminProducts');
-Route::post('/admin/products','ProductController@adminProducts');
->>>>>>> 1549bf9a6a17969ab65513398d737cba42de02d8
+Route::get('/admin/products', 'ProductController@adminProducts')->middleware('admin');
+
+Route::post('/admin/products','ProductController@adminProducts')->middleware('admin');
+
+Route::get('/admin', 'AdminController@index')->middleware('admin');
+
+Route::get('/admin/users', 'AdminController@users')->middleware('admin');
+
+Route::get('/admin/sells', 'AdminController@sells')->middleware('admin');
+

@@ -90,7 +90,7 @@ class ProductController extends Controller
      * @param int $id
      */
     public function displayProduct(int $id){
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $photos = $product->photos;
         $recomended = Product::limit(4)->get();
         return view('product', compact('product', 'photos', 'recomended'));

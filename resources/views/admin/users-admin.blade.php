@@ -5,7 +5,7 @@
 <main class="container col-12 col-md-8">
     <div class="row admin-top-list-controls">
         <div class="admin-prod-back-btn col-2 col-md-1 mb-3">
-            <a href="/admin/products"><i class="fas fa-times rojo"></i></i></a>
+            <a href="/admin/users"><i class="fas fa-times rojo"></i></i></a>
         </div>
         <form action="" method="get" class="col-10 col-md-8">
             @csrf
@@ -21,7 +21,7 @@
             </div>
         </form>
         <div class="col-12 col-md-3 mb-3 admin-prod-search-btn">
-            <a href="" class="col-12 btn btn-secondary">+ Nuevo</a>
+            <a href="/admin/add-user" class="col-12 btn btn-secondary">+ Nuevo</a>
         </div>
     </div>
 
@@ -30,17 +30,17 @@
         <li class="list-group-item">
             <div class="row admin-prod-item">
                 <div class="col-4 col-md-2">
-                    <img src="" class="img-circle shadow admin-prod-img" alt="" style="width: 4rem">
+                    <img src="$user->photo" class="img-circle shadow admin-prod-img" alt="" style="width: 4rem">
                 </div>
                 <div class="col-4 col-md-8">
                     <h5 class="admin-prod-name">{{$user->name}} {{$user->surname}}</h5>
                     @if (Cache::has('user-is-online-' . $user->id))
-                    <p class="admin-prod-description verde">Online</p>
+                    <p class="m-0 font-weight-light verde">Online</p>
                     @else
-                    <p class="admin-prod-description rojo">Offline</p>
+                    <p class="m-0 font-weight-light rojo">Offline</p>
                     @endif
                 </div>
-                <a href="" class="col-4 col-md-2 verde">
+                <a href="/admin/edit-user/{{$user->id}}" class="col-4 col-md-2 verde">
                     Editar <i class="far fa-edit"></i>
                 </a>
             </div>
@@ -49,7 +49,7 @@
     </ul>
     <br>
     <br>
-    
+    {{$allUsers->onEachSide(1)->appends(request()->query())->links()}}
     <br>
     <br>
 </main>

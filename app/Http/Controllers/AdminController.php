@@ -7,6 +7,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -17,15 +18,16 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $products = Product::where('active', 1)->count();
-        $totalProducts = Product::count();
-        $totalUsers = User::count();
-        $usersOnline = 0;
-        $users = User::all();         
-        foreach ($users as $user) {
-            if (Cache::has('user-is-online-' . $user->id)) {
-                $usersOnline += 1;
-            }    
+        
+        $products = Product::where('active', 1)->count();       // Productos activos
+        $totalProducts = Product::count();                      // Total de productos
+        $totalUsers = User::count();                            // Total de usuarios
+        $usersOnline = 0;                                       // Contador de users online
+        $users = User::all();                                   //
+        foreach ($users as $user) {                             // Pedimos todos los usuarios
+            if (Cache::has('user-is-online-' . $user->id)) {    // y llamamos a la cache a ver  
+                $usersOnline += 1;                              // si están logueados.  
+            }                                                   // Si están, ++usersonline.
         }
         return view('admin.admin-index', compact('products', 'totalProducts', 'totalUsers', 'usersOnline'));
     }
@@ -96,9 +98,71 @@ class AdminController extends Controller
         //
     }
     public function users(){
-        $allUsers = User::all();
-        return view('admin.users-admin', compact('allUsers'));
+
+        if(isset($_GET['search'])){
+
+            $search = $_GET['search'];
+            $allUsers = User::where('name', 'like', "%$search%")->orWhere('surname', 'like', "%$search%")->paginate(12);
+            return view("admin.users-admin", compact('allUsers'));
+
+        } else {
+
+            $allUsers = User::paginate(12);
+            return view("admin.users-admin", compact('allUsers'));
+        }
+        
     }
+
+    public function getEditUsers(int $id){
+
+        $user = User::find($id);
+        return view('admin.edit-user', compact('user'));
+
+    }
+
+    public function editUsers(Request $request, int $id) {
+
+        User::find($id)->update([
+
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email' => $request->email,
+            'phone' => $request->phone
+
+        ]);
+
+        return $this->getEditUsers($id);
+    }
+
+    public function getAddUser() {
+        return view('admin.add-user');
+    }
+
+    public function addUser(Request $request) {
+
+        $request->validate([
+
+            'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:45'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
+            'phone' => ['integer'],
+
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->phone = $request->phone;
+        $user->active = 1;
+        $user->roles_id = $request->role;
+        $user->save();
+
+        return $this->users();
+    }
+
     public function sells(){
         return view('admin.sells-admin');
     }

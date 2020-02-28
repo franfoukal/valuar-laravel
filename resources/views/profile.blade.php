@@ -34,16 +34,7 @@
                 Favoritos
             </section>
             <section v-if="selectedPage=='address-form'" class="animated fadeInRight faster">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="">
-                            <div class="row">
-                                <a @click="select('address-list')" class="col-1"><i class="fas fa-arrow-left"></i></a>
-                                <h4 class="col-10">Agregar direccion</h4>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                @include('partials.profile.address-form')
             </section>
         </div>
 
@@ -84,14 +75,40 @@
     var profile = new Vue({
         el: '#profile',
         data: {
-            selectedPage: 'address-list',
+            selectedPage: 'address-form',
             refresh: 0,
+            mobile: null,
+            provincias: [],
+            departamentos: [],
+            localidades: [],
+            direccion: {
+                calle: '',
+                altura: '',
+                piso: '',
+                completa: '',
+                api:''
+            },
+            provincia: 'Selecciona una provincia',
+            departamento: 'Selecciona una departamento',
+            localidad: 'Selecciona una localidad',
+            search: false
+
         },
         computed: {
-            isMobile: function(){
-                
+            isMobile: function() {
+
+            },
+            address: function() {
+                this.completeAddress();
             }
         },
+        watch: {
+
+            address: function() {
+                this.address();
+            }
+        },
+
         methods: {
             select: function(page) {
                 this.selectedPage = null;
@@ -101,11 +118,14 @@
             saludo: function(msg) {
                 console.log(msg);
             },
-            getProvince: function() {
+            getProvincias: function() {
                 var me = this;
-                axios.get('https://apis.datos.gob.ar/georef/api/provincias')
+                axios.get('https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre')
                     .then(function(response) {
                         // handle success
+                        response.data.provincias.map(function(province) {
+                            me.provincias.push(province);
+                        });
                         console.log(response);
                     })
                     .catch(function(error) {
@@ -116,7 +136,71 @@
                         // always executed
                     });
             },
+            getDepartamentos: function() {
+                var me = this;
+                axios.get('https://apis.datos.gob.ar/georef/api/departamentos?provincia=' + me.provincia.id + '&campos=id,nombre&max=100')
+                    .then(function(response) {
+                        // handle success
+                        me.departamentos = [];
+                        me.localidades = [];
+                        response.data.departamentos.map(function(dpto) {
+                            me.departamentos.push(dpto);
+                        });
+                        console.log(response);
+                    })
+                    .catch(function(error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function() {
+                        // always executed
+                    });
+            },
+            getLocalidades: function() {
+                var me = this;
+                axios.get('https://apis.datos.gob.ar/georef/api/localidades?departamento=' + me.departamento.id + '&max=1000&campos=id,nombre')
+                    .then(function(response) {
+                        // handle success
+                        me.localidades = [];
+                        response.data.localidades.map(function(locality) {
+                            me.localidades.push(locality);
+                        });
+                        console.log(response);
+                    })
+                    .catch(function(error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function() {
+                        // always executed
+                    });
+            },
+            getDireccion: function() {
+                var me = this;
+                axios.get('https://apis.datos.gob.ar/georef/api/direcciones?localidad=' + me.localidad.id + '&direccion=' + me.direccion.completa)
+                    .then(function(response) {
+                        // handle success
+                        me.direccion.api = response.data;
+                        me.search = true;
+                        console.log(response);
+                    })
+                    .catch(function(error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function() {
+                        // always executed
+                    });
+            },
+            completeAddress: function() {
+                this.direccion.completa = this.direccion.calle + ' ' + this.direccion.altura + ' ' + this.direccion.piso;
+            }
         },
+
+        created() {
+            this.getProvincias();
+        },
+
     });
 </script>
 @endsection

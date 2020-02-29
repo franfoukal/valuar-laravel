@@ -8,7 +8,7 @@
             <li class="list-group-item">
                 <div class="address-item row m-0">
                     <i class="address-item-icon fas fa-map-marker-alt col-2"></i>
-                    <div class="address-description col-8">
+                    <div class="address-description col-6 col-md-8">
                         <p class="m-0">Lorem ipsum dolor sit amet.</p>
                         <small>Lorem, ipsum.</small>
                     </div>

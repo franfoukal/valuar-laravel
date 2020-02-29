@@ -99,7 +99,7 @@ class ProductController extends Controller
     }
 
     public function productList(){
-        $products = Product::paginate(20);
+        $products = Product::paginate(12);
         return view("product-list", compact('products'));
     }
     public function bestSellers()
@@ -117,6 +117,15 @@ class ProductController extends Controller
             $products = Product::paginate(12);
             return view("admin.product-admin", compact('products'));
         }
+    }
+
+    public function isFavBy($product_id, $user_id){
+        $resp = Product::whereHas('users', function ($q) use ($product_id, $user_id) {
+            $q->where([['product_id','=', $product_id],
+                        ['user_id', '=', $user_id]]);
+        })->exists();
+
+        return $resp ? 'true' : 'false';
     }
     
 

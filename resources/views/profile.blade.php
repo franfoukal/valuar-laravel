@@ -23,7 +23,7 @@
             </nav>
         </aside>
 
-        <div class="profile-main d-none d-md-block col-md-7 col-lg-5" :key="refresh">
+        <div class="profile-main col-md-7 col-lg-5 my-4" :key="refresh">
             <section id="profile-address" v-if="selectedPage == 'address-list'" class="animated fadeIn">
                 @include('partials.profile.address')
             </section>
@@ -36,37 +36,12 @@
             <section v-if="selectedPage=='address-form'" class="animated fadeInRight faster">
                 @include('partials.profile.address-form')
             </section>
+            <section v-if="selectedPage=='user-config'" class="animated fadeInRight faster">
+                @include('partials.profile.user-config')
+            </section>
         </div>
-
     </div>
 
-    <!-- MODALES -->
-
-    <!-- <div class="profile-main modal d-md-none col-12" :key="refresh" id="modals-mobile">
-        <div class="modal-body">
-            <section id="profile-address" v-if="selectedPage == 'address-list'" class="animated fadeIn">
-                @include('partials.profile.address')
-            </section>
-            <section id="profile-ordenes" v-if="selectedPage == 'order-list'">
-                ordenes
-            </section>
-            <section id="profile-fav" v-if="selectedPage == 'fav-list'">
-                Favoritos
-            </section>
-            <section v-if="selectedPage=='address-form'" class="animated fadeInRight faster">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="">
-                            <div class="row">
-                                <a @click="select('address-list')" class="col-1"><i class="fas fa-arrow-left"></i></a>
-                                <h4 class="col-10">Agregar direccion</h4>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div> -->
 
 
 </main>
@@ -77,7 +52,6 @@
         data: {
             selectedPage: 'address-form',
             refresh: 0,
-            mobile: null,
             provincias: [],
             departamentos: [],
             localidades: [],
@@ -86,20 +60,21 @@
                 altura: '',
                 piso: '',
                 completa: '',
-                api:''
+                api: ''
             },
             provincia: 'Selecciona una provincia',
             departamento: 'Selecciona una departamento',
             localidad: 'Selecciona una localidad',
-            search: false
+            search: false,
+            isMobile: ''
 
         },
         computed: {
-            isMobile: function() {
-
-            },
             address: function() {
                 this.completeAddress();
+            },
+            isMobileComp: function() {
+                return window.matchMedia("(max-width: 768px)").matches;
             }
         },
         watch: {
@@ -194,6 +169,13 @@
             },
             completeAddress: function() {
                 this.direccion.completa = this.direccion.calle + ' ' + this.direccion.altura + ' ' + this.direccion.piso;
+            },
+            resetForm: function() {
+                this.direccion.altura = '';
+                this.direccion.piso = '';
+                this.direccion.calle = '';
+                this.departamento = 'Selecciona una departamento';
+                this.localidad = 'Selecciona una localidad';
             }
         },
 

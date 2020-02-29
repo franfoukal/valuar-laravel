@@ -51,7 +51,7 @@
         <!--Lista de productos & Menu Categorias-->
         <div class="row main-row bg-crema">
             <!--Categorías de costado-->
-            <nav class="col-lg-2 bg-crema rounded-lg categorias-side">
+            <nav class="col-lg-2 bg-crema rounded-lg categorias-side d-md-none">
                 <ul class='list-unstyled my-2'>
                     <li>
                         <h5 class='mb-1 noche cat-title'>Categorías: </h5>
@@ -122,7 +122,8 @@
                     'material' => $product->material,
                     'price' => $product->price,
                     'id' => $product->id,
-                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png'
+                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                    'index' => $loop->index
                     ])
                     @endcomponent
                     @endforeach

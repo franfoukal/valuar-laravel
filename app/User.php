@@ -41,4 +41,8 @@ class User extends Authenticatable
     public function photo(){
         return $this->hasOne(Photo::class);
     }
+    public function favourites()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

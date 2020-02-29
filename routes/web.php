@@ -14,6 +14,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 Route::get('/', 'ProductController@bestSellers');
 
@@ -51,7 +52,13 @@ Route::get('/products/filter/{filter}', 'ProductController@filter');
 Auth::routes();
 
 Route::get('/products', 'ProductController@productList');
-
+Route::post('/product/fav/{id}', function($id){
+    Auth::user()->favourites()->attach($id);
+});
+Route::delete('/product/fav/{id}', function ($id) {
+    Auth::user()->favourites()->detach($id);
+});
+Route::post('/product/isfav/{prod}/{user}', 'ProductController@isFavBy');
 /*
 Route::get('/profile-edit', function(){   <<--- Llegó roto con el pull :s 
 */

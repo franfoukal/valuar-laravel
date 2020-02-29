@@ -59,3 +59,12 @@
 .address-form-input{
     margin-bottom: 0.5rem;
 }
+.address-list-item{
+    align-items: center;
+}
+.address-btn-save{
+    font-size: 1.2rem;
+}
+.address-search-btn{
+    justify-content: flex-end;
+}

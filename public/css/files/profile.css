@@ -53,3 +53,9 @@
 .address-item-icon{
     font-size: 1.3rem;
 }
+
+/* ADDRESS FORM COMPONENT */
+
+.address-form-input{
+    margin-bottom: 0.5rem;
+}

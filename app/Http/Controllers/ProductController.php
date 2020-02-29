@@ -16,8 +16,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($search=null)
     {
+       $products = Product::all();
+        
 
     }
 
@@ -92,7 +94,7 @@ class ProductController extends Controller
      * @param int $id
      */
     public function displayProduct(int $id){
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $photos = $product->photos;
         $recomended = Product::limit(4)->get();
         return view('product', compact('product', 'photos', 'recomended'));

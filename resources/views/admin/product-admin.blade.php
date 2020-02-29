@@ -21,7 +21,7 @@
             </div>
         </form>
         <div class="col-12 col-md-3 mb-3 admin-prod-search-btn">
-            <a href="" class="col-12 btn btn-secondary">+ Nuevo</a>
+            <a href="/admin/add-product" class="col-12 btn btn-secondary">+ Nuevo</a>
         </div>
     </div>
 
@@ -36,7 +36,7 @@
                     <h5 class="admin-prod-name">{{$product->name}}</h5>
                     <p class="admin-prod-description">Barcode: {{$product->barcode}}</p>
                 </div>
-                <a href="" class="col-4 col-md-2 verde">
+                <a href="edit-product/{{$product->id}}" class="col-4 col-md-2 verde">
                     Editar <i class="far fa-edit"></i>
                 </a>
             </div>

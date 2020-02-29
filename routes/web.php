@@ -70,9 +70,13 @@ Route::get('/admin/products', 'ProductController@adminProducts')->middleware('ad
 
 Route::post('/admin/products','ProductController@adminProducts')->middleware('admin');
 
-Route::get('/admin/products', 'ProductController@adminProducts')->middleware('admin');
+Route::get('/admin/edit-product/{id}', 'ProductController@getEditProduct')->middleware('admin');
 
-Route::post('/admin/products','ProductController@adminProducts')->middleware('admin');
+Route::post('/admin/edit-product/{id}', 'ProductController@editProduct')->middleware('admin');
+
+Route::get('/admin/add-product', 'ProductController@getAddProduct')->middleware('admin');
+
+Route::post('/admin/add-product', 'ProductController@addProduct')->middleware('admin');
 
 Route::get('/admin', 'AdminController@index')->middleware('admin');
 
@@ -87,3 +91,4 @@ Route::post('/admin/edit-user/{id}', 'AdminController@editUsers')->middleware('a
 Route::get('/admin/add-user', 'AdminController@getAddUser')->middleware('admin');
 
 Route::post('/admin/add-user', 'AdminController@addUser')->middleware('admin');
+

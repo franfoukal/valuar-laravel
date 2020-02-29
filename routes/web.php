@@ -57,6 +57,7 @@ Route::post('/product/fav/{id}', function($id){
 Route::delete('/product/fav/{id}', function ($id) {
     Auth::user()->favourites()->detach($id);
 });
+
 Route::post('/product/isfav/{prod}/{user}', 'ProductController@isFavBy');
 /*
 Route::get('/profile-edit', function(){   <<--- Llegó roto con el pull :s 

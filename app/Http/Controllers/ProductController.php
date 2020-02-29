@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidatedProduct;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Material;
+use App\Photo;
 use phpDocumentor\Reflection\Types\Integer;
 
 class ProductController extends Controller
@@ -126,6 +128,85 @@ class ProductController extends Controller
         })->exists();
 
         return $resp ? 'true' : 'false';
+    }
+    public function getEditProduct(int $id) {
+
+        $product = Product::find($id);
+        return view('admin.edit-product', compact('product'));
+
+    }
+
+    public function editProduct(ValidatedProduct $request, int $id) {
+
+        /*
+        *   En vez de validar todo en cada metodo, 
+        *   lo cual lleva a la duplicación de código,
+        *   se pasa un parámetro de tipo %Nombre del request%
+        *   el cual está dentro de app/controllers/requests.
+        *
+        *   Este Request hace la validación y se pueden obtener los datos validados
+        *   de esta forma:
+        */
+            $product = $request->validated();
+
+        Product::find($id)->update([
+
+            'name' => $product['name'],
+            'price' => $product['price'],
+            'barcode' => $product['barcode'],
+            'description' => $product['description']
+
+        ]);
+
+        return $this->getEditProduct($id);
+
+    }
+
+    public function getAddProduct() {
+        return view('admin.add-product');
+    }
+
+    public function addProduct(ValidatedProduct $validated) {
+
+        $request = $validated->validated();
+        
+        $product = new Product();
+
+        $product->name = $request['name'];
+        $product->price = $request['price'];
+        $product->barcode = $request['barcode'];
+        $product->has_size = 1;
+        $product->description = $request['description'];
+        $product->stock = $request['stock'];
+        $product->active = $request['active'];
+        $product->category_id = $request['category_id'];
+        $product->material_id = $request['material_id'];
+
+        $product->save();
+
+
+        /*
+        *   Esto funciona re piola pero se podría refactorizar
+        */
+        
+        foreach($request['photos'] as $photos){
+            
+            $photo = new Photo();
+
+            $photoProduct = Product::where('name', $request['name'])->get();
+            $path = $photos->store('/img/products');
+            $filename = basename($path);
+            $extension = $photos->getClientOriginalExtension();
+
+            $photo->product_id = $photoProduct[0]->id; 
+            $photo->path = $filename;
+            $photo->extension = $extension;
+
+            $photo->save();
+        }
+
+        return $this->adminProducts();
+
     }
     
 

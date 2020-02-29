@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidatedUser;
 use App\Product;
 use App\User;
 use Carbon\Carbon;
@@ -120,14 +121,20 @@ class AdminController extends Controller
 
     }
 
-    public function editUsers(Request $request, int $id) {
+    public function editUsers(ValidatedUser $request, int $id) {
+
+        /*
+        *   Ver Controllers/ProductController línea 130
+        */
+
+        $user = $request->validated();
 
         User::find($id)->update([
 
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'email' => $request->email,
-            'phone' => $request->phone
+            'name' => $user['name'],
+            'surname' => $user['surname'],
+            'email' => $user['email'],
+            'phone' => $user['phone']
 
         ]);
 
@@ -138,29 +145,23 @@ class AdminController extends Controller
         return view('admin.add-user');
     }
 
-    public function addUser(Request $request) {
+    public function addUser(ValidatedUser $validated) {
 
-        $request->validate([
-
-            'name' => ['required', 'string', 'max:255'],
-            'surname' => ['required', 'string', 'max:45'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
-            'phone' => ['integer'],
-
-        ]);
-
+        $request = $validated->validated();
+        
         $user = new User();
-        $user->name = $request->name;
-        $user->surname = $request->surname;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->phone = $request->phone;
+
+        $user->name = $request['name'];
+        $user->surname = $request['surname'];
+        $user->email = $request['email'];
+        $user->password = Hash::make($request['password']);
+        $user->phone = $request['phone'];
         $user->active = 1;
-        $user->roles_id = $request->role;
+        $user->roles_id = $request['role'];
         $user->save();
 
         return $this->users();
+        
     }
 
     public function sells(){

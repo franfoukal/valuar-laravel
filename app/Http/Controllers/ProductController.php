@@ -19,7 +19,6 @@ class ProductController extends Controller
     public function index($search=null)
     {
        $products = Product::all();
-        
 
     }
 

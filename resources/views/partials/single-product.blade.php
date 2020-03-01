@@ -1,5 +1,6 @@
 <div class="col-12 col-md-4 col-lg-3 product" id="sp{{$index}}">
     <div class="card bg-white p-1 px-2">
+        <p>{{$isAuth}}</p>
         <div class="row">
             <div class="col-5 col-md-12">
                 <div class="list-item text-center mb-3">
@@ -20,6 +21,7 @@
                                         {{$name}}
                                     </h4>
                                 </a>
+
                                 <a v-if="fav" @click="favToogle"><i class="fas fa-heart rojo"></i></a>
                                 <a v-else @click="favToogle"><i class="far fa-heart rojo"></i></a>
                             </div>
@@ -51,7 +53,8 @@
     var singeProd = new Vue({
         el: '#sp{{$index}}',
         data: {
-            fav: false
+            fav: false,
+            auth: "{{$isAuth == 1 ? 1 : 0}}" == 1 ? true : false,
         },
         computed: {
 
@@ -62,6 +65,10 @@
                 this.fav ? this.addToFav() : this.removeFromFav();
             },
             addToFav() {
+                if (!this.auth) {
+                    window.location.href = "/login";
+                    return;
+                }
                 axios.post('/product/fav/{{$id}}')
                     .then(function(response) {
                         console.log(response);
@@ -71,6 +78,9 @@
                     });
             },
             removeFromFav() {
+                if (!this.auth) {
+                    return;
+                }
                 axios.delete('/product/fav/{{$id}}')
                     .then(response => {
                         console.log(response);
@@ -80,8 +90,11 @@
                     });
             },
             isFav() {
+                if (!this.auth) {
+                    return;
+                }
                 var me = this;
-                axios.post('/product/isfav/{{$id}}/{{Auth::user()->id}}')
+                axios.post("/product/isfav/{{$id}}/{{Auth::check() ? Auth::user()->id : ''}}")
                     .then(function(response) {
                         me.fav = response.data;
                     })

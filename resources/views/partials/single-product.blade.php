@@ -1,6 +1,5 @@
 <div class="col-12 col-md-4 col-lg-3 product" id="sp{{$index}}">
     <div class="card bg-white p-1 px-2">
-        <p>{{$isAuth}}</p>
         <div class="row">
             <div class="col-5 col-md-12">
                 <div class="list-item text-center mb-3">

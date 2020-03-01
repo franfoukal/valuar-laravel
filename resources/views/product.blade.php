@@ -191,7 +191,8 @@
                     'price' => $product->price,
                     'id' => $product->id,
                     'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
-                    'index' => $loop->index
+                    'index' => $loop->index,
+                    'isAuth' => Auth::check()
                     ])
                     @endcomponent
                     @endforeach

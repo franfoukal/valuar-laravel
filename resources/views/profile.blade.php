@@ -23,15 +23,15 @@
             </nav>
         </aside>
 
-        <div class="profile-main col-md-7 col-lg-5 my-4" :key="refresh">
+        <div class="profile-main col-md-7 col-lg-8 my-4" :key="refresh">
             <section id="profile-address" v-if="selectedPage == 'address-list'" class="animated fadeIn">
                 @include('partials.profile.address')
             </section>
             <section id="profile-ordenes" v-if="selectedPage == 'order-list'">
                 ordenes
             </section>
-            <section id="profile-fav" v-if="selectedPage == 'fav-list'">
-                Favoritos
+            <section id="profile-fav" v-if="selectedPage == 'fav-list'" class="animated fadeInRight faster">
+                @include('partials.profile.favourites')
             </section>
             <section v-if="selectedPage=='address-form'" class="animated fadeInRight faster">
                 @include('partials.profile.address-form')
@@ -50,7 +50,7 @@
     var profile = new Vue({
         el: '#profile',
         data: {
-            selectedPage: 'address-form',
+            selectedPage: '',
             refresh: 0,
             provincias: [],
             departamentos: [],

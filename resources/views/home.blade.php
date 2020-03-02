@@ -7,28 +7,29 @@
         <h3 class='py-4 noche text-center'>Descubrí lo nuevo, descubrí valuar</h3>
         <div class='container bg-crema'>
 
-            <div class="row zoom-child">
+            <div class="row zoom-child mx-4">
 
-                <!-- <p v-for="(product, index) in products" :key="index">@{{product.name + " "+ product.price + '\n'}}</p> -->
                 @foreach($products as $product)
-                @component('partials.single-product',
-                [
-                'name' => $product->name,
-                'material' => $product->material,
-                'price' => $product->price,
-                'id' => $product->id,
-                'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
-                'index' => $loop->index,
-                'isAuth' => Auth::check()
-                ])
-                @endcomponent
-                @endforeach
+                <div class="col-12 col-md-4 col-lg-3">
+                    @component('partials.single-product',
+                    [
+                    'name' => $product->name,
+                    'material' => $product->material,
+                    'price' => $product->price,
+                    'id' => $product->id,
+                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                    'index' => $loop->index,
+                    'isAuth' => Auth::check()
+                    ])
+                    @endcomponent
+                    </div>
+                    @endforeach
 
+                </div>
+                <div class="text-center">
+                    <a class="btn transparent bd-noche noche waves-effect waves-light mx-0 my-4 rounded" href="/products" role="button">Descubrí más »</a>
+                </div>
             </div>
-            <div class="text-center">
-                <a class="btn transparent bd-noche noche waves-effect waves-light mx-0 my-4 rounded" href="/products" role="button">Descubrí más »</a>
-            </div>
-        </div>
     </section>
 
     <section class="categories py-4 container-fluid bg-noche ">

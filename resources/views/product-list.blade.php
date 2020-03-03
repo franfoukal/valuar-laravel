@@ -116,18 +116,20 @@
             <div class="col-12 col-lg-10">
                 <div class="row">
                     @foreach($products as $product)
-                    @component('partials.single-product',
-                    [
-                    'name' => $product->name,
-                    'material' => $product->material,
-                    'price' => $product->price,
-                    'id' => $product->id,
-                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
-                    'index' => $loop->index,
-                    'isAuth' => Auth::check()
-                    ])
-                    @endcomponent
-                    @endforeach
+                    <div class="col-12 col-md-4 col-lg-3">
+                        @component('partials.single-product',
+                        [
+                        'name' => $product->name,
+                        'material' => $product->material,
+                        'price' => $product->price,
+                        'id' => $product->id,
+                        'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                        'index' => $loop->index,
+                        'isAuth' => Auth::check()
+                        ])
+                        @endcomponent
+                    </div>
+                        @endforeach
                 </div>
             </div>
         </div>

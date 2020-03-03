@@ -55,10 +55,10 @@
                     <div class="col-12 col-md-7 mt-auto">
                         <div class="row mb-4">
                             <div class="col-12">
-                                <div>
+                                <div class="row align-items-center m-0">
                                     <h3 class='my-1 item-title card-title'>{{$product['name']}}</h3>
-                                    <a v-if="fav" @click="favToogle"><i class="fas fa-heart rojo"></i></a>
-                                    <a v-else @click="favToogle"><i class="far fa-heart rojo"></i></a>
+                                    <a v-if="fav" @click="favToogle"><i class="fas fa-heart rojo ml-4"></i></a>
+                                    <a v-else @click="favToogle"><i class="far fa-heart rojo ml-4"></i></a>
                                 </div>
                                 <ol class="breadcrumb font-small p-0">
                                     <li class="breadcrumb-item">
@@ -184,17 +184,19 @@
                 <!-- INCLUIR PRODUCTOS -->
                 <div class="row">
                     @foreach($recomended as $product)
-                    @component('partials.single-product',
-                    [
-                    'name' => $product->name,
-                    'material' => $product->material,
-                    'price' => $product->price,
-                    'id' => $product->id,
-                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
-                    'index' => $loop->index,
-                    'isAuth' => Auth::check()
-                    ])
-                    @endcomponent
+                    <div class="col-12 col-md-4 col-lg-3">
+                        @component('partials.single-product',
+                        [
+                        'name' => $product->name,
+                        'material' => $product->material,
+                        'price' => $product->price,
+                        'id' => $product->id,
+                        'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                        'index' => $loop->index,
+                        'isAuth' => Auth::check()
+                        ])
+                        @endcomponent
+                    </div>
                     @endforeach
                 </div>
             </div>

@@ -1,4 +1,4 @@
-<div class="card my-3">
+<div class="card my-3 col-12 col-md-12 col-lg-7">
     <div class="card-body">
         <div class="row mb-2">
             <a @click="select('address-list')" class="col-1"><i class="fas fa-arrow-left"></i></a>

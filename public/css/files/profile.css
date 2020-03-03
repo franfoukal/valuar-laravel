@@ -68,3 +68,10 @@
 .address-search-btn{
     justify-content: flex-end;
 }
+
+
+/* FAVS */
+.favs{
+    max-height: 70vh;
+    overflow: scroll;
+}

@@ -51,7 +51,7 @@
         <!--Lista de productos & Menu Categorias-->
         <div class="row main-row bg-crema">
             <!--Categorías de costado-->
-            <nav class="col-lg-2 bg-crema rounded-lg categorias-side d-md-none">
+            <nav class="col-lg-2 bg-crema rounded-lg categorias-side d-md-none d-lg-block">
                 <ul class='list-unstyled my-2'>
                     <li>
                         <h5 class='mb-1 noche cat-title'>Categorías: </h5>

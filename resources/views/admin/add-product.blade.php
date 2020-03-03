@@ -3,9 +3,8 @@
 @section('css', '/css/admin/product.css')
 @section('content')
 
-<form class="form-margin text-center rounded my-2 border border-light p-5 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" enctype="multipart/form-data" method="post" action="{{action('ProductController@addProduct')}}">
+<form class="text-center col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" enctype="multipart/form-data" method="post" action="{{action('ProductController@addProduct')}}">
             @csrf
-            
             <div class="form-row">
                 <div class="col-12">
                     @if($errors)
@@ -17,6 +16,7 @@
                             @endforeach
                         </div>
                     @endif
+                    
                 </div>
                 <div class="col-6">
                     <!-- Nombre -->

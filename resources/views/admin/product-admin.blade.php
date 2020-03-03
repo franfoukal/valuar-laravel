@@ -4,11 +4,17 @@
 @section('content')
 <main class="container col-12 col-md-8">
     <div class="row admin-top-list-controls">
+        @if(isset($success))
+        <div class='col-12 rounded bg-verde py-2 mb-3'>                    
+            {{ $success }}  
+        </div>
+        @endif
         <div class="admin-prod-back-btn col-2 col-md-1 mb-3">
             <a href="/admin/products"><i class="fas fa-times rojo"></i></i></a>
         </div>
         <form action="" method="get" class="col-10 col-md-8">
             @csrf
+            
             <div class="col-12 col-md-8 mb-3 p-0">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -23,6 +29,7 @@
         <div class="col-12 col-md-3 mb-3 admin-prod-search-btn">
             <a href="/admin/add-product" class="col-12 btn btn-secondary">+ Nuevo</a>
         </div>
+        
     </div>
 
     <ul class="list-group">

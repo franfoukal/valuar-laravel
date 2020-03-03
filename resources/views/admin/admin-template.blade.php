@@ -50,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="/" class="brand-link">
                 <div class="py-4">
                     <img src="/img/valuar-logo23.svg" alt="AdminLTE Logo" class="brand-image d-block">
                 </div>

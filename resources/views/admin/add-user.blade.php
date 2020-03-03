@@ -3,7 +3,7 @@
 @section('css', '/css/admin/product.css')
 @section('content')
 
-        <form class="form-margin text-center rounded my-2 border border-light p-1 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" method="post" action="{{action('AdminController@addUser')}}">
+        <form class=" text-center rounded my-2 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" method="post" action="{{action('AdminController@addUser')}}">
             @csrf
             
             <div class="form-row">

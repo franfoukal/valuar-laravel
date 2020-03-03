@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Material;
 use App\Photo;
+use Illuminate\Support\Facades\Session;
 use phpDocumentor\Reflection\Types\Integer;
 
 class ProductController extends Controller
@@ -166,7 +167,7 @@ class ProductController extends Controller
     }
 
     public function addProduct(ValidatedProduct $validated) {
-
+        
         $request = $validated->validated();
         
         $product = new Product();
@@ -181,30 +182,30 @@ class ProductController extends Controller
         $product->category_id = $request['category_id'];
         $product->material_id = $request['material_id'];
 
-        $product->save();
-
-
         /*
         *   Esto funciona re piola pero se podría refactorizar
         */
-        
-        foreach($request['photos'] as $photos){
-            
-            $photo = new Photo();
+        if(array_key_exists('photos', $request)){
+            foreach($request['photos'] as $photos){
 
-            $photoProduct = Product::where('name', $request['name'])->get();
-            $path = $photos->store('/img/products');
-            $filename = basename($path);
-            $extension = $photos->getClientOriginalExtension();
+                $photo = new Photo();
 
-            $photo->product_id = $photoProduct[0]->id; 
-            $photo->path = $filename;
-            $photo->extension = $extension;
+                $photoProduct = Product::where('name', $request['name'])->get();
+                $path = $photos->store('/img/products');
+                $filename = basename($path);
+                $extension = $photos->getClientOriginalExtension();
 
-            $photo->save();
+                $photo->product_id = $photoProduct[0]->id; 
+                $photo->path = $filename;
+                $photo->extension = $extension;
+
+                $photo->save();
+            }
         }
+        
+        $product->save();
 
-        return $this->adminProducts();
+        return $this->adminProducts()->with('success', 'Producto creado con éxito!');
 
     }
     

@@ -34,6 +34,15 @@ Route::get('register', function () {
 Route::get('/profile', function () {
     return view('profile');
 });
+Route::get('/profile/favs', function () {
+    return view('partials.profile.favourites');
+});
+Route::get('/profile/address', function () {
+    return view('partials.profile.address');
+});
+Route::get('/profile/address-aut', function () {
+    return view('partials.profile.address-autocomplete');
+});
 // Route::get('profile', 'PhotoController@profilePhoto');
 
 // Route::get('/profile', function () {

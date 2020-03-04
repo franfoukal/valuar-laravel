@@ -7,23 +7,21 @@
         <h3 class='py-4 noche text-center'>Descubrí lo nuevo, descubrí valuar</h3>
         <div class='container bg-crema'>
 
-            <div class="row zoom-child mx-4">
+            <div class="row zoom-child mx-lg-5">
 
                 @foreach($products as $product)
-                <div class="col-12 col-md-4 col-lg-3">
-                    @component('partials.single-product',
-                    [
-                    'name' => $product->name,
-                    'material' => $product->material,
-                    'price' => $product->price,
-                    'id' => $product->id,
-                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
-                    'index' => $loop->index,
-                    'isAuth' => Auth::check()
-                    ])
-                    @endcomponent
-                    </div>
-                    @endforeach
+                        @component('partials.single-product',
+                        [
+                        'name' => $product->name,
+                        'material' => $product->material,
+                        'price' => $product->price,
+                        'id' => $product->id,
+                        'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                        'index' => $loop->index,
+                        'isAuth' => Auth::check()
+                        ])
+                        @endcomponent
+                @endforeach
 
                 </div>
                 <div class="text-center">

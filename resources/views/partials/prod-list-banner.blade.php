@@ -1,7 +1,7 @@
 <div class="row banner-row">
     <div class="col-12 banner-col">
         <div class="text-center rounded justify-content-center img-wrapper position-relative">
-            <img class='img img-fluid my-3 rounded z-depth-1 ' src="img/ctg/collar1-banner.jpg" alt="">
+            <img class='img img-fluid my-3 rounded z-depth-1 ' src="/img/ctg/collar1-banner.jpg" alt="banner">
             <div class="noche img-desc rounded-lg position-absolute text-left">
                 <h4 class='m-0'>Nueva</h4>
                 <h4 class='m-0'>Colección</h4>

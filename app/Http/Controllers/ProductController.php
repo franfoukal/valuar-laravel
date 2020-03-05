@@ -101,7 +101,8 @@ class ProductController extends Controller
     }
 
     public function productList(){
-        $products = Product::paginate(12);
+        $products = Product::orderBy('created_at')
+        ->paginate(12);
         return view("product-list", compact('products'));
     }
     public function bestSellers()
@@ -207,6 +208,28 @@ class ProductController extends Controller
 
         return $this->adminProducts()->with('success', 'Producto creado con éxito!');
 
+    }
+
+    public function search(){
+        if(empty($_GET['search'])){
+            return redirect('/products');
+        }else{
+
+            $products = Product::
+            where(
+                'name','LIKE', '%'.$_GET['search'].'%')
+            ->orderBy('created_at')
+            ->paginate(12);
+
+            // dd($products);
+
+            if(empty($products[0]['name'])){
+                $productsEmpty = Product::limit(4)->paginate(4);
+                return view('product-list', compact('productsEmpty'));
+            }
+
+            return view('product-list', compact('products'));
+        }
     }
     
 

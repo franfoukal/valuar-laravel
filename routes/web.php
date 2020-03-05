@@ -108,3 +108,5 @@ Route::get('/admin/add-user', 'AdminController@getAddUser')->middleware('admin')
 
 Route::post('/admin/add-user', 'AdminController@addUser')->middleware('admin');
 
+Route::get('/products/search', 'ProductController@search');
+

@@ -184,17 +184,17 @@
                 <!-- INCLUIR PRODUCTOS -->
                 <div class="row">
                     @foreach($recomended as $product)
-                        @component('partials.single-product',
-                        [
-                        'name' => $product->name,
-                        'material' => $product->material,
-                        'price' => $product->price,
-                        'id' => $product->id,
-                        'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
-                        'index' => $loop->index,
-                        'isAuth' => Auth::check()
-                        ])
-                        @endcomponent
+                    @component('partials.single-product',
+                    [
+                    'name' => $product->name,
+                    'material' => $product->material,
+                    'price' => $product->price,
+                    'id' => $product->id,
+                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                    'index' => $loop->index,
+                    'isAuth' => Auth::check()
+                    ])
+                    @endcomponent
                     @endforeach
                 </div>
             </div>
@@ -236,7 +236,7 @@
             },
             isFav() {
                 var me = this;
-                axios.post("/product/isfav/{{$prod['id']}}/{{Auth::user()->id}}")
+                axios.post("/product/isfav/{{$prod['id']}}/{{Auth::check() ? Auth::user()->id : ''}}")
                     .then(function(response) {
                         me.fav = response.data;
                     })

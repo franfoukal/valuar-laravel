@@ -4,6 +4,7 @@
 .profile-nav{
     /* border-right: solid 1px red; */
     padding: 2rem 5rem;
+    overflow: hidden;
 }
 .profile-img{
     position: relative;
@@ -82,4 +83,36 @@
 .fav-empty-list-text{
  font-size: 2rem;
  align-self: center;   
+}
+
+/* USER */
+.profile-user-edit-img{
+    overflow: hidden;
+    align-items: center;
+    position: relative;
+    bottom: 2.5rem;
+    left: 8rem;
+}
+/* TABLET */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .profile-user-edit-img{
+        overflow: hidden;
+        align-items: center;
+        position: relative;
+        bottom: 2.5rem;
+        left: 5rem;
+    }   
+}
+@media (min-width: 1025px) and (max-width: 1280px) {
+  
+}
+.profile-user-btn-cont{
+    align-items: center;
+    font-size: 1rem;
+}
+.profile-user-btn-icon{
+    font-size: 1.4rem;
+}
+.profile-user-item-list{
+    align-items: baseline;
 }

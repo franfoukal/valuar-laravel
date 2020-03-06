@@ -73,6 +73,7 @@
                 axios.post('/product/fav/{{$id}}')
                     .then(function(response) {
                         console.log(response);
+                        window.location.reload()
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -85,6 +86,7 @@
                 axios.delete('/product/fav/{{$id}}')
                     .then(response => {
                         console.log(response);
+                        window.location.reload()
                     })
                     .catch(error => {
                         console.log(error);

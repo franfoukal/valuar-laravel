@@ -9,7 +9,7 @@
                     <h4 class="col-10">Agregar direccion</h4>
                 </div>
                 <form action="" v-on:submit.prevent>
-    
+
                     <select class="custom-select address-form-input" v-model="provincia" @change="getDepartamentos">
                         <option selected disabled>Selecciona una provincia</option>
                         <option v-for="(provincia, index) in provincias" :value="provincia" :key="index">@{{provincia.nombre}}</option>
@@ -32,8 +32,8 @@
                         <button type="button" @click="getDireccion" class="btn btn-link"><i class="fas fa-search mr-3"></i>Buscar</button>
                     </div>
                 </form>
-    
-    
+
+
                 <section v-if="search">
                     <div class="list-group">
                         <div class="list-group-item list-group-item-action m-0" v-for="(direccion, index) in direccion.api.direcciones" :key="index">
@@ -48,13 +48,13 @@
             </div>
         </div>
     </section>
-    
+
     <section id="profile-address" v-else class="animated fadeIn">
         <div class="card col-12 col-md-12 col-lg-7">
             <div class="card-body">
                 <div class="row address-card-heading">
                     <h4 class="address-card-title m-0">Direcciones</h4>
-                    <a href="#" class="address-card-add-btn"><i class="fas fa-plus"></i></a>
+                    <a href="#" class="address-card-add-btn" @click="select('address-form')"><i class="fas fa-plus"></i></a>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">

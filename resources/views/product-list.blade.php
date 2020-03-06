@@ -44,6 +44,21 @@
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>
+                        <li class='menu-li'>
+                            <button class='btn bg-crema menu-btn dropdown-toggle' data-toggle="dropdown" type='button'>
+                                Buscar:
+                            </button>
+                            <div class="dropdown-menu">
+                                <form action="/products/search" method="get">
+                                    @csrf
+                                    <span class='dropdown-item'>
+                                        <input type="text" class="form-control" name='search' placeholder="{{old('search')?old('search'):'Search actor or actress'}}">
+                                    </span>
+                                    <button type="submit" class="btn btn-primary text-center">SEARCH</button>
+                                    <div class="dropdown-divider"></div>
+                                </form>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -53,6 +68,23 @@
             <!--Categorías de costado-->
             <nav class="col-lg-2 bg-crema rounded-lg categorias-side d-md-none d-lg-block">
                 <ul class='list-unstyled my-2'>
+                    <li>
+                        <h5 class='my-1 cat-title noche'>
+                            Buscar:
+                        </h5>
+                    </li>
+                    <li>
+                        <form action="/products/search" method="get">
+                            @csrf
+                            <div class="form-group">
+                            <input type="text" class="form-control" name='search' placeholder="{{ old('search') ? old('search') : 'Buscar producto' }}">
+                              <button type="submit" class="btn bg-verde text-white m-0 btn-sm mt-2">Buscar</button>
+                            </div>
+                          </form>
+                    </li>
+                    <li>
+                        <div class="divisor my-1"></div>
+                    </li>
                     <li>
                         <h5 class='mb-1 noche cat-title'>Categorías: </h5>
                     </li>
@@ -109,33 +141,72 @@
                     </li>
                     <li>
                         <a class='noche' href="/products/filter/{{'plata'}}">Plata</a>
-                    </li>
+                    </li>                    
                 </ul>
             </nav>
             <!--Lista de productos-->
             <div class="col-12 col-lg-10">
                 <div class="row">
-                    @foreach($products as $product)
-                    <!-- <div class="col-12 col-md-4 col-lg-3"> -->
-                        @component('partials.single-product',
-                        [
-                        'name' => $product->name,
-                        'material' => $product->material,
-                        'price' => $product->price,
-                        'id' => $product->id,
-                        'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
-                        'index' => $loop->index,
-                        'isAuth' => Auth::check()
-                        ])
-                        @endcomponent
-                    <!-- </div> -->
-                        @endforeach
+                    @if (!empty($products))
+                        @forelse($products as $product)
+                        <!-- <div class="col-12 col-md-4 col-lg-3"> -->
+                            @component('partials.single-product',
+                            [
+                            'name' => $product->name,
+                            'material' => $product->material,
+                            'price' => $product->price,
+                            'id' => $product->id,
+                            'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                            'index' => $loop->index,
+                            'isAuth' => Auth::check()
+                            ])
+                            @endcomponent
+                        <!-- </div> -->
+                        @empty
+                        <div class='container text-center'>
+                            <h3 class='mb-5'>Disculpe, ese producto no existe.</h3>
+                        </div>
+                        @endforelse
+                    @endif
+
+                    @if(!empty($productsEmpty))
+                        <div class='container text-center'>
+                            <h3 class='mb-5'>Disculpe, ese producto no existe. 
+                                <br>
+                                Pero tambien te podria interesar estos productos.
+                            </h3>
+                        </div>
+                        @forelse($productsEmpty as $product)
+                        <!-- <div class="col-12 col-md-4 col-lg-3"> -->
+                            @component('partials.single-product',
+                            [
+                            'name' => $product->name,
+                            'material' => $product->material,
+                            'price' => $product->price,
+                            'id' => $product->id,
+                            'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                            'index' => $loop->index,
+                            'isAuth' => Auth::check()
+                            ])
+                            @endcomponent
+                        <!-- </div> -->
+                        @empty
+                        <div class='container text-center'>
+                            <h3 class='mb-5'>Disculpe, ese producto no existe.</h3>
+                        </div>
+                        @endforelse
+                    @endif
                 </div>
             </div>
         </div>
         <!--Paginación de abajo-->
         <div class="col-12 d-flex justify-content-center mt-5">
-            {{$products->links()}}
+            @if (!empty($products))
+                {{$products->appends(request()->query())->links()}}
+            @endif
+            @if (!empty($productsEmpty))
+                {{$productsEmpty->appends(request()->query())->links()}}    
+            @endif
         </div>
     </div>
 </div>

@@ -21,7 +21,7 @@
             </div>
         </form>
         <div class="col-12 col-md-3 mb-3 admin-prod-search-btn">
-            <a href="/admin/add-user" class="col-12 btn btn-secondary">+ Nuevo</a>
+            <a href="/admin/add-user" class="col-12 btn text-white bg-verde">+ Nuevo</a>
         </div>
     </div>
 
@@ -39,6 +39,8 @@
                     @else
                     <p class="m-0 font-weight-light rojo">Offline</p>
                     @endif
+                    
+                    <p class="m-0 mt-1 font-weight-light">Rol: {{$user->roles_id == 0 ? ucfirst($roles[0]->name) : ucfirst($roles[1]->name)}}</p>
                 </div>
                 <a href="/admin/edit-user/{{$user->id}}" class="col-4 col-md-2 verde">
                     Editar <i class="far fa-edit"></i>

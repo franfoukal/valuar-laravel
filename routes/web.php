@@ -114,7 +114,10 @@ Route::middleware(['admin'])->group(function(){
 
     Route::post('/admin/add-user', 'AdminController@addUser');
 
+    /* Por cuestiones tecnicas esto está por get pero tendria que ir por post    */
+    Route::get('/admin/delete-photo/{path}', 'PhotoController@deletePhoto');
 
+    Route::get('admin/delete-profile-photos/{user}', 'PhotoController@deleteProfilePhotos');
 });
 
 Route::get('/products/search', 'ProductController@search');

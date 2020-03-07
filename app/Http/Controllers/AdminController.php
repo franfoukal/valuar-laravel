@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Requests\UpdateUser;
 use App\Http\Requests\ValidatedUser;
 use App\Order;
 use App\Product;
 use App\User;
 use App\Photo;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -104,30 +107,61 @@ class AdminController extends Controller
     {
         //
     }
+
+
+    private function addUserPhotos(array $request){
+
+        if(array_key_exists('photos', $request)){
+            foreach($request['photos'] as $photos){
+
+                $photo = new Photo();
+
+                $photoUser = User::where('id', $request['name'])->get();
+                $path = $photos->store('/public/img/products');
+                $filename = basename($path);
+                $extension = $photos->getClientOriginalExtension();
+
+                $photo->user_id = $photoUser[0]->id; 
+                $photo->path = $filename;
+                $photo->extension = $extension;
+
+                $photo->save();
+            }
+        }
+    }
+
+
     public function users(){
 
+        $roles = Role::all();
+        
         if(isset($_GET['search'])){
 
             $search = $_GET['search'];
             $allUsers = User::where('name', 'like', "%$search%")->orWhere('surname', 'like', "%$search%")->paginate(12);
-            return view("admin.users-admin", compact('allUsers'));
 
         } else {
 
             $allUsers = User::paginate(12);
-            return view("admin.users-admin", compact('allUsers'));
+
         }
+        return view("admin.users-admin", compact('allUsers', 'roles'));
+
         
     }
 
     public function getEditUsers(int $id){
 
         $user = User::find($id);
-        return view('admin.edit-user', compact('user'));
+
+        $photo = Photo::where('user_id', $id)->get()->last();
+
+        dd($photo);
+        return view('admin.edit-user', compact('user', 'photo'));
 
     }
 
-    public function editUsers(ValidatedUser $request, int $id) {
+    public function editUsers(UpdateUser $request, int $id) {
 
         /*
         *   Ver Controllers/ProductController línea 130
@@ -145,24 +179,8 @@ class AdminController extends Controller
 
         ]);
 
-        if(array_key_exists('photos', $user)){
-            foreach($user['photos'] as $photos){
-
-                $photo = new Photo();
-
-                $photoUser = User::where('id', $user['name'])->get();
-                $path = $photos->store('/public/img/products');
-                $filename = basename($path);
-                $extension = $photos->getClientOriginalExtension();
-
-                $photo->user_id = $photoUser[0]->id; 
-                $photo->path = $filename;
-                $photo->extension = $extension;
-
-                $photo->save();
-            }
-        }
-
+        $this->addUserPhotos($user);
+        
         return $this->getEditUsers($id);
     }
 
@@ -186,23 +204,7 @@ class AdminController extends Controller
 
         $user->save();
 
-        if(array_key_exists('photos', $request)){
-            foreach($request['photos'] as $photos){
-
-                $photo = new Photo();
-
-                $photoUser = User::where('id', $request['name'])->get();
-                $path = $photos->store('/public/img/products');
-                $filename = basename($path);
-                $extension = $photos->getClientOriginalExtension();
-
-                $photo->user_id = $photoUser[0]->id; 
-                $photo->path = $filename;
-                $photo->extension = $extension;
-
-                $photo->save();
-            }
-        }
+        $this->addUserPhotos($request);
 
         return $this->users();
         

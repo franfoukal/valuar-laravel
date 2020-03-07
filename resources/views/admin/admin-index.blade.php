@@ -94,7 +94,7 @@
 </div>
     <div class="row">
         <div class="col-12">
-            <div class="bg-white my-2">
+            <div class="my-4">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -112,15 +112,14 @@
                                         <h5 class="admin-prod-name">{{$product->name}}</h5>
                                         <p class="admin-prod-description">Barcode: {{$product->barcode}}</p>
                                     </div>
-                                    <a href="edit-product/{{$product->id}}" class="col-4 col-md-2 verde">
+                                    <a href="admin/edit-product/{{$product->id}}" class="col-4 col-md-2 verde">
                                         Editar <i class="far fa-edit"></i>
                                     </a>
                                 </div>
                             </li>
                             @endforeach
                             </ul>
-                        </div>
-                   
+                        </div>                   
                     </div>
                 </div>
             </div>

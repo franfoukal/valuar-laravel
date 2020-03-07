@@ -101,4 +101,24 @@ class PhotoController extends Controller
         
         return view('profile', compact('photo'));
     }
+
+    public function deleteProfilePhotos($user){
+
+        Photo::where('user_id', $user)->delete();
+
+        return back();
+    }
+
+    public function deleteProductPhotos($productID, $path){
+
+        Photo::where('product_id', $productID)->delete();
+
+    }
+    public function deletePhoto(string $path){
+        
+        Photo::where('path', $path)->delete();
+
+        return back();
+    }
+     
 }

@@ -17,12 +17,12 @@ class DatabaseSeeder extends Seeder
         factory(Product::class, 400)->create();
         factory(Photo::class, 400)->create();
         // $this->call(UsersTableSeeder::class);
-
+        $this->call(RolesSeeder::class);
         User::create([
             'name' => 'admin',
             'surname' => 'admin',
             'email' => 'admin@admin.com',
-            'roles_id' => 1,
+            'roles_id' => 0,
             'active' => 1,
             'password' => bcrypt('admin')
         ]);

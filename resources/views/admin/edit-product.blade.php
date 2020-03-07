@@ -87,8 +87,17 @@
                 <div class="container my-4">
                     <div class="row text-left">
                         @foreach($product['photos'] as $photo)
-                        <div class="col">
-                            <img src="/storage/img/products/{{$photo['path']}}" alt="" class='img-circle shadow admin-prod-img' style="width: 4rem">
+                        <div class="col-4">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 mb-3 text-center">
+                                        <img src="/storage/img/products/{{$photo['path']}}" alt="" class='img-circle shadow admin-prod-img' style="width: 6rem">
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <a class='bg-rojo text-white font-weight-bold py-2 px-3 rounded' href='/admin/delete-photo/{{$photo["path"]}}'>Borrar</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         @endforeach
                     </div>
@@ -96,7 +105,6 @@
                 <div class="col-12">
                     <input type="file" id="photos" name="photos[]" multiple>
                 </div>
-
             </div>
             <div class="">
                 <label for="active">Producto activo</label>

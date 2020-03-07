@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidatedUser;
+use App\Order;
 use App\Product;
 use App\User;
-use Carbon\Carbon;
+use App\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        
+        $orders = Order::count(); 
+        $totalIncome = Order::sum('subtotal');
+        $bestSellers = Product::orderBy('amount_sold', 'desc')->limit(4)->get();
+
         $products = Product::where('active', 1)->count();       // Productos activos
         $totalProducts = Product::count();                      // Total de productos
         $totalUsers = User::count();                            // Total de usuarios
@@ -30,7 +34,9 @@ class AdminController extends Controller
                 $usersOnline += 1;                              // si están logueados.  
             }                                                   // Si están, ++usersonline.
         }
-        return view('admin.admin-index', compact('products', 'totalProducts', 'totalUsers', 'usersOnline'));
+        
+        return view('admin.admin-index', compact('products', 'totalProducts', 'totalUsers',
+        'usersOnline', 'orders', 'totalIncome', 'bestSellers'));
     }
 
     /**
@@ -129,6 +135,7 @@ class AdminController extends Controller
 
         $user = $request->validated();
 
+
         User::find($id)->update([
 
             'name' => $user['name'],
@@ -137,6 +144,24 @@ class AdminController extends Controller
             'phone' => $user['phone']
 
         ]);
+
+        if(array_key_exists('photos', $user)){
+            foreach($user['photos'] as $photos){
+
+                $photo = new Photo();
+
+                $photoUser = User::where('id', $user['name'])->get();
+                $path = $photos->store('/public/img/products');
+                $filename = basename($path);
+                $extension = $photos->getClientOriginalExtension();
+
+                $photo->user_id = $photoUser[0]->id; 
+                $photo->path = $filename;
+                $photo->extension = $extension;
+
+                $photo->save();
+            }
+        }
 
         return $this->getEditUsers($id);
     }
@@ -158,13 +183,58 @@ class AdminController extends Controller
         $user->phone = $request['phone'];
         $user->active = 1;
         $user->roles_id = $request['role'];
+
         $user->save();
+
+        if(array_key_exists('photos', $request)){
+            foreach($request['photos'] as $photos){
+
+                $photo = new Photo();
+
+                $photoUser = User::where('id', $request['name'])->get();
+                $path = $photos->store('/public/img/products');
+                $filename = basename($path);
+                $extension = $photos->getClientOriginalExtension();
+
+                $photo->user_id = $photoUser[0]->id; 
+                $photo->path = $filename;
+                $photo->extension = $extension;
+
+                $photo->save();
+            }
+        }
 
         return $this->users();
         
     }
 
+    public function getOrder(int $id){
+
+        $order = Order::find($id);
+
+        return view('admin.order-admin', compact('order'));
+    }
+
     public function sells(){
-        return view('admin.sells-admin');
+
+        $totalIncome = Order::sum('subtotal');
+        $sells = Order::all();
+        $totalWithTaxes = 0;
+        $totalWithInterests = 0;
+        $totalSells = Order::count();
+        foreach($sells as $order){
+            if(!is_null($order->tax_percentage)){
+                $totalWithTaxes += $order->subtotal + $order->subtotal * $order->tax_percentage;
+            } else {
+                $totalWithTaxes += $order->subtotal;
+            }
+            if(!is_null($order->interest_percentage)){
+                $totalWithInterests += $order->subtotal + $order->subtotal * $order->tax_percentage;
+            } else {
+                $totalWithInterests += $order->subtotal;
+            }
+        }
+        
+        return view('admin.sells-admin', compact('totalWithTaxes', 'totalWithInterests', 'sells', 'totalSells', 'totalIncome'));
     }
 }

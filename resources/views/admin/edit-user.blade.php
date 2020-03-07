@@ -45,6 +45,22 @@
                 Opcional
             </small>
         </div>
+        <div class="">
+                <label for="photo">Fotos:</label>
+                <div class="container my-4">
+                    <div class="row text-left">
+                        @foreach($user->photo->latest() as $photo)
+                        <div class="col">
+                            <img src="/storage/img/users/{{$photo['path']}}" alt="" class='img-circle shadow admin-prod-img' style="width: 4rem">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-12">
+                    <input type="file" id="photos" name="photos[]" multiple>
+                </div>
+
+            </div>
         <!-- Sign up button -->
         <button class="btn bg-verde mb-4 text-white" type="submit" >ACTUALIZAR USUARIO</button>
         

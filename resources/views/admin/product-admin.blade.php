@@ -14,7 +14,6 @@
         </div>
         <form action="" method="get" class="col-10 col-md-8">
             @csrf
-            
             <div class="col-12 col-md-8 mb-3 p-0">
                 <div class="input-group">
                     <div class="input-group-prepend">

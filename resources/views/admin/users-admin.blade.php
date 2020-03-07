@@ -30,7 +30,7 @@
         <li class="list-group-item">
             <div class="row admin-prod-item">
                 <div class="col-4 col-md-2">
-                    <img src="$user->photo" class="img-circle shadow admin-prod-img" alt="" style="width: 4rem">
+                    <img src="public/img/users/{{$user->photo}}" class="img-circle shadow admin-prod-img" alt="" style="width: 4rem">
                 </div>
                 <div class="col-4 col-md-8">
                     <h5 class="admin-prod-name">{{$user->name}} {{$user->surname}}</h5>

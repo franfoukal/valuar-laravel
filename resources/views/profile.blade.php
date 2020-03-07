@@ -8,9 +8,10 @@
             <div class="profile-img-wrapper text-center text-md-left">
                 <img src="/img/profile/profile-default.jpeg" alt="" class="profile-img shadow p-0 rounded-circle col-9 col-md-8 col-lg-6 bd-crema">
             </div>
+            @yield('change-avatar')
             <div class="row profile-header">
                 <h1 class="profile-name">{{ucfirst(Auth::user()->name)}}</h1>
-                <a href="#" class="profile-edit-icon"><i class="fas fa-cog verde"></i></a>
+                <a href="/profile/user" class="profile-edit-icon"><i class="fas fa-cog verde"></i></a>
             </div>
             <h5 class="profile-email">{{Auth::user()->email}}</h5>
 

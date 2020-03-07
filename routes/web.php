@@ -27,12 +27,8 @@ Route::get('/contact', function () {
 Route::get('/cart', function () {
     return view('cart');
 });
-/*Route::get('login', function () {
-    return view('login');
-});
-Route::get('register', function () {
-    return view('register');
-});*/
+
+
 Route::get('/profile', function () {
     return view('profile');
 });
@@ -48,11 +44,10 @@ Route::get('/profile/address', function () {
 Route::get('/profile/address-aut', function () {
     return view('partials.profile.address-autocomplete');
 });
-// Route::get('profile', 'PhotoController@profilePhoto');
+Route::get('/profile/user', function () {
+    return view('partials.profile.user-config');
+});
 
-// Route::get('/profile', function () {
-//     return view('partials.profile.address');
-// });
 
 Route::get('/faq', function () {
     return view('faq');

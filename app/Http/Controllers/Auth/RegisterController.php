@@ -92,5 +92,10 @@ class RegisterController extends Controller
         ]);
         
     }
+    public function emailCheck($email) {
+        $user = array(User::where('email', $email)->exists());
+        
+          return response(json_encode($user)); 
+    }
     
 }

@@ -138,19 +138,26 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="imgModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="imgModalLabel">Cambiar imagen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <div id="">
-                    <div id="main-cropper"></div>
-                    <a class="button actionUpload">
-                        <input type="file" id="upload" value="Choose Image" accept="image/*">
-                    </a>
-                </div>
+                <form action="/profile/user/edit-photo" method="post" enctype="multipart/form-data" id="form-img">
+                    @csrf
+                    <div id="">
+                        <div id="main-cropper"></div>
+                        <a class="button actionUpload">
+                            <input type="file" id="upload" accept="image/*" name="user_profile" id="user_profile_img">
+                        </a>
+
+                    </div>
+
+                    <!-- <input type="hidden" name="user_profile" id="user_profile_img"> -->
+                    <button id="#upload-result" class="btn col-12 mt-4 bg-verde">Guardar cambios</button>
+                </form>
 
             </div>
         </div>
@@ -231,6 +238,18 @@
 
     $('.actionUpload input').on('change', function() {
         readFile(this);
+    });
+
+
+    $('#upload-result').on('click', function(ev) {
+        basic.croppie('result', {
+            type: 'canvas',
+            size: 'original',
+            circle: true
+        }).then(function(resp) {
+            $('#user_profile_img').val(resp);
+            $('#form-img').submit();
+        });
     });
 </script>
 @endsection

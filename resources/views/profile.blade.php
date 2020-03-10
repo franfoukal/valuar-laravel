@@ -6,7 +6,7 @@
     <div class="row m-0 profile-wrapper">
         <aside class="profile-nav col-12 col-md-5 col-lg-4">
             <div class="profile-img-wrapper text-center text-md-left">
-                <img src="/img/profile/profile-default.jpeg" alt="" class="profile-img shadow p-0 rounded-circle col-9 col-md-8 col-lg-6 bd-crema">
+                <img src="{{Auth::user()->photo['path'] ?? '/img/profile/profile-default.jpeg'}}" alt="" class="profile-img shadow p-0 rounded-circle col-9 col-md-8 col-lg-6 bd-crema">
                 @yield('change-avatar')
             </div>
             <div class="row profile-header">

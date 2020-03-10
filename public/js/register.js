@@ -4,7 +4,8 @@ window.onload = () => {
     let arrayForm = Array.from(form.elements);
     let token = arrayForm[0].value;
 
-    //Picamos el array en juliana y le sacamos el submit, phone y recordar
+    //Picamos el array en juliana y le sacamos el 
+    //submit, phone, token y recordar
 
     arrayForm.splice(0,1);
     arrayForm.splice(5,3);

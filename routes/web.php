@@ -123,3 +123,5 @@ Route::middleware(['admin'])->group(function(){
 Route::get('/products/search', 'ProductController@search');
 
 Route::get('/email-check/{email}', 'Auth\RegisterController@emailCheck');
+
+Route::post('/login-check', 'Auth\LoginController@checkLogin');

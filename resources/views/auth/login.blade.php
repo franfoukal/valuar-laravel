@@ -4,7 +4,7 @@
 <div class="jumbotron bg-image-collar z-depth-5">
     <div class="row mx-0 form-padding">
         <!-- Default form login -->
-        <form class="text-center form-margin rounded bg-white border border-light p-5 my-4 col-xl-6 offset-xl-3 col-lg-12 justify-content-center z-depth-1-half" method="POST" action="{{ action('Auth\LoginController@login') }}">
+        <form class="text-center form-margin rounded bg-white border border-light p-5 my-4 col-xl-6 offset-xl-3 col-lg-12 justify-content-center z-depth-1-half" method="POST" >
             @csrf
             <p class="h2 mb-4">{{__('Iniciar sesión')}}</p>
                     @if($errors)
@@ -16,6 +16,12 @@
                             @endforeach
                         </div>
                     @endif
+            <div class="col-12 form-errors py-1">
+                <p class="text-center my-auto">
+                    Email o contraseña erróneos
+                </p>
+            </div>
+
             <!-- Email -->
             <div class="md-form">
                 <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="" required>
@@ -60,5 +66,5 @@
         <!-- Default form login -->
     </div>
 </div>
-
+<script src="/js/login.js"></script>
 @endsection

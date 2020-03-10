@@ -203,8 +203,8 @@
                 this.direccion.altura = '';
                 this.direccion.piso = '';
                 this.direccion.calle = '';
-                this.departamento = 'Selecciona una departamento';
-                this.localidad = 'Selecciona una localidad';
+                //this.departamento = 'Selecciona una departamento';
+                //sthis.localidad = 'Selecciona una localidad';
             }
         },
 

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Requests\UpdateUser;
 use App\Http\Requests\ValidatedUser;
+use App\Order;
 use App\Product;
 use App\User;
-use Carbon\Carbon;
+use App\Photo;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +23,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        
+        $orders = Order::count(); 
+        $totalIncome = Order::sum('subtotal');
+        $bestSellers = Product::orderBy('amount_sold', 'desc')->limit(4)->get();
+
         $products = Product::where('active', 1)->count();       // Productos activos
         $totalProducts = Product::count();                      // Total de productos
         $totalUsers = User::count();                            // Total de usuarios
@@ -30,7 +37,9 @@ class AdminController extends Controller
                 $usersOnline += 1;                              // si están logueados.  
             }                                                   // Si están, ++usersonline.
         }
-        return view('admin.admin-index', compact('products', 'totalProducts', 'totalUsers', 'usersOnline'));
+        
+        return view('admin.admin-index', compact('products', 'totalProducts', 'totalUsers',
+        'usersOnline', 'orders', 'totalIncome', 'bestSellers'));
     }
 
     /**
@@ -98,36 +107,67 @@ class AdminController extends Controller
     {
         //
     }
+
+
+    private function addUserPhotos(array $request){
+
+        if(array_key_exists('photos', $request)){
+            foreach($request['photos'] as $photos){
+
+                $photo = new Photo();
+
+                $photoUser = User::where('id', $request['name'])->get();
+                $path = $photos->store('/public/img/products');
+                $filename = basename($path);
+                $extension = $photos->getClientOriginalExtension();
+
+                $photo->user_id = $photoUser[0]->id; 
+                $photo->path = $filename;
+                $photo->extension = $extension;
+
+                $photo->save();
+            }
+        }
+    }
+
+
     public function users(){
 
+        $roles = Role::all();
+        
         if(isset($_GET['search'])){
 
             $search = $_GET['search'];
             $allUsers = User::where('name', 'like', "%$search%")->orWhere('surname', 'like', "%$search%")->paginate(12);
-            return view("admin.users-admin", compact('allUsers'));
 
         } else {
 
             $allUsers = User::paginate(12);
-            return view("admin.users-admin", compact('allUsers'));
+
         }
+        return view("admin.users-admin", compact('allUsers', 'roles'));
+
         
     }
 
     public function getEditUsers(int $id){
 
         $user = User::find($id);
-        return view('admin.edit-user', compact('user'));
+
+        $photo = Photo::where('user_id', $id)->get()->last();
+
+        return view('admin.edit-user', compact('user', 'photo'));
 
     }
 
-    public function editUsers(ValidatedUser $request, int $id) {
+    public function editUsers(UpdateUser $request, int $id) {
 
         /*
         *   Ver Controllers/ProductController línea 130
         */
 
         $user = $request->validated();
+
 
         User::find($id)->update([
 
@@ -138,6 +178,8 @@ class AdminController extends Controller
 
         ]);
 
+        $this->addUserPhotos($user);
+        
         return $this->getEditUsers($id);
     }
 
@@ -158,13 +200,42 @@ class AdminController extends Controller
         $user->phone = $request['phone'];
         $user->active = 1;
         $user->roles_id = $request['role'];
+
         $user->save();
+
+        $this->addUserPhotos($request);
 
         return $this->users();
         
     }
 
+    public function getOrder(int $id){
+
+        $order = Order::find($id);
+
+        return view('admin.order-admin', compact('order'));
+    }
+
     public function sells(){
-        return view('admin.sells-admin');
+
+        $totalIncome = Order::sum('subtotal');
+        $sells = Order::all();
+        $totalWithTaxes = 0;
+        $totalWithInterests = 0;
+        $totalSells = Order::count();
+        foreach($sells as $order){
+            if(!is_null($order->tax_percentage)){
+                $totalWithTaxes += $order->subtotal + $order->subtotal * $order->tax_percentage;
+            } else {
+                $totalWithTaxes += $order->subtotal;
+            }
+            if(!is_null($order->interest_percentage)){
+                $totalWithInterests += $order->subtotal + $order->subtotal * $order->tax_percentage;
+            } else {
+                $totalWithInterests += $order->subtotal;
+            }
+        }
+        
+        return view('admin.sells-admin', compact('totalWithTaxes', 'totalWithInterests', 'sells', 'totalSells', 'totalIncome'));
     }
 }

@@ -21,7 +21,7 @@
             </div>
         </form>
         <div class="col-12 col-md-3 mb-3 admin-prod-search-btn">
-            <a href="/admin/add-user" class="col-12 btn btn-secondary">+ Nuevo</a>
+            <a href="/admin/add-user" class="col-12 btn text-white bg-verde">+ Nuevo</a>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
         <li class="list-group-item">
             <div class="row admin-prod-item">
                 <div class="col-4 col-md-2">
-                    <img src="$user->photo" class="img-circle shadow admin-prod-img" alt="" style="width: 4rem">
+                    <img src="public/img/users/{{$user->photo}}" class="img-circle shadow admin-prod-img" alt="" style="width: 4rem">
                 </div>
                 <div class="col-4 col-md-8">
                     <h5 class="admin-prod-name">{{$user->name}} {{$user->surname}}</h5>
@@ -39,6 +39,8 @@
                     @else
                     <p class="m-0 font-weight-light rojo">Offline</p>
                     @endif
+                    
+                    <p class="m-0 mt-1 font-weight-light">Rol: {{$user->roles_id == 0 ? ucfirst($roles[0]->name) : ucfirst($roles[1]->name)}}</p>
                 </div>
                 <a href="/admin/edit-user/{{$user->id}}" class="col-4 col-md-2 verde">
                     Editar <i class="far fa-edit"></i>

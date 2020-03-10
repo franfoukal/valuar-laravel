@@ -42,7 +42,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
                         <a class="dropdown-item waves-effect waves-light" href="/profile">Mi cuenta</a>
-                        @if (Auth::User()->roles_id == 1)
+                        @if (Auth::User()->roles_id == 0)
                         <a class='dropdown-item waves-effect waves-light' href="/admin">Panel de control</a>
                         @endif
                         <a class="dropdown-item waves-effect waves-light" 

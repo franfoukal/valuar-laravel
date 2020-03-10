@@ -88,9 +88,14 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password']),
                 'phone' => $data['phone'],
                 'active' => 1,
-                'roles_id' => 3,
+                'roles_id' => 1,
         ]);
         
+    }
+    public function emailCheck($email) {
+        $user = array(User::where('email', $email)->exists());
+        
+          return response(json_encode($user)); 
     }
     
 }

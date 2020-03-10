@@ -11,6 +11,8 @@
 |
 */
 
+use App\Product;
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +32,9 @@ Route::get('/cart', function () {
 Route::get('/profile', function () {
     return view('profile');
 });
+
+Route::post('/profile-edit', 'PhotoController@store');
+
 Route::get('/profile/favs', function () {
     return view('partials.profile.favourites');
 });
@@ -42,6 +47,8 @@ Route::get('/profile/address-aut', function () {
 Route::get('/profile/user', function () {
     return view('partials.profile.user-config');
 });
+
+Route::post('/profile/user/edit-photo', 'PhotoController@store');
 
 
 Route::get('/faq', function () {
@@ -59,6 +66,7 @@ Route::get('products/orderBy/{orderBy}', 'ProductController@orderBy')->where('or
 Auth::routes();
 
 Route::get('/products', 'ProductController@productList');
+
 Route::post('/product/fav/{id}', function($id){
     Auth::user()->favourites()->attach($id);
 });
@@ -66,46 +74,62 @@ Route::delete('/product/fav/{id}', function ($id) {
     Auth::user()->favourites()->detach($id);
 });
 
+
 Route::post('/product/isfav/{prod}/{user}', 'ProductController@isFavBy');
 /*
 Route::get('/profile-edit', function(){   <<--- Llegó roto con el pull :s 
 */
+
+Route::post('/user/{id}/edit', 'UserController@editUser')->middleware('auth');
 
 // PARA DEBUGEAR: 
 
 Route::get('/dd', function() {
     return dd(Auth::user());
 });
-
-Route::post('/profile-edit', 'PhotoController@store');
+Route::get('/ddproduct/{id}', function($id){
+    return dd(Product::find($id));
+});
 
 // ADMIN
 
-Route::get('/admin/products', 'ProductController@adminProducts')->middleware('admin');
+Route::middleware(['admin'])->group(function(){
+    Route::get('/admin/products', 'ProductController@adminProducts');
 
-Route::post('/admin/products','ProductController@adminProducts')->middleware('admin');
+    Route::post('/admin/products','ProductController@adminProducts');
 
-Route::get('/admin/edit-product/{id}', 'ProductController@getEditProduct')->middleware('admin');
+    Route::get('/admin/edit-product/{id}', 'ProductController@getEditProduct');
 
-Route::post('/admin/edit-product/{id}', 'ProductController@editProduct')->middleware('admin');
+    Route::post('/admin/edit-product/{id}', 'ProductController@editProduct');
 
-Route::get('/admin/add-product', 'ProductController@getAddProduct')->middleware('admin');
+    Route::get('/admin/add-product', 'ProductController@getAddProduct');
 
-Route::post('/admin/add-product', 'ProductController@addProduct')->middleware('admin');
+    Route::post('/admin/add-product', 'ProductController@addProduct');
 
-Route::get('/admin', 'AdminController@index')->middleware('admin');
+    Route::get('/admin', 'AdminController@index');
 
-Route::get('/admin/users', 'AdminController@users')->middleware('admin');
+    Route::get('/admin/users', 'AdminController@users');
 
-Route::get('/admin/sells', 'AdminController@sells')->middleware('admin');
+    Route::get('/admin/sells', 'AdminController@sells');
 
-Route::get('/admin/edit-user/{id}', 'AdminController@getEditUsers')->middleware('admin');
+    Route::get('/admin/order/{id}', 'AdminController@getOrder');
 
-Route::post('/admin/edit-user/{id}', 'AdminController@editUsers')->middleware('admin');
+    Route::get('/admin/edit-user/{id}', 'AdminController@getEditUsers');
 
-Route::get('/admin/add-user', 'AdminController@getAddUser')->middleware('admin');
+    Route::post('/admin/edit-user/{id}', 'AdminController@editUsers');
 
-Route::post('/admin/add-user', 'AdminController@addUser')->middleware('admin');
+    Route::get('/admin/add-user', 'AdminController@getAddUser');
+
+    Route::post('/admin/add-user', 'AdminController@addUser');
+
+    /* Por cuestiones tecnicas esto está por get pero tendria que ir por post    */
+    Route::get('/admin/delete-photo/{path}', 'PhotoController@deletePhoto');
+
+    Route::get('admin/delete-profile-photos/{user}', 'PhotoController@deleteProfilePhotos');
+});
 
 Route::get('/products/search', 'ProductController@search');
 
+Route::get('/email-check/{email}', 'Auth\RegisterController@emailCheck');
+
+Route::post('/login-check', 'Auth\LoginController@checkLogin');

@@ -138,7 +138,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="imgModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="imgModalLabel">Cambiar imagen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -148,7 +148,7 @@
                 <div id="">
                     <div id="main-cropper"></div>
                     <a class="button actionUpload">
-                        <input type="file" id="upload" value="Choose Image" accept="image/*">
+                        <input type="file" id="upload" value="" accept="image/*">
                     </a>
                 </div>
 
@@ -215,7 +215,7 @@
             height: 300
         },
     });
-
+    
     function readFile(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -232,5 +232,6 @@
     $('.actionUpload input').on('change', function() {
         readFile(this);
     });
+
 </script>
 @endsection

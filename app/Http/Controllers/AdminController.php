@@ -156,7 +156,6 @@ class AdminController extends Controller
 
         $photo = Photo::where('user_id', $id)->get()->last();
 
-        dd($photo);
         return view('admin.edit-user', compact('user', 'photo'));
 
     }

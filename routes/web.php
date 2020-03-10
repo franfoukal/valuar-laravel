@@ -48,6 +48,8 @@ Route::get('/profile/user', function () {
     return view('partials.profile.user-config');
 });
 
+Route::post('/profile/user/edit-photo', 'PhotoController@store');
+
 
 Route::get('/faq', function () {
     return view('faq');

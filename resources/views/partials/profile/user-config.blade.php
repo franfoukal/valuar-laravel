@@ -145,12 +145,19 @@
             </div>
             <div class="modal-body">
 
-                <div id="">
-                    <div id="main-cropper"></div>
-                    <a class="button actionUpload">
-                        <input type="file" id="upload" value="" accept="image/*">
-                    </a>
-                </div>
+                <form action="/profile/user/edit-photo" method="post" enctype="multipart/form-data" id="form-img">
+                    @csrf
+                    <div id="">
+                        <div id="main-cropper"></div>
+                        <a class="button actionUpload">
+                            <input type="file" id="upload" accept="image/*" name="user_profile" id="user_profile_img">
+                        </a>
+
+                    </div>
+
+                    <!-- <input type="hidden" name="user_profile" id="user_profile_img"> -->
+                    <button id="#upload-result" class="btn col-12 mt-4 bg-verde">Guardar cambios</button>
+                </form>
 
             </div>
         </div>
@@ -215,7 +222,7 @@
             height: 300
         },
     });
-    
+
     function readFile(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -233,5 +240,16 @@
         readFile(this);
     });
 
+
+    $('#upload-result').on('click', function(ev) {
+        basic.croppie('result', {
+            type: 'canvas',
+            size: 'original',
+            circle: true
+        }).then(function(resp) {
+            $('#user_profile_img').val(resp);
+            $('#form-img').submit();
+        });
+    });
 </script>
 @endsection

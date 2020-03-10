@@ -45,6 +45,45 @@
                 Opcional
             </small>
         </div>
+        <div class="">
+            <label for="photo">Fotos:</label>
+            <div class="container my-4">
+                <div class="row text-left">
+                    @if(isset($photo))
+                    <div class="col-4">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 mb-3 text-center">
+                                        <img src="/storage/img/users/{{$photo['path']}}" alt="" class='img-circle shadow admin-prod-img' style="width: 6rem">
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <a class='bg-rojo text-white font-weight-bold py-2 px-3 rounded' href='/admin/delete-profile-photos/{{$user->id}}'>Borrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    @endif
+                </div>
+            </div>
+            <div class="col-12">
+                <input type="file" id="photos" name="photos[]" multiple>
+            </div>
+        </div>
+        <div class="">
+            <label for="role">Tipo de usuario</label>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <h6>Administrador </h6><input type="radio" name="role" id="0" value="0">
+                    </div>
+                    <div class="col-6">
+                        <h6>Cliente </h6>
+                        <input type='radio' name='role' id='1' value='1'>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Sign up button -->
         <button class="btn bg-verde mb-4 text-white" type="submit" >ACTUALIZAR USUARIO</button>
         

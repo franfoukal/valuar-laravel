@@ -489,6 +489,19 @@ body{
   padding: 0;
   margin: 0;
 }
+.form-error{
+  
+  border-bottom: solid 2px rgb(192, 25, 34)!important;
+  transition: border-bottom-color .15s ease-in-out, background-color .15s ease-in-out!important;
+}
+.form-errors{
+  display: none;
+  background-color: rgba(193, 102, 107, 0.4);
+  color: #050517;
+  border: solid 2px rgb(192, 25, 34);
+  
+  transition: all 2s ease-in-out;
+}
 /* HEADER
 *
 * recomiendo dejar los breakpoints

@@ -20,17 +20,22 @@
                         </div>
                     @endif
                 </div>
+                <div class="col-12 form-errors py-1">
+                    <p class="text-center my-auto">
+                        Faltan completar los campos que están en rojo.
+                    </p>
+                </div>
                 <div class="col">
                     <!-- First name -->
                     <div class="md-form">
-                        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}" required>
+                        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}" >
                         <label for="name">Nombre</label>
                     </div>
                 </div>
                 <div class="col">
                     <!-- Last name -->
                     <div class="md-form">
-                        <input type="text" id="surname" name="surname" class="form-control @error('surname') is-invalid @enderror" value="{{ old('surname')}}" required>
+                        <input type="text" id="surname" name="surname" class="form-control @error('surname') is-invalid @enderror" value="{{ old('surname')}}" >
                         <label for="surname">Apellido</label>
                     </div>
                 </div>
@@ -38,18 +43,18 @@
 
             <!-- E-mail -->
             <div class="md-form mt-0">
-                <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
+                <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" >
                 <label for="email">E-mail</label>
             </div>
 
             <!-- Password -->
             <div class="md-form">
-                <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" name="password" required>
+                <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" name="password" >
                 <label for="password">Contraseña</label>
 
             </div>
             <div class="md-form">
-                <input type="password" id="passwordConfirm" class="form-control" aria-describedby="passwordHelpBlock" name="password_confirmation" required>
+                <input type="password" id="passwordConfirm" class="form-control" aria-describedby="passwordHelpBlock" name="password_confirmation" >
                 <label for="passwordConfirm">Confirmar contraseña</label>
                 <small id="passwordHelpBlock" class="form-text text-muted mb-4">
                     Mínimo 8 caracteres, 1 número y 1 caracter especial.
@@ -86,4 +91,6 @@
         <!-- Sign Up form -->
     </div>
 </div>
+<script src="js/register.js"></script>
+
 @endsection

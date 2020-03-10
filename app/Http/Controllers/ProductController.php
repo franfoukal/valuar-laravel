@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProduct;
 use App\Http\Requests\ValidatedProduct;
 use Illuminate\Http\Request;
 use App\Product;
@@ -137,7 +138,34 @@ class ProductController extends Controller
 
     }
 
-    public function editProduct(ValidatedProduct $request, int $id) {
+    /*
+    *
+    *   Carga de fotos 
+    *
+    */
+    private function addProductPhotos(array $request){
+
+        if(array_key_exists('photos', $request)){
+            
+            foreach($request['photos'] as $photos){
+
+                $photo = new Photo();
+
+                $photoProduct = Product::where('name', $request['name'])->get();
+                $path = $photos->store('/public/img/products');
+                $filename = basename($path);
+                $extension = $photos->getClientOriginalExtension();
+                
+                $photo->product_id = $photoProduct[0]->id; 
+                $photo->path = $filename;
+                $photo->extension = $extension;
+
+                $photo->save();
+            }
+        }
+    }
+
+    public function editProduct(UpdateProduct $request, int $id) {
 
         /*
         *   En vez de validar todo en cada metodo, 
@@ -148,9 +176,12 @@ class ProductController extends Controller
         *   Este Request hace la validación y se pueden obtener los datos validados
         *   de esta forma:
         */
-            $product = $request->validated();
+        
+        $product = $request->validated();
 
-        Product::find($id)->update([
+        
+            
+        Product::findOrFail($id)->update([
 
             'name' => $product['name'],
             'price' => $product['price'],
@@ -158,6 +189,9 @@ class ProductController extends Controller
             'description' => $product['description']
 
         ]);
+
+        
+        $this->addProductPhotos($product);
 
         return $this->getEditProduct($id);
 
@@ -182,29 +216,10 @@ class ProductController extends Controller
         $product->active = $request['active'];
         $product->category_id = $request['category_id'];
         $product->material_id = $request['material_id'];
-
-        /*
-        *   Esto funciona re piola pero se podría refactorizar
-        */
-        if(array_key_exists('photos', $request)){
-            foreach($request['photos'] as $photos){
-
-                $photo = new Photo();
-
-                $photoProduct = Product::where('name', $request['name'])->get();
-                $path = $photos->store('/img/products');
-                $filename = basename($path);
-                $extension = $photos->getClientOriginalExtension();
-
-                $photo->product_id = $photoProduct[0]->id; 
-                $photo->path = $filename;
-                $photo->extension = $extension;
-
-                $photo->save();
-            }
-        }
-        
         $product->save();
+
+        
+        $this->addProductPhotos($request);
 
         return $this->adminProducts()->with('success', 'Producto creado con éxito!');
 

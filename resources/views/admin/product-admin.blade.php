@@ -14,7 +14,6 @@
         </div>
         <form action="" method="get" class="col-10 col-md-8">
             @csrf
-            
             <div class="col-12 col-md-8 mb-3 p-0">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -27,7 +26,7 @@
             </div>
         </form>
         <div class="col-12 col-md-3 mb-3 admin-prod-search-btn">
-            <a href="/admin/add-product" class="col-12 btn btn-secondary">+ Nuevo</a>
+            <a href="/admin/add-product" class="col-12 btn text-white bg-verde">+ Nuevo</a>
         </div>
         
     </div>

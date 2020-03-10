@@ -86,6 +86,10 @@
 }
 
 /* USER */
+.profile-user-header{
+    justify-content: center;
+    align-items: center;
+}
 .profile-user-edit-img{
     overflow: hidden;
     align-items: center;
@@ -115,4 +119,7 @@
 }
 .profile-user-item-list{
     align-items: baseline;
+}
+.profile-user-save-btn{
+    height: 3rem;
 }

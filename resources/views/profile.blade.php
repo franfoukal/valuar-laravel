@@ -7,8 +7,8 @@
         <aside class="profile-nav col-12 col-md-5 col-lg-4">
             <div class="profile-img-wrapper text-center text-md-left">
                 <img src="/img/profile/profile-default.jpeg" alt="" class="profile-img shadow p-0 rounded-circle col-9 col-md-8 col-lg-6 bd-crema">
+                @yield('change-avatar')
             </div>
-            @yield('change-avatar')
             <div class="row profile-header">
                 <h1 class="profile-name">{{ucfirst(Auth::user()->name)}}</h1>
                 <a href="/profile/user" class="profile-edit-icon"><i class="fas fa-cog verde"></i></a>
@@ -19,8 +19,8 @@
                 <ul class="clearlist profile-list">
                     <li class="profile-list-item"><a href="#">Órdenes</a></li>
                     <li class="profile-list-item"><a href="/profile/favs">Favoritos</a></li>
-                    <li class="profile-list-item"><a href="/profile/address">Direcciones <small>API geonorm</small></a></li>
-                    <li class="profile-list-item"><a href="/profile/address-aut">Direcciones <small>google</small></a></li>
+                    <li class="profile-list-item"><a href="/profile/address">Direcciones</a></li>
+                    <!-- <li class="profile-list-item"><a href="/profile/address-aut">Direcciones <small>google</small></a></li> -->
                 </ul>
             </nav>
         </aside>
@@ -31,7 +31,5 @@
     </div>
 
 </main>
-
-@yield('script')
 
 @endsection

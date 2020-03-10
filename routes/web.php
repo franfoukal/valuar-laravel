@@ -74,6 +74,8 @@ Route::post('/product/isfav/{prod}/{user}', 'ProductController@isFavBy');
 Route::get('/profile-edit', function(){   <<--- Llegó roto con el pull :s 
 */
 
+Route::post('/user/{id}/edit', 'UserController@editUser')->middleware('auth');
+
 // PARA DEBUGEAR: 
 
 Route::get('/dd', function() {

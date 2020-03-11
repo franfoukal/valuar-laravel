@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Material extends Model
+class Category extends Model
 {
-    public $table = 'materials';
+    public $table = 'categories';
     public $guarded = ['id', 'created_at','updated_at'];
 }

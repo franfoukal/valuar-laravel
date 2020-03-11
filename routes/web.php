@@ -55,9 +55,13 @@ Route::get('/faq', function () {
     return view('faq');
 });
 
-Route::get('/product/{id}', 'ProductController@displayProduct');
+Route::get('/product/{id}', 'ProductController@displayProduct')->where('id', '[0-9]+');
 
-Route::get('/products/filter/{filter}', 'ProductController@filter');
+Route::get('/products/filter/{filter}', 'ProductController@filter')->where('filter', '[A-Za-z]+');
+
+Route::get('/products/filter/{price_range}', 'ProductController@filter')->where('price_range', '[0-9]+_[0-9]+');
+
+Route::get('products/orderBy/{orderBy}', 'ProductController@orderBy')->where('orderby', '[A-Za-z]+');
 
 Auth::routes();
 
@@ -127,3 +131,5 @@ Route::middleware(['admin'])->group(function(){
 Route::get('/products/search', 'ProductController@search');
 
 Route::get('/email-check/{email}', 'Auth\RegisterController@emailCheck');
+
+Route::post('/login-check', 'Auth\LoginController@checkLogin');

@@ -23,6 +23,7 @@ class CreatePhotosTable extends Migration
             // $table->foreign('products_id')->references('products')->on('id');
             $table->unsignedBigInteger('user_id')->nullable();
             // $table->foreign('users_id')->references('users')->on('id');
+            $table->unique(['id', 'user_id']); //para que solo tenga una foto de perfil
         });
     }
 

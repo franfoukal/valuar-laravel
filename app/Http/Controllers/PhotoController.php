@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class PhotoController extends Controller
 {
@@ -37,19 +38,33 @@ class PhotoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_profile' => ['required', 'mimes:jpeg, png, jpg, svg, bmp', 'max:2048']
+            'user_profile' => ['required', 'mimes:jpeg, png, jpg, svg, bmp', 'max:10000000']
         ]);
-        $photo = new Photo();
+
+        $userImage = public_path(). "/storage/{Auth::user()->photo}"; // get previous image from folder
+        if (File::exists($userImage)) { // unlink or remove previous image from folder
+            unlink($userImage);
+            File::delete($userImage);
+        }
+
         $path = $request->file('user_profile')->store('public');
         $filename = basename($path);
         $extension = $request->file('user_profile')->getClientOriginalExtension();
+        
+
+
+        $photo = new Photo();
         $photo->user_id = Auth::user()->id; 
         $photo->path = $filename;
         $photo->extension = $extension;
-        $photo->save();
+        try {
+            $photo->save();
+            File::delete(Auth::user()->photo);
+        } catch (\Exception $e) {
+            
+        }
 
         return view('profile');
-
     }
 
     /**

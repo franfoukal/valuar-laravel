@@ -154,10 +154,9 @@
                         </a>
 
                     </div>
-
-                    <!-- <input type="hidden" name="user_profile" id="user_profile_img"> -->
-                    <button id="#upload-result" class="btn col-12 mt-4 bg-verde">Guardar cambios</button>
+                    <button id="upload-result" class="btn col-12 mt-4 bg-verde">Guardar cambios</button>
                 </form>
+
 
             </div>
         </div>
@@ -246,10 +245,29 @@
             type: 'canvas',
             size: 'original',
             circle: true
-        }).then(function(resp) {
-            $('#user_profile_img').val(resp);
+        }).then(function(response) {
+            $('#user_profile_img').val(response);
             $('#form-img').submit();
+
+            //     $.ajaxSetup({
+            //         headers: {
+            //             'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            //         }
+            //     });
+
+            //     $.ajax({
+            //         url: '/profile/user/edit-photo',
+            //         type: 'POST',
+            //         data: {
+            //             "user_profile": response,
+            //         },
+            //         success: function(data) {
+            //             alert(data);
+            //         }
+            //     })
         });
+
+
     });
 </script>
 @endsection

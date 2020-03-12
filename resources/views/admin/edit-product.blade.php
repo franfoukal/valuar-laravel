@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="col-12 text-center">
                                         <a class='bg-rojo text-white font-weight-bold py-2 px-3 rounded' href='/admin/delete-photo/{{$photo["path"]}}'>Borrar</a>
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>
                         </div>

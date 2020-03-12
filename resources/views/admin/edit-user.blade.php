@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="col-12">
-                <input type="file" id="photos" name="photos[]" multiple>
+                <input type="file" id="photos" name="photos" >
             </div>
         </div>
         <div class="">
@@ -75,11 +75,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-6">
-                        <h6>Administrador </h6><input type="radio" name="role" id="0" value="0">
+                        <h6>Administrador </h6><input type="radio" name="role" id="0" value="1">
                     </div>
                     <div class="col-6">
                         <h6>Cliente </h6>
-                        <input type='radio' name='role' id='1' value='1'>
+                        <input type='radio' name='role' id='1' value='2'>
                     </div>
                 </div>
             </div>

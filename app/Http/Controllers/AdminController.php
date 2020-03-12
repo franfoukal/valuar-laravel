@@ -116,8 +116,8 @@ class AdminController extends Controller
 
                 $photo = new Photo();
 
-                $photoUser = User::where('id', $request['name'])->get();
-                $path = $photos->store('/public/img/products');
+                $photoUser = User::where('id', $request['id'])->get();
+                $path = $photos->store('/public/img/users');
                 $filename = basename($path);
                 $extension = $photos->getClientOriginalExtension();
 
@@ -177,6 +177,8 @@ class AdminController extends Controller
             'phone' => $user['phone']
 
         ]);
+
+        dd($user);
 
         $this->addUserPhotos($user);
         

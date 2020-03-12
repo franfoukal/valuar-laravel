@@ -230,22 +230,154 @@ class ProductController extends Controller
             return redirect('/products');
         }else{
 
-            $products = Product::
-            where(
-                'name','LIKE', '%'.$_GET['search'].'%')
-            ->orderBy('created_at')
-            ->paginate(12);
-
-            // dd($products);
-
-            if(empty($products[0]['name'])){
-                $productsEmpty = Product::limit(4)->paginate(4);
-                return view('product-list', compact('productsEmpty'));
+            switch ($_GET['search']) {
+                case (preg_match('/[0-9]+/', $_GET['search']) ? true : false):
+                    $products = Product::where('price', '<=', $_GET['search'],)
+                    ->orderBy('price', 'DESC')
+                    ->paginate(12);
+                    return view('product-list', compact('products'));
+                    break;
+                case 'aros':
+                    $products = Product::where('category_id', 'LIKE', 1)
+                    ->orderBy('created_at')
+                    ->paginate(12);
+                    return view('product-list', compact('products'));
+                    break;
+                case 'colgantes':
+                    $products = Product::where('category_id', 'LIKE', 2)
+                    ->orderBy('created_at')
+                    ->paginate(12);
+                    return view('product-list', compact('products'));
+                    break;
+                case 'anillos':
+                    $products = Product::where('category_id', 'LIKE', 3)
+                    ->orderBy('created_at')
+                    ->paginate(12);
+                    return view('product-list', compact('products'));
+                    break;
+                case 'pulseras':
+                    $products = Product::where('category_id', 'LIKE', 4)
+                    ->orderBy('created_at')
+                    ->paginate(12);
+                    return view('product-list', compact('products'));
+                    break;
+                case 'oro':
+                    $products = Product::where('material_id', 'LIKE', 1)
+                    ->orderBy('created_at')
+                    ->paginate(12);
+                    return view('product-list', compact('products'));
+                    break;
+                case 'plata':
+                    $products = Product::where('material_id', 'LIKE', 2)
+                    ->orderBy('created_at')
+                    ->paginate(12);
+                    return view('product-list', compact('products'));
+                    break;
+                default:
+                    $products = Product::
+                    where(
+                        'name','LIKE', '%'.$_GET['search'].'%')
+                    ->orderBy('created_at')
+                    ->paginate(12);
+                    return view('product-list', compact('products'));
+                    break;
             }
-
-            return view('product-list', compact('products'));
         }
     }
+
+    public function filter(string $filter){
+
+        switch ($filter) {
+            // filtrar por precio entre X e Y  /filter/x_y
+            case (preg_match('/[0-9]+_[0-9]+/', $filter)?true:false):
+                $filter = explode('_' , $filter);
+                $products = Product::where('price', '>=', $filter[0],)
+                ->where('price', '<=', $filter[1])
+                ->orderBy('created_at')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'aros':
+                $products = Product::where('category_id', 'LIKE', 1)
+                ->orderBy('created_at')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'colgantes':
+                $products = Product::where('category_id', 'LIKE', 2)
+                ->orderBy('created_at')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'anillos':
+                $products = Product::where('category_id', 'LIKE', 3)
+                ->orderBy('created_at')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'pulseras':
+                $products = Product::where('category_id', 'LIKE', 4)
+                ->orderBy('created_at')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'oro':
+                $products = Product::where('material_id', 'LIKE', 1)
+                ->orderBy('created_at')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'plata':
+                $products = Product::where('material_id', 'LIKE', 2)
+                ->orderBy('created_at')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+
+            default:
+                return redirect('/products');
+                break;
+        }
+        
+    }
+
+    public function orderBy(string $orderBy){
+
+
+        switch ($orderBy) {
+            case 'relevantes':
+                $products = Product::orderBy('stock', 'DESC')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'aZ':
+                $products = Product::orderBy('name', 'ASC')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'Za':
+                $products = Product::orderBy('name', 'DESC')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'menorPrecio':
+                $products = Product::orderBy('price', 'ASC')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            case 'menorPrecio':
+                $products = Product::orderBy('price', 'DESC')
+                ->paginate(12);
+                return view('product-list', compact('products'));
+                break;
+            default:
+                return redirect('/products');
+                break;
+        }
+
+        
+    }
+
     
 
 }

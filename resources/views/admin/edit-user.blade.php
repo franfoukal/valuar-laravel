@@ -2,7 +2,7 @@
 @section('page-title', 'Editar Usuario')
 @section('css', '/css/admin/product.css')
 @section('content')
-<form class="form-margin text-center rounded my-2 border border-light p-5 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" method="post" action="{{action('AdminController@editUsers', ['id' => $user->id])}}">
+<form class="form-margin text-center rounded my-2 border border-light p-5 col-xl-6 offset-lg-3 col-lg-6 justify-content-center z-depth-1-half" enctype="multipart/form-data" method="post" action="{{action('AdminController@editUsers', ['id' => $user->id])}}">
         @csrf 
         <div class="form-row">
             <div class="col-12">
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="col-12">
-                <input type="file" id="photos" name="photos" >
+                <input type="file" id="photos" name="photos">
             </div>
         </div>
         <div class="">

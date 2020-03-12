@@ -57,7 +57,7 @@
                             <label class='font-weight-light my-auto' for="Oro">
                                 <h6 class='p-0 my-auto'>Oro:  </h6>
                             </label>
-                            <input type="radio" class='ml-2' name="material_id" id="" value="1">
+                            <input type="radio" class='ml-2' name="material_id" id="" value="1" checked>
                         </div>
                         <div class="col-4 d-flex justify-content-center">
                             <label class='font-weight-light my-auto' for="Plata">

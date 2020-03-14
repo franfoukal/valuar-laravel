@@ -13,7 +13,7 @@
                     <h5><i class="fas fa-map-marker-alt"></i> Dirección</h5>
                 </li>
                 <li>
-                    <p>La Rioja 123, Córdoba, ARG.</p>
+                    <a target="_blank" href="https://maps.google.com/maps?ll=-31.409086,-64.189881&z=17&t=m&hl=es-419&gl=AR&mapclient=embed&cid=17480642167424747927">Centro Norte, La Rioja 580, X5000 EVL, Córdoba, ARG</a>
                     <p>Horarios 10:00 a 19:00hs.</p>
                 </li>
                 <li>
@@ -36,21 +36,22 @@
         <div class="" style="margin:20%5%">
             <!-- MENSAJE -->
             <h2>Dejanos tu mensaje</h2>
-            <form class="text-center" action="#!">
+            <form class="text-center" action="" method="post">
+                @csrf
                 <!-- Name -->
                 <div class="md-form mt-3">
-                    <input type="text" id="materialContactFormName" class="form-control">
-                    <label for="materialContactFormName">Nombre</label>
+                    <input type="text" name='name' class="form-control">
+                    <label for="name">Nombre</label>
                 </div>
                 <!-- E-mail -->
                 <div class="md-form mt-3">
-                    <input type="email" id="materialContactFormEmail" class="form-control">
-                    <label for="materialContactFormEmail">E-mail</label>
+                    <input type="email" name='email' class="form-control">
+                    <label for="email">E-mail</label>
                 </div>
                 <!--Message-->
                 <div class="md-form">
-                    <textarea id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
-                    <label for="materialContactFormMessage">Mensaje</label>
+                    <textarea name='message' class="form-control md-textarea" rows="3"></textarea>
+                    <label for="message">Mensaje</label>
                 </div>
                 <!-- Send button -->
                 <button class="btn text-white bg-verde btn-block" type="submit" style="width:60%; margin:auto"><strong>Enviar</strong></button>

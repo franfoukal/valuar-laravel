@@ -109,4 +109,8 @@ class UserController extends Controller
 
         return back()->withInput();
     }
+
+    public function order(){
+        return view('order');
+    }
 }

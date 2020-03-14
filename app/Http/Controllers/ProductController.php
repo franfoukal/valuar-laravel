@@ -237,37 +237,37 @@ class ProductController extends Controller
                     ->paginate(12);
                     return view('product-list', compact('products'));
                     break;
-                case 'aros':
+                case 'aros' or 'Aros':
                     $products = Product::where('category_id', 'LIKE', 1)
                     ->orderBy('created_at')
                     ->paginate(12);
                     return view('product-list', compact('products'));
                     break;
-                case 'colgantes':
+                case 'colgantes' or 'Colgantes':
                     $products = Product::where('category_id', 'LIKE', 2)
                     ->orderBy('created_at')
                     ->paginate(12);
                     return view('product-list', compact('products'));
                     break;
-                case 'anillos':
+                case 'anillos' or 'Anillos':
                     $products = Product::where('category_id', 'LIKE', 3)
                     ->orderBy('created_at')
                     ->paginate(12);
                     return view('product-list', compact('products'));
                     break;
-                case 'pulseras':
+                case 'pulseras' or 'Pulseras':
                     $products = Product::where('category_id', 'LIKE', 4)
                     ->orderBy('created_at')
                     ->paginate(12);
                     return view('product-list', compact('products'));
                     break;
-                case 'oro':
+                case 'oro' or 'Oro':
                     $products = Product::where('material_id', 'LIKE', 1)
                     ->orderBy('created_at')
                     ->paginate(12);
                     return view('product-list', compact('products'));
                     break;
-                case 'plata':
+                case 'plata' or 'Plata':
                     $products = Product::where('material_id', 'LIKE', 2)
                     ->orderBy('created_at')
                     ->paginate(12);
@@ -297,37 +297,37 @@ class ProductController extends Controller
                 ->paginate(12);
                 return view('product-list', compact('products'));
                 break;
-            case 'aros':
+            case 'aros' or 'Aros':
                 $products = Product::where('category_id', 'LIKE', 1)
                 ->orderBy('created_at')
                 ->paginate(12);
                 return view('product-list', compact('products'));
                 break;
-            case 'colgantes':
+            case 'colgantes' or 'Colgantes':
                 $products = Product::where('category_id', 'LIKE', 2)
                 ->orderBy('created_at')
                 ->paginate(12);
                 return view('product-list', compact('products'));
                 break;
-            case 'anillos':
+            case 'anillos' or 'Anillos':
                 $products = Product::where('category_id', 'LIKE', 3)
                 ->orderBy('created_at')
                 ->paginate(12);
                 return view('product-list', compact('products'));
                 break;
-            case 'pulseras':
+            case 'pulseras' or 'Pulseras':
                 $products = Product::where('category_id', 'LIKE', 4)
                 ->orderBy('created_at')
                 ->paginate(12);
                 return view('product-list', compact('products'));
                 break;
-            case 'oro':
+            case 'oro' or 'Oro':
                 $products = Product::where('material_id', 'LIKE', 1)
                 ->orderBy('created_at')
                 ->paginate(12);
                 return view('product-list', compact('products'));
                 break;
-            case 'plata':
+            case 'plata' or 'Plata':
                 $products = Product::where('material_id', 'LIKE', 2)
                 ->orderBy('created_at')
                 ->paginate(12);
@@ -345,7 +345,7 @@ class ProductController extends Controller
 
 
         switch ($orderBy) {
-            case 'relevantes':
+            case 'relevantes' or 'Relevantes':
                 $products = Product::orderBy('stock', 'DESC')
                 ->paginate(12);
                 return view('product-list', compact('products'));

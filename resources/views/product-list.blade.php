@@ -206,10 +206,11 @@
                             @component('partials.single-product',
                             [
                             'name' => $product->name,
-                            'material' => $product->material,
-                            'price' => $product->price,
+                            'material' => $product->material['name'],
+                            'price' => $product->price, 
+                            'category' => $product->category['name'],
                             'id' => $product->id,
-                            'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                            'photo' => $product->firstPhoto['path'],
                             'index' => $loop->index,
                             'isAuth' => Auth::check()
                             ])

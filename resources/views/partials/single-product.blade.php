@@ -27,9 +27,8 @@
                                 </div>
                             </div>
                             <div class='col-12 mb-1 '>
-                                <p class=' mb-1 text-muted font-weight-light'>Material: {{$material}}</p>
+                                <p class=' mb-1 text-muted font-weight-light'>Material: {{$material ?? '-' }}</p>
                                 <!-- PONER MATERIAL -->
-                                <p class='h6 mb-0 text-muted font-weight-light'>Incrustación: Diamante</p>
                             </div>
                             <div class='col-12 mb-2'>
                                 <h5 class='mb-0 mt-1 precio d-flex font-weight-bold'>

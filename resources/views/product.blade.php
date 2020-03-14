@@ -62,10 +62,10 @@
                                 </div>
                                 <ol class="breadcrumb font-small p-0">
                                     <li class="breadcrumb-item">
-                                        <a class='' href="#">Joyas</a>
+                                        <a class='' href="/products">Productos</a>
                                     </li>
                                     <li class="breadcrumb-item active">
-                                        <a class='' href="#">Colgantes</a>
+                                    <a class='' href="/products/filter/{{$product->category['name']}}">{{$product->category['name']}}</a>
                                     </li>
                                 </ol>
                                 <p class='card-text my-1'>
@@ -189,6 +189,7 @@
                     'name' => $product->name,
                     'material' => $product->material,
                     'price' => $product->price,
+                    'category' => $product->category['name'],
                     'id' => $product->id,
                     'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
                     'index' => $loop->index,

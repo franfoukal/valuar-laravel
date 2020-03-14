@@ -190,7 +190,7 @@
                     @component('partials.single-product',
                     [
                     'name' => $product->name,
-                    'material' => $product->material,
+                    'material' => $product->material['name'],
                     'price' => $product->price,
                     'category' => $product->category['name'],
                     'id' => $product->id,

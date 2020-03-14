@@ -112,15 +112,16 @@ class AdminController extends Controller
     private function addUserPhotos(array $request){
 
         if(array_key_exists('photos', $request)){
+            
             foreach($request['photos'] as $photos){
-
+                
                 $photo = new Photo();
 
-                $photoUser = User::where('id', $request['name'])->get();
-                $path = $photos->store('/public/img/products');
+                $photoUser = User::where('id', $request['id'])->get();
+                $path = $photos->store('/public/img/users');
                 $filename = basename($path);
                 $extension = $photos->getClientOriginalExtension();
-
+                
                 $photo->user_id = $photoUser[0]->id; 
                 $photo->path = $filename;
                 $photo->extension = $extension;
@@ -167,7 +168,6 @@ class AdminController extends Controller
         */
 
         $user = $request->validated();
-
 
         User::find($id)->update([
 

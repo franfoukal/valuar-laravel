@@ -57,7 +57,7 @@
                             <label class='font-weight-light my-auto' for="Oro">
                                 <h6 class='p-0 my-auto'>Oro:  </h6>
                             </label>
-                            <input type="radio" class='ml-2' name="material_id" id="" value="1">
+                            <input type="radio" class='ml-2' name="material_id" id="" value="1" checked>
                         </div>
                         <div class="col-4 d-flex justify-content-center">
                             <label class='font-weight-light my-auto' for="Plata">
@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="col-12 text-center">
                                         <a class='bg-rojo text-white font-weight-bold py-2 px-3 rounded' href='/admin/delete-photo/{{$photo["path"]}}'>Borrar</a>
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>
                         </div>

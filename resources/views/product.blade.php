@@ -28,11 +28,11 @@
                                     @foreach($product['photos'] as $photo)
                                     @if ($loop->first)
                                     <div class="carousel-item active">
-                                        <img class="d-block img-fluid product-img" src="{{asset($photo['path'])}}" alt="">
+                                        <img class="d-block img-fluid product-img" src="/storage/img/products/{{$photo['path']}}" alt="">
                                     </div>
                                     @endif
                                     <div class="carousel-item">
-                                        <img class="d-block w-100" src="{{asset($photo['path'])}}" alt="Third slide">
+                                        <img class="d-block w-100" src="/storage/img/products/{{$photo['path']}}" alt="Third slide">
                                     </div>
                                     @endforeach
 

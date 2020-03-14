@@ -19,7 +19,8 @@ class UpdateUser extends FormRequest
             'surname' => ['required', 'string', 'max:45'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'phone' => ['integer'],
-            'role' => ['required', 'integer']
+            'role' => ['required', 'integer'],
+            'photos' => ['image', 'max:2048']
         ];
     }
     public function messages()

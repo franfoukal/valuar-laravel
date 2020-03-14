@@ -65,7 +65,10 @@
                                         <a class='' href="/products">Productos</a>
                                     </li>
                                     <li class="breadcrumb-item active">
-                                    <a class='' href="/products/filter/{{$product->category['name']}}">{{$product->category['name']}}</a>
+                                        <a class='' href="/products/filter/{{strtolower($product->category['name'])}}">{{$product->category['name']}}</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">
+                                        <a class='' href="/products/filter/{{strtolower($product->material['name'])}}">{{$product->material['name']}}</a>
                                     </li>
                                 </ol>
                                 <p class='card-text my-1'>

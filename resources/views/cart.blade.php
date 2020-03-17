@@ -11,16 +11,18 @@
                         <div class="row cart-item mx-2 px-2 z-depth-1-half">
 
                             <div class="img-wrapper-cart col-5 col-md-3 col-lg-2">
-                                <img src="img/products/prod-1.png" alt="" class="cart-prod-img img-fluid rounded-circle bd-piel">
+                                <img :src="products[index].photos[0].path != undefined ? 'hola' : 'chau' " alt="" class="cart-prod-img img-fluid rounded-circle bd-piel">
                             </div>
 
                             <h4 class="prod-name col-5 col-md-4 col-lg-3">@{{product.name}}</h4>
-                            <a href="" class="cart-delete rojo col-2 col-md-1 col-lg-1"><i class="fas fa-times"></i></a>
+                            <a @click="deleteProduct(index)" href="#" class="cart-delete rojo col-2 col-md-1 col-lg-1"><i class="fas fa-times"></i></a>
 
                             <h5 class="prod-price verde col-12 col-md-2 col-lg-2">$@{{product.price}}</h5>
                         </div>
                     </li>
                 </ul>
+
+
 
                 <h3 class="total-price">Total:
 
@@ -122,7 +124,8 @@
             cardNumber: "",
             month: "",
             year: "",
-            products: []
+            products: [],
+            refreshCartItems: 0
         },
         computed: {
             numberEmpty: function() {
@@ -139,14 +142,10 @@
         methods: {
             listarProductos() {
                 let me = this;
-                axios.get('http://localhost:8888/valuar/v2/product/get/3')
+                axios.get('/cart/get')
                     .then(function(response) {
-                        // handle success
-                        me.products = response.data;
-                        me.products.map(function(product) {
-                            product.photos = product.photos.split(', ')
-                        });
-                        console.log(me.products);
+                        me.products = response.data[0];
+                        console.log(response.data[0]);
 
                     })
                     .catch(function(error) {
@@ -157,6 +156,24 @@
                         // always executed
                     });
             },
+
+            deleteProduct(index) {
+                let me = this;
+                axios.post('/cart/delete', {
+                        id: index
+                    })
+                    .then(function(response) {
+                        me.listarProductos();
+                    })
+                    .catch(function(error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function() {
+                        // always executed
+                    });
+            }
+
         },
         mounted() {
             this.listarProductos();

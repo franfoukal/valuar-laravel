@@ -378,6 +378,44 @@ class ProductController extends Controller
         
     }
 
+
+    public function addToCart(Request $request){
+        $product = Product::find($request->id);
+
+        $product->units = $request->units;
+        $product->size = $request->size;
+        $product->photos = $product->photos;
+
+        $request->session()->push('cart', $product);
+
+        return response()->json([
+            'msg' => 'Added to cart',
+            'check' => session('cart')
+        ]);
+    }
+
+    public function deleteFromCart(Request $request)
+    {
+        $cart = $request->session()->pull('cart');
+        if (($key = array_search($request->index, $cart)) !== false) {
+            unset($cart[$key]);
+        }
+        session()->put('cart', $cart);
+        return response()->json([
+            'msg' => 'Added to cart',
+            'check' => session('cart')
+        ]);
+    }
+
+    public function getCart(Request $request){
+        $cart = $request->session()->get('cart');
+        return json_encode(array($cart));
+    }
+
+    public function deleteCart(Request $request){
+        return $request->session()->forget('cart');
+    }
+
     
 
 }

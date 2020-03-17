@@ -28,6 +28,10 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
+Route::post('/cart/add', 'ProductController@addToCart');
+Route::get('/cart/get', 'ProductController@getCart');
+Route::post('/cart/delete', 'ProductController@deleteFromCart');
+Route::get('/deleteCart', 'ProductController@deleteCart');
 
 Route::get('/profile', function () {
     return view('profile');

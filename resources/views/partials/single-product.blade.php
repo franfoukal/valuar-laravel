@@ -40,10 +40,10 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <form action="/valuar/product/add-to-cart" method="post">
+                    <!-- <form action="/valuar/product/add-to-cart" method="post">
                         <input name="cart" type="hidden" value=''>
-                        <button name="agregar" type="submit" class='btn bg-verde text-white w-100 mx-auto'>Añadir al carrito</button>
-                    </form>
+                    </form> -->
+                        <button @click="addToCart" name="agregar" type="submit" class='btn bg-verde text-white w-100 mx-auto'>Añadir al carrito</button>
                 </div>
             </div>
         </div>
@@ -56,6 +56,8 @@
         data: {
             fav: false,
             auth: "{{$isAuth == 1 ? 1 : 0}}" == 1 ? true : false,
+            units: 1,
+            size: 20,
         },
         computed: {
 
@@ -105,6 +107,21 @@
                         console.log(error);
                     });
             },
+            addToCart() {
+                let me = this;
+                axios.post("/cart/add", {
+                        id: '{{$id}}',
+                        units: me.units,
+                        size: me.size
+                    })
+                    .then(function(response) {
+                         console.log(response);
+                         
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            }
         },
         mounted() {
             this.isFav();

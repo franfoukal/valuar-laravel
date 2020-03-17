@@ -40,7 +40,7 @@
                     <p class="m-0 font-weight-light rojo">Offline</p>
                     @endif
                     
-                    <p class="m-0 mt-1 font-weight-light">Rol: {{$user->roles_id == 0 ? ucfirst($roles[0]->name) : ucfirst($roles[1]->name)}}</p>
+                    <p class="m-0 mt-1 font-weight-light">Rol: {{$user->roles_id == 1 ? ucfirst($roles[0]->name) : ucfirst($roles[1]->name)}}</p>
                 </div>
                 <a href="/admin/edit-user/{{$user->id}}" class="col-4 col-md-2 verde">
                     Editar <i class="far fa-edit"></i>

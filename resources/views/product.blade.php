@@ -28,11 +28,11 @@
                                     @foreach($product['photos'] as $photo)
                                     @if ($loop->first)
                                     <div class="carousel-item active">
-                                        <img class="d-block img-fluid product-img" src="{{asset($photo['path'])}}" alt="">
+                                        <img class="d-block img-fluid product-img" src="/storage/img/products/{{$photo['path']}}" alt="">
                                     </div>
                                     @endif
                                     <div class="carousel-item">
-                                        <img class="d-block w-100" src="{{asset($photo['path'])}}" alt="Third slide">
+                                        <img class="d-block w-100" src="/storage/img/products/{{$photo['path']}}" alt="Third slide">
                                     </div>
                                     @endforeach
 
@@ -62,10 +62,13 @@
                                 </div>
                                 <ol class="breadcrumb font-small p-0">
                                     <li class="breadcrumb-item">
-                                        <a class='' href="#">Joyas</a>
+                                        <a class='' href="/products">Productos</a>
                                     </li>
                                     <li class="breadcrumb-item active">
-                                        <a class='' href="#">Colgantes</a>
+                                        <a class='' href="/products/filter/{{strtolower($product->category['name'])}}">{{$product->category['name']}}</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">
+                                        <a class='' href="/products/filter/{{strtolower($product->material['name'])}}">{{$product->material['name']}}</a>
                                     </li>
                                 </ol>
                                 <p class='card-text my-1'>
@@ -187,8 +190,9 @@
                     @component('partials.single-product',
                     [
                     'name' => $product->name,
-                    'material' => $product->material,
+                    'material' => $product->material['name'],
                     'price' => $product->price,
+                    'category' => $product->category['name'],
                     'id' => $product->id,
                     'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
                     'index' => $loop->index,

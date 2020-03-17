@@ -2,9 +2,13 @@
 .item-list-cart{
   padding: 2rem;
 }
+.cart-list{
+  max-height: 20rem;
+  overflow: scroll;
+}
 .row.cart-item{
-  background-color: #e5e9ea;
-  padding: 1rem 0;
+  /* background-color: #e5e9ea; */
+  padding: 0.2rem 0;
   border-radius: .2rem;
   align-items: center;
   justify-content: space-around;
@@ -21,7 +25,7 @@
 }
 .cart-delete{
   order: 2;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 .talle{
   order:3;
@@ -41,68 +45,9 @@
   width: 11rem;
   margin-left: auto;
 }
-
-/* ASIDE */
-
-.summary-section{
-  padding: 2rem 1rem;
-  min-height: 50vh;
+.h-separator{
+  margin: 0.5rem 0;
 }
-.summary{
- display: flex;
- flex-direction: column;
- align-items: center;
- align-content: space-between;
- justify-content: space-around;
- position: relative;
-}
-.summary-title{
-  margin-bottom: 2rem;
-}
-.summary-form{
-  align-self: stretch;
-  padding: 1rem 2rem;
-}
-.sub-form{
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
-.cvv{
-  margin-left: auto;
-}
-.sub-form>*{
-  padding: 0;;
-}
-.summary-btn{
-  align-self: stretch;
-  width: 100%;
-}
-
-/* TARJETA DE CREDITO */
-
-.credit-card{
-  width: 85%;
-  height: 25vh;
-  border-radius: 1rem; 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 2rem;
-}
-.cc-dots{
-  font-size: 0.5rem;
-  margin-left: 0.4rem;
-}
-.cc-dots:not(:first-child){
-  margin-left: 0.4rem;
-}
-.cc-logo {
-  font-size: 1.8rem;
-  align-self: flex-end;
-}
-
-
 
 
 /* Small devices (landscape phones, 576px and up) */
@@ -117,20 +62,9 @@
   }
   .cart-delete{
     order: 7;
-    align-self: flex-start;
   }
   .prod-price{
     order: 6;
-    align-self: flex-end;
-  }
-  .credit-card{
-    position: relative;
-    right: 3rem;
-    width: 100%;
-  }
-  .cc-dots{
-    font-size: 0.4rem;
-    margin-left: 0.4rem;
   }
 }
 
@@ -138,21 +72,9 @@
 @media (min-width: 992px) {
   .cart-delete{
     order: 10;
-    align-self: flex-start;
   }
   .prod-price{
     order: 6;
-    align-self: flex-end;
-  }
-  .credit-card{
-    position: relative;
-    right: 7rem;
-    width: 75%;
-    height: 30vh;;
-  }
-  .cc-dots{
-    font-size: 0.7rem;
-    margin-left: 0.4rem;
   }
 
 }

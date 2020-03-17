@@ -5,7 +5,7 @@
                 <div class="col-5 col-md-12">
                     <div class="list-item text-center mb-3">
                         <a href="/product/{{$id}}">
-                            <img class='list-img rounded-lg' src="/storage/img/products/{{$photo}}" alt="">
+                            <img class='list-img rounded-lg' src="/storage/products/{{$photo}}" alt="">
                         </a>
                     </div>
                 </div>

@@ -28,11 +28,11 @@
                                     @foreach($product['photos'] as $photo)
                                     @if ($loop->first)
                                     <div class="carousel-item active">
-                                        <img class="d-block img-fluid product-img" src="/storage/img/products/{{$photo['path']}}" alt="">
+                                        <img class="d-block img-fluid product-img" src="/storage/products/{{$photo['path']}}" alt="">
                                     </div>
                                     @endif
                                     <div class="carousel-item">
-                                        <img class="d-block w-100" src="/storage/img/products/{{$photo['path']}}" alt="Third slide">
+                                        <img class="d-block w-100" src="/storage/products/{{$photo['path']}}" alt="Third slide">
                                     </div>
                                     @endforeach
 
@@ -194,7 +194,7 @@
                     'price' => $product->price,
                     'category' => $product->category['name'],
                     'id' => $product->id,
-                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+                    'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'prod-1.png',
                     'index' => $loop->index,
                     'isAuth' => Auth::check()
                     ])

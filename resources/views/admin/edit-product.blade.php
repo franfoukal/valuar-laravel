@@ -91,7 +91,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12 mb-3 text-center">
-                                        <img src="/storage/img/products/{{$photo['path']}}" alt="" class='img-circle shadow admin-prod-img' style="width: 6rem">
+                                        <img src="/storage/products/{{$photo['path']}}" alt="" class='img-circle shadow admin-prod-img' style="width: 6rem">
                                     </div>
                                     <div class="col-12 text-center">
                                         <a class='bg-rojo text-white font-weight-bold py-2 px-3 rounded' href='/admin/delete-photo/{{$photo["path"]}}'>Borrar</a>

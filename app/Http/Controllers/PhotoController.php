@@ -41,7 +41,7 @@ class PhotoController extends Controller
             'user_profile' => ['required', 'mimes:jpeg, png, jpg, svg, bmp', 'max:10000000']
         ]);
 
-        $userImage = public_path(). "/storage/{Auth::user()->photo}"; // get previous image from folder
+        $userImage = public_path(). "/storage/profile" . Auth::user()->photo; // get previous image from folder
         if (File::exists($userImage)) { // unlink or remove previous image from folder
             unlink($userImage);
             File::delete($userImage);
@@ -51,7 +51,6 @@ class PhotoController extends Controller
         $filename = basename($path);
         $extension = $request->file('user_profile')->getClientOriginalExtension();
         
-
 
         $photo = new Photo();
         $photo->user_id = Auth::user()->id; 

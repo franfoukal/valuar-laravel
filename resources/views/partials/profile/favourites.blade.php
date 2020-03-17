@@ -13,7 +13,7 @@
             'material' => $product->material,
             'price' => $product->price,
             'id' => $product->id,
-            'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'img/products/prod-1.png',
+            'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'prod-1.png',
             'index' => $loop->index,
             'isAuth' => Auth::check(),
             'fav' => 'col-12 col-md-6 col-lg-3'

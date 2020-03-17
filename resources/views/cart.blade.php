@@ -3,34 +3,35 @@
 @section('main-content')
 <main class="main-content" id="cart">
     <div class="row p-0 m-0">
-        <section class="item-list-cart col-12 col-md-8 col-lg-8">
-            <div class="cont col-11">
-                <h1 class="cart-title">Tu carrito</h1>
-                <ul class="clearlist">
-                    <li class="mb-4" v-for="(product, index) in products" :key="index">
-                        <div class="row cart-item mx-2 px-2 z-depth-1-half">
-
-                            <div class="img-wrapper-cart col-5 col-md-3 col-lg-2">
-                                <img :src="products[index].photos[0].path != undefined ? 'hola' : 'chau' " alt="" class="cart-prod-img img-fluid rounded-circle bd-piel">
-                            </div>
-
-                            <h4 class="prod-name col-5 col-md-4 col-lg-3">@{{product.name}}</h4>
-                            <a @click="deleteProduct(index)" href="#" class="cart-delete rojo col-2 col-md-1 col-lg-1"><i class="fas fa-times"></i></a>
-
-                            <h5 class="prod-price verde col-12 col-md-2 col-lg-2">$@{{product.price}}</h5>
+        <section class="item-list-cart col-12 col-md-9 col-lg-9">
+            <h1 class="cart-title mb-4">Tu carrito</h1>
+            <ul class="clearlist cart-list col-12 col-md-9 col-lg-8">
+                <hr class="h-separator">
+                <li class="" v-for="(product, index) in products" :key="index">
+                    <div class="row cart-item mx-2 px-2">
+                        <div class="img-wrapper-cart col-5 col-sm-3 col-md-3 col-lg-2">
+                            <img :src="products[index].first_photo.path != undefined ? '/storage/products/' + products[index].first_photo.path  : '' " alt="" class="cart-prod-img img-fluid rounded-circle bd-verde z-depth-1-half">
                         </div>
-                    </li>
-                </ul>
 
+                        <div class="row md-form form-sm">
+                            <input type="number" id="number" class="form-control form-control-sm">
+                            <label for="number" class="">Small input</label>
+                        </div>
 
-
-                <h3 class="total-price">Total:
-
-                </h3>
-            </div>
+                        <div class="col-5 col-md-4 col-lg-3 m-0">
+                            <h4 class="prod-name m-0">@{{product.name}}</h4>
+                            <small>@{{product.material.name}} - T: @{{product.size}}</small>
+                        </div>
+                        <h5 class="prod-price verde col-12 col-md-2 col-lg-2 m-0">$@{{product.price}}</h5>
+                        <a @click="deleteProduct(index)" href="#" class="cart-delete rojo col-2 col-md-1 col-lg-1"><i class="fas fa-times"></i></a>
+                    </div>
+                    <hr class="h-separator">
+                </li>
+            </ul>
         </section>
+    </div>
 
-        <aside class="summary-section z-depth-1-half bg-crema col-12 col-md-4 col-lg-4">
+    <!-- <aside class="summary-section z-depth-1-half bg-crema col-12 col-md-4 col-lg-4">
 
             <div class="summary">
                 <h5 class="summary-title">Método de pago</h5>
@@ -111,8 +112,8 @@
 
 
             </div>
-    </div>
-    </aside>
+        </aside> -->
+
     </div>
 </main>
 
@@ -120,25 +121,10 @@
     var app = new Vue({
         el: '#cart',
         data: {
-            name: "",
-            cardNumber: "",
-            month: "",
-            year: "",
             products: [],
             refreshCartItems: 0
         },
-        computed: {
-            numberEmpty: function() {
-                return this.cardNumber == "";
-            },
-            cardNumberSeparated: function() {
-                if (!this.numberEmpty) {
-                    return this.cardNumber.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, "$1-$2-$3-$4");
-                } else {
-                    return "";
-                }
-            }
-        },
+        computed: {},
         methods: {
             listarProductos() {
                 let me = this;
@@ -176,8 +162,14 @@
 
         },
         mounted() {
+            this.products = [];
             this.listarProductos();
         }
+    });
+
+    Vue.component('number-input', {
+        props: ['initial'],
+        template: '',
     })
 </script>
 @endsection

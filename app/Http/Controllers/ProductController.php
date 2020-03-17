@@ -152,7 +152,7 @@ class ProductController extends Controller
                 $photo = new Photo();
 
                 $photoProduct = Product::where('name', $request['name'])->get();
-                $path = $photos->store('/public/img/products');
+                $path = $photos->store('/storage/products');
                 $filename = basename($path);
                 $extension = $photos->getClientOriginalExtension();
                 
@@ -380,18 +380,19 @@ class ProductController extends Controller
 
 
     public function addToCart(Request $request){
-        $product = Product::find($request->id);
+        $product = Product::find($request->id); 
 
         $product->units = $request->units;
         $product->size = $request->size;
-        $product->photos = $product->photos;
+        $product->firstPhoto;
+        $product->material;
 
         $request->session()->push('cart', $product);
 
         return response()->json([
             'msg' => 'Added to cart',
             'check' => session('cart')
-        ]);
+        ], 201);
     }
 
     public function deleteFromCart(Request $request)

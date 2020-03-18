@@ -21,7 +21,6 @@
                                             {{$name}}
                                         </h4>
                                     </a>
-
                                     <a v-if="fav" @click="favToogle"><i class="fas fa-heart rojo"></i></a>
                                     <a v-else @click="favToogle"><i class="far fa-heart rojo"></i></a>
                                 </div>
@@ -39,10 +38,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <!-- <form action="/valuar/product/add-to-cart" method="post">
-                        <input name="cart" type="hidden" value=''>
-                    </form> -->
-                        <button @click="addToCart" name="agregar" type="submit" class='btn bg-verde text-white w-100 mx-auto'>Añadir al carrito</button>
+                    <button @click="notifyCart" name="agregar" type="submit" class='btn bg-verde text-white w-100 mx-auto'>Añadir al carrito</button>
                 </div>
             </div>
         </div>
@@ -114,12 +110,16 @@
                         size: me.size
                     })
                     .then(function(response) {
-                         console.log(response);
-                         
+                        console.log(response);
+                        window.location.reload();
+
                     })
                     .catch(function(error) {
                         console.log(error);
                     });
+            },
+            notifyCart() {
+                this.addToCart();
             }
         },
         mounted() {

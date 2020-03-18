@@ -381,11 +381,11 @@ class ProductController extends Controller
 
     public function addToCart(Request $request){
         $product = Product::find($request->id); 
-
         $product->units = $request->units;
         $product->size = $request->size;
         $product->firstPhoto;
         $product->material;
+        $product->unique_id = uniqid();
 
         $request->session()->push('cart', $product);
 
@@ -398,8 +398,10 @@ class ProductController extends Controller
     public function deleteFromCart(Request $request)
     {
         $cart = $request->session()->pull('cart');
-        if (($key = array_search($request->index, $cart)) !== false) {
-            unset($cart[$key]);
+        foreach ($cart as $key => $item) {
+            if($item['unique_id'] == $request->unique_id){
+                unset($cart[$key]);
+            }
         }
         session()->put('cart', $cart);
         return response()->json([
@@ -412,6 +414,14 @@ class ProductController extends Controller
         $cart = $request->session()->get('cart');
         return json_encode(array($cart));
     }
+
+    public function refreshCart(Request $request){
+        $request->session()->forget('cart');
+        session()->put('cart', $request->cart);
+
+        return response()->json(["msg" => "change"], 200);
+    }
+
 
     public function deleteCart(Request $request){
         return $request->session()->forget('cart');

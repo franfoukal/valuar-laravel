@@ -1,4 +1,4 @@
- <div class="">
+ <div class="sticky">
      <footer class="main-footer bg-noche">
          <section class="container">
              <div class="row">

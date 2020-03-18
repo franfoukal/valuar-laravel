@@ -14,8 +14,8 @@ $factory->define(Product::class, function (Faker $faker) {
         'description' => $faker->text(100),
         'stock' => $faker->numberBetween(0,200),
         'active' => $faker->numberBetween(0, 1),
-        'category_id' =>  $faker->numberBetween(0, 20),
-        'material_id' =>  $faker->numberBetween(0, 2),
+        'category_id' =>  $faker->numberBetween(1, 20),
+        'material_id' =>  $faker->numberBetween(1, 2),
         'amount_sold' => $faker->numberBetween(0,200)
     ];
 });

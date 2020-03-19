@@ -14,11 +14,9 @@
                         </div>
 
 
-                        <number-input title="cant" :initial="product.units" min="0" @increment="product.units++" @decrement="product.units == 0 ? 0 : product.size--" class="col-6 col-md-2 my-4"></number-input>
+                        <number-input title="cant" :initial="product.units" min="0" @increment="increment(index, 'units')" @decrement="decrement(index, 'units')" class="col-6 col-md-2 my-4"></number-input>
 
-                        <number-input title="talle" :initial="product.size" min="0" @increment="product.size++" @decrement="product.size == 0 ? 0 : product.size--" class="col-6 col-md-2 my-4"></number-input>
-
-                        <!-- @increment="product.size++" @decrement="product.size == 0 ? 0 : product.size--" -->
+                        <number-input title="talle" :initial="product.size" min="0" @increment="increment(index, 'size')" @decrement="decrement(index, 'size')" class="col-6 col-md-2 my-4"></number-input>
 
                         <div class="col-5 col-md-3 col-lg-3 m-0">
                             <h4 class="prod-name m-0">@{{product.name}}</h4>
@@ -55,8 +53,6 @@
                 axios.get('/cart/get')
                     .then(function(response) {
                         me.products = response.data[0];
-                        console.log(response.data[0]);
-
                     })
                     .catch(function(error) {
                         // handle error
@@ -85,11 +81,11 @@
             },
             commitChanges() {
                 let me = this;
-                axios.put('/cart/refresh', {
+                axios.post('/cart/refresh', {
                         cart: me.products
                     })
                     .then(function(response) {
-                        console.log('modified');
+                        console.log(response);
 
                     })
                     .catch(function(error) {
@@ -97,22 +93,21 @@
                         console.log(error);
                     })
                     .finally(function() {
-                        // always executed
+                        me.listarProductos();
                     });
             },
             calculatePrice(product) {
                 return product.units * product.price;
             },
-            increment(num) {
-                num++;
+            increment(index, attr) {
+                this.products[index][attr]++;
                 this.commitChanges();
             },
-            decrement(num) {
-                num--;
+            decrement(index, attr) {
+                this.products[index][attr] == 0 ? 0 : this.products[index][attr]--;
                 this.commitChanges();
-            },
+            }
         },
-
         mounted() {
             this.products = [];
             this.listarProductos();

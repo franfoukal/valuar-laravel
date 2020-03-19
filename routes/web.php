@@ -31,7 +31,7 @@ Route::get('/cart', function () {
 Route::post('/cart/add', 'ProductController@addToCart');
 Route::get('/cart/get', 'ProductController@getCart');
 Route::post('/cart/delete', 'ProductController@deleteFromCart');
-Route::put('/cart/refresh', 'ProductController@refreshCart');
+Route::post('/cart/refresh', 'ProductController@refreshCart');
 Route::get('/deleteCart', 'ProductController@deleteCart');
 
 Route::get('/profile', function () {

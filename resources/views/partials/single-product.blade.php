@@ -1,5 +1,5 @@
 <div class="@php echo isset($fav) ? $fav : 'col-12 col-md-4 col-lg-3' @endphp">
-    <div class="product" id="sp{{$index}}">
+    <product inline-template class="product" id="sp{{$index}}" id_prod="{{$id}}">
         <div class="card bg-white p-1 px-2">
             <div class="row">
                 <div class="col-5 col-md-12">
@@ -38,21 +38,24 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button @click="notifyCart" name="agregar" type="submit" class='btn bg-verde text-white w-100 mx-auto'>Añadir al carrito</button>
+                    <button @click.prevent="addToCart" name="agregar" type="button" class='btn bg-verde text-white w-100 mx-auto'>Añadir al carrito</button>
                 </div>
             </div>
         </div>
-    </div>
+    </product>
 </div>
 
+@section('script')
 <script type="application/javascript">
-    new Vue({
-        el: '#sp{{$index}}',
-        data: {
-            fav: false,
-            auth: "{{$isAuth == 1 ? 1 : 0}}" == 1 ? true : false,
-            units: 1,
-            size: 20,
+    Vue.component('product', {
+        props: ['id_prod'],
+        data() {
+            return {
+                fav: false,
+                auth: "{{$isAuth == 1 ? 1 : 0}}" == 1 ? true : false,
+                units: 1,
+                size: 20
+            }
         },
         computed: {
 
@@ -67,10 +70,12 @@
                     window.location.href = "/login";
                     return;
                 }
-                axios.post('/product/fav/{{$id}}')
+                var me = this;
+                axios.post('/product/fav/' + me.id_prod)
                     .then(function(response) {
                         console.log(response);
-                        window.location.reload()
+                        me.$root.$emit('add-to-fav');
+                        me.isFav();
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -80,10 +85,12 @@
                 if (!this.auth) {
                     return;
                 }
-                axios.delete('/product/fav/{{$id}}')
+                var me = this;
+                axios.delete('/product/fav/' + me.id_prod)
                     .then(response => {
                         console.log(response);
-                        window.location.reload()
+                        me.$root.$emit('remove-from-fav');
+                        me.isFav();
                     })
                     .catch(error => {
                         console.log(error);
@@ -94,8 +101,10 @@
                     return;
                 }
                 var me = this;
-                axios.post("/product/isfav/{{$id}}/{{Auth::check() ? Auth::user()->id : ''}}")
+                axios.post("/product/isfav/" + me.id_prod + "/{{Auth::check() ? Auth::user()->id : ''}}")
                     .then(function(response) {
+                        console.log(response);
+
                         me.fav = response.data;
                     })
                     .catch(function(error) {
@@ -105,21 +114,17 @@
             addToCart() {
                 let me = this;
                 axios.post("/cart/add", {
-                        id: '{{$id}}',
+                        id: me.id_prod,
                         units: me.units,
                         size: me.size
                     })
                     .then(function(response) {
                         console.log(response);
-                        window.location.reload();
-
+                        me.$root.$emit('add-to-cart');
                     })
                     .catch(function(error) {
                         console.log(error);
                     });
-            },
-            notifyCart() {
-                this.addToCart();
             }
         },
         mounted() {
@@ -127,3 +132,4 @@
         },
     });
 </script>
+@endsection

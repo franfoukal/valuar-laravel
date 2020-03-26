@@ -66,5 +66,7 @@
         <!-- Default form login -->
     </div>
 </div>
+@endsection
+@section('script')
 <script src="/js/login.js"></script>
 @endsection

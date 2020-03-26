@@ -91,6 +91,7 @@
         <!-- Sign Up form -->
     </div>
 </div>
+@endsection
+@section('script')
 <script src="js/register.js"></script>
-
 @endsection

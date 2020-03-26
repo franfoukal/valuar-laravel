@@ -411,8 +411,11 @@ class ProductController extends Controller
     }
 
     public function getCart(Request $request){
-        $cart = $request->session()->get('cart');
-        return json_encode(array($cart));
+        $cart = $request->session()->get('cart') ?? [];
+        return json_encode([
+            'cart' =>  $cart,
+            'units' => count($cart)
+            ]);
     }
 
     public function refreshCart(Request $request){

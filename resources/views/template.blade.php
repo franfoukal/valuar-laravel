@@ -29,17 +29,21 @@
     <link rel="stylesheet" href="{{asset('css/all.css')}}">
     <link rel="stylesheet" href="{{asset('css/files/shopping-cart.css')}}">
     <link rel="stylesheet" href="{{asset('css/files/profile.css')}}">
+
     @yield('styles')
     <title>Valuar | @yield('title')</title>
 </head>
 
 <body>
 
-    @include('header')
+    <div id="app">
+        @include('header')
 
-    @yield('main-content')
+        @yield('main-content')
 
-    @include('footer')
+        @include('footer')
+    </div>
+
 
 
 
@@ -52,8 +56,24 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
 
+
     @yield('script')
 
 </body>
+
+<script>
+    var main = new Vue({
+        el: '#app',
+
+        computed: {
+            locationLog: function() {
+                return window.location.pathname == '/home' || window.location.pathname == '/';
+            }
+        },
+    });
+
+</script>
+
+@yield('component')
 
 </html>

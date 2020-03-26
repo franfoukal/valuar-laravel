@@ -29,7 +29,7 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a class='dropdown-item' href="/products">Nuevos <i class="fas fa-exclamation text-default  annimated flash infinite slow"></i></a>
-                            <a class='dropdown-item' href="/products/orderBy/{{'relevantes'}}">Más relevantes</a>
+                                <a class='dropdown-item' href="/products/orderBy/{{'relevantes'}}">Más relevantes</a>
                                 <a class='dropdown-item' href="/products/orderBy/{{'aZ'}}">A - Z</a>
                                 <a class='dropdown-item' href="/products/orderBy/{{'Za'}}">A - Z</a>
                                 <a class='dropdown-item' href="/products/orderBy/{{'menorPrecio'}}">Menor Precio</a>
@@ -75,7 +75,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" class="form-control" name='search' placeholder="{{ old('search') ? old('search') : 'Buscar producto' }}">
-                                            </div>                                        
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="dropdown-divider"></div>
@@ -107,7 +107,7 @@
                                     </button>
                                 </div>
                             </div>
-                          </form>
+                        </form>
                     </li>
                     <li>
                         <div class="divisor my-1"></div>
@@ -147,7 +147,7 @@
                         <a class='noche' href="/products">Nuevos <i class="fas fa-exclamation text-default animated flash infinite slow"></i></a>
                     </li>
                     <li>
-                    <a class='noche' href="/products/orderBy/{{'relevantes'}}">Más relevantes</a>
+                        <a class='noche' href="/products/orderBy/{{'relevantes'}}">Más relevantes</a>
                     </li>
                     <li>
                         <a class='noche' href="/products/orderBy/{{'aZ'}}">A - Z</a>
@@ -200,36 +200,34 @@
             <!--Lista de productos-->
             <div class="col-12 col-lg-10">
                 <div class="row">
-                    @if (!empty($products))
-                        @forelse($products as $product)
-                        <!-- <div class="col-12 col-md-4 col-lg-3"> -->
-                            @component('partials.single-product',
-                            [
-                            'name' => $product->name,
-                            'material' => $product->material['name'],
-                            'price' => $product->price, 
-                            'category' => $product->category['name'],
-                            'id' => $product->id,
-                            'photo' => $product->firstPhoto['path'],
-                            'index' => $loop->index,
-                            'isAuth' => Auth::check()
-                            ])
-                            @endcomponent
-                        <!-- </div> -->
-                        @empty
-                        <div class='container text-center'>
-                            <h3 class='m-5'>Disculpe, ese producto no existe.</h3>
-                            <h4 class="m-5"><a href="/products"><i class="fas fa-arrow-left"></i> Volver a productos nuevos.</a></h4>
-                        </div>
-                        @endforelse
-                    @endif
+
+                    @forelse($products as $product)
+                    <!-- <div class="col-12 col-md-4 col-lg-3"> -->
+                        @component('partials.single-product',
+                        [
+                        'name' => $product->name,
+                        'material' => $product->material->name,
+                        'price' => $product->price,
+                        'id' => $product->id,
+                        'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'prod-1.png',
+                        'index' => $loop->index,
+                        'isAuth' => Auth::check()
+                        ])
+                        @endcomponent
+                    <!-- </div> -->
+                    @empty
+                    <div class='container text-center'>
+                        <h3 class='m-5'>Disculpe, ese producto no existe.</h3>
+                        <h4 class="m-5"><a href="/products"><i class="fas fa-arrow-left"></i> Volver a productos nuevos.</a></h4>
+                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>
         <!--Paginación de abajo-->
         <div class="col-12 d-flex justify-content-center mt-5">
             @if (!empty($products))
-                {{$products->appends(request()->query())->links()}}
+            {{$products->appends(request()->query())->links()}}
             @endif
         </div>
     </div>

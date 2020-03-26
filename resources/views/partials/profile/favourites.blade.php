@@ -10,7 +10,7 @@
             @component('partials.single-product',
             [
             'name' => $product->name,
-            'material' => $product->material,
+            'material' => $product->material->name,
             'price' => $product->price,
             'id' => $product->id,
             'photo' => isset($product->firstPhoto['path']) ? $product->firstPhoto['path'] : 'prod-1.png',

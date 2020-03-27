@@ -28,7 +28,7 @@
             </nav>
         </aside>
 
-        <div class="profile-main col-md-7 col-lg-8 my-4" :key="refresh">
+        <div class="profile-main col-md-7 col-lg-8 my-4">
             @yield('section')
         </div>
     </div>

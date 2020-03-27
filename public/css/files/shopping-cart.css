@@ -3,7 +3,8 @@
   padding: 2rem;
 }
 .cart-list{
-  max-height: 20rem;
+  height: 20rem;
+  max-height: 30rem;
   overflow: scroll;
 }
 .row.cart-item{

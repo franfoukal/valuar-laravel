@@ -75,7 +75,6 @@
                     .then(function(response) {
                         console.log(response);
                         me.$root.$emit('add-to-fav');
-                        me.isFav();
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -89,8 +88,7 @@
                 axios.delete('/product/fav/' + me.id_prod)
                     .then(response => {
                         console.log(response);
-                        me.$root.$emit('remove-from-fav');
-                        me.isFav();
+                        me.$root.$emit('remove-from-fav'); 
                     })
                     .catch(error => {
                         console.log(error);
@@ -129,6 +127,12 @@
         },
         mounted() {
             this.isFav();
+            this.$root.$on('add-to-fav', () => {
+                this.isFav();
+            });
+            this.$root.$on('remove-from-fav', () => {
+                this.isFav();
+            });
         },
     });
 </script>

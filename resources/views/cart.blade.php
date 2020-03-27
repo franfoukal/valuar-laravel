@@ -9,10 +9,9 @@
                 <hr class="h-separator">
                 <li class="" v-for="(product, index) in products" :key="index">
                     <div class="row cart-item mx-2 px-2">
-                        <div class="img-wrapper-cart col-4 col-sm-3 col-md-2 col-lg-2">
+                        <a class="img-wrapper-cart col-4 col-sm-3 col-md-2 col-lg-2" :href="'/product/' + product.id">
                             <img :src="product.first_photo.path != undefined ? '/storage/products/' + product.first_photo.path  : '' " alt="" class="cart-prod-img img-fluid rounded-circle bd-verde z-depth-1-half">
-                        </div>
-
+                        </a>
 
                         <number-input title="cant" :initial="product.units" min="0" @increment="increment(index, 'units')" @decrement="decrement(index, 'units')" class="col-6 col-md-2 my-4"></number-input>
                         <number-input title="talle" :initial="product.size" min="0" @increment="increment(index, 'size')" @decrement="decrement(index, 'size')" class="col-6 col-md-2 my-4"></number-input>
@@ -26,7 +25,7 @@
                     <hr class="h-separator">
                 </li>
             </ul>
-            <div v-else class="row mt-3">
+            <div v-else class="row mt-3 cart-list align-items-center">
                 <i class="fas fa-shopping-cart fav-empty-list-icon verde col-3 col-md-2 col-lg-1"></i>
                 <h2 class="col-8 fav-empty-list-text">Todavía no has agregado productos al carrito!</h2>
             </div>
@@ -36,85 +35,10 @@
 </cart>
 
 <script type="application/javascript">
-    // var app = new Vue({
-    //     el: '#cart',
-    //     data: {
-    //         products: [],
-    //         refreshCartItems: 0
-    //     },
-    //     computed: {
-
-    //     },
-    //     methods: {
-    //         listarProductos() {
-    //             let me = this;
-    //             axios.get('/cart/get')
-    //                 .then(function(response) {
-    //                     me.products = response.data[0];
-    //                 })
-    //                 .catch(function(error) {
-    //                     // handle error
-    //                     console.log(error);
-    //                 })
-    //                 .finally(function() {
-    //                     // always executed
-    //                 });
-    //         },
-
-    //         deleteProduct(unique_id) {
-    //             let me = this;
-    //             axios.post('/cart/delete', {
-    //                     unique_id: unique_id
-    //                 })
-    //                 .then(function(response) {
-    //                     me.listarProductos();
-    //                 })
-    //                 .catch(function(error) {
-    //                     // handle error
-    //                     console.log(error);
-    //                 })
-    //                 .finally(function() {
-    //                     // always executed
-    //                 });
-    //         },
-    //         commitChanges() {
-    //             let me = this;
-    //             axios.post('/cart/refresh', {
-    //                     cart: me.products
-    //                 })
-    //                 .then(function(response) {
-    //                     console.log(response);
-
-    //                 })
-    //                 .catch(function(error) {
-    //                     // handle error
-    //                     console.log(error);
-    //                 })
-    //                 .finally(function() {
-    //                     me.listarProductos();
-    //                 });
-    //         },
-    //         calculatePrice(product) {
-    //             return product.units * product.price;
-    //         },
-    //         increment(index, attr) {
-    //             this.products[index][attr]++;
-    //             this.commitChanges();
-    //         },
-    //         decrement(index, attr) {
-    //             this.products[index][attr] == 0 ? 0 : this.products[index][attr]--;
-    //             this.commitChanges();
-    //         }
-    //     },
-    //     mounted() {
-    //         this.products = [];
-    //         this.listarProductos();
-    //     }
-    // });
-
-     Vue.component('cart', {
+  
+    Vue.component('cart', {
         data() {
-            return{
+            return {
                 products: [],
                 refreshCartItems: 0
             }

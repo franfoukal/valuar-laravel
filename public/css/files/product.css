@@ -25,7 +25,12 @@ input[type=number]::-webkit-outer-spin-button {
 footer .container{
     max-width: 100%;
 }
-
+.fa-heart:active{
+    animation-name: bounce;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    
+}
 .product-img{
     max-width: 100%;
 }
@@ -37,6 +42,15 @@ footer .container{
 }
 .precio{
     font-family: 'Open Sans', sans-serif;
+}
+
+@keyframes bounce{
+    50%{
+        transform: scale(1.2);
+    }
+    100%{
+        transform: scale(1);
+    }
 }
 @media screen and (min-width: 1024px){
     .talle-select{

@@ -7,7 +7,7 @@
         <h3 class='py-4 noche text-center'>Descubrí lo nuevo, descubrí valuar</h3>
         <div class='container bg-crema'>
 
-            <div class="row zoom-child mx-lg-5">
+            <div class="row mx-lg-5">
 
                 @foreach($products as $product)
                         @component('partials.single-product',
@@ -25,7 +25,7 @@
 
                 </div>
                 <div class="text-center">
-                    <a class="btn transparent bd-noche noche waves-effect waves-light mx-0 my-4 rounded" href="/products" role="button">Descubrí más »</a>
+                    <a class="discover-btn btn transparent bd-noche noche waves-effect waves-light mx-0 my-4 rounded" href="/products" role="button">Descubrí más »</a>
                 </div>
             </div>
     </section>

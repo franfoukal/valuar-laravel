@@ -232,7 +232,7 @@ class ProductController extends Controller
 
             switch ($_GET['search']) {
                 case (preg_match('/[0-9]+/', $_GET['search']) ? true : false):
-                    $products = Product::where('price', '<=', $_GET['search'],)
+                    $products = Product::where('price', '<=', $_GET['search'])
                     ->orderBy('price', 'DESC')
                     ->paginate(12);
                     return view('product-list', compact('products'));
@@ -291,7 +291,7 @@ class ProductController extends Controller
             // filtrar por precio entre X e Y  /filter/x_y
             case (preg_match('/[0-9]+_[0-9]+/', $filter)?true:false):
                 $filter = explode('_' , $filter);
-                $products = Product::where('price', '>=', $filter[0],)
+                $products = Product::where('price', '>=', $filter[0])
                 ->where('price', '<=', $filter[1])
                 ->orderBy('created_at')
                 ->paginate(12);

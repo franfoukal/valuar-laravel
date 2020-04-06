@@ -97,7 +97,7 @@ class ProductController extends Controller
     public function displayProduct(int $id){
         $product = Product::findOrFail($id);
         $photos = $product->photos;
-        $recomended = Product::limit(4)->get();
+        $recomended = Product::orderBy('amount_sold', 'DESC')->limit(4)->get();
         return view('product', compact('product', 'photos', 'recomended'));
     }
 
@@ -106,9 +106,10 @@ class ProductController extends Controller
         ->paginate(12);
         return view("product-list", compact('products'));
     }
+
     public function bestSellers()
     {
-        $products = Product::limit(4)->get();
+        $products = Product::orderBy('amount_sold', 'DESC')->limit(4)->get();
         return view("home", compact('products'));
     }
 

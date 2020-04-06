@@ -1,7 +1,7 @@
 @extends('profile')
 @section('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.css" crossorigin="anonymous">
-
+<link href="https://unpkg.com/vue-croppa/dist/vue-croppa.min.css" rel="stylesheet" type="text/css">
+<script src="https://unpkg.com/vue-croppa/dist/vue-croppa.min.js"></script>
 @endsection
 @section('section')
 <user-config inline-template>
@@ -125,6 +125,7 @@
     </div>
 </user-config>
 @endsection
+
 @section('change-avatar')
 <div class="profile-user-edit-img row">
     <button id="btn-edit-avatar" type="button" class="btn btn-sm rounded-circle p-3  bg-rojo crema" data-toggle="modal" data-target="#imgModal">
@@ -148,14 +149,12 @@
 
                 <form action="/profile/user/edit-photo" method="post" enctype="multipart/form-data" id="form-img">
                     @csrf
-                    <div id="">
-                        <div id="main-cropper"></div>
-                        <a class="button actionUpload">
-                            <input type="file" id="upload" accept="image/*" name="user_profile" id="user_profile_img">
-                        </a>
-
-                    </div>
-                    <button id="upload-result" class="btn col-12 mt-4 bg-verde">Guardar cambios</button>
+                    <cropper inline-template class="row m-0 p-0 justify-content-center">
+                        <div>
+                            <croppa v-model="avatar" :prevent-white-space="true" :width="225" :height="225" @mouseup="cropImage" @touchend="cropImage" @loading-end="cropImage"></croppa>
+                            <button @click.prevent="create" class="btn col-12 mt-4 bg-verde">Guardar cambios</button>
+                        </div>
+                    </cropper>
                 </form>
             </div>
         </div>
@@ -164,9 +163,11 @@
 
 
 <script type="application/javascript">
+    Vue.use(Croppa);
     Vue.component('user-config', {
         data() {
             return {
+                user_id: "{{Auth::User()->id}}",
                 modify: {
                     name: true,
                     surname: true,
@@ -197,7 +198,8 @@
                 for (const key in me.modify) {
                     me.modify[key] = false;
                 }
-            }
+            },
+
         },
         computed: {
 
@@ -208,50 +210,60 @@
 
 @endsection
 @section('script')
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js"></script>
-<script >
-    var basic = $('#main-cropper').croppie({
-        viewport: {
-            width: 250,
-            height: 250,
-            type: 'circle'
-        },
-        boundary: {
-            width: 300,
-            height: 300
-        },
-    });
-
-    function readFile(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $('#main-cropper').croppie('bind', {
-                    url: e.target.result
-                });
+<script>
+    Vue.component('cropper', {
+        data() {
+            return {
+                avatar: {},
+                image: '',
+                formuario: '',
+                type: ''
             }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+        },
+        methods: {
+            cropImage() {
+                let me = this;
+                this.avatar.generateBlob((blob) => {
+                    me.image = blob;
+                    if (blob != null) {
+                        me.type = blob.type.split('/')[1];
+                    }
+                });
+            },
 
-    $('.actionUpload input').on('change', function() {
-        readFile(this);
-    });
+            prepareForm() {
+                let me = this;
+                this.cropImage();
+                let form = new FormData();
+                form.append('avatar', me.image);
+                form.append('type', me.type);
+                return form;
+            },
 
-
-    $('#upload-result').on('click', function(ev) {
-        basic.croppie('result', {
-            type: 'canvas',
-            size: 'original',
-            circle: true
-        }).then(function(response) {
-            $('#user_profile_img').val(response);
-            $('#form-img').submit();
-        });
-
-
-    });
+            create() {
+                let me = this;
+                axios({
+                        method: 'post',
+                        url: "/profile/user/edit-photo",
+                        data: me.prepareForm(),
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                    })
+                    .catch(function(error) {
+                        console.log(error.response);
+                    });
+            }
+        },
+        computed: {
+            filename() {
+                return 'avatar.' + this.type;
+            }
+        },
+    })
 </script>
 @endsection

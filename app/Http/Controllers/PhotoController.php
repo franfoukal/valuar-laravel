@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Photo;
+use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -37,33 +39,37 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'user_profile' => ['required', 'mimes:jpeg, png, jpg, svg, bmp', 'max:10000000']
-        ]);
 
-        $userImage = public_path(). "/storage/profile" . Auth::user()->photo; // get previous image from folder
-        if (File::exists($userImage)) { // unlink or remove previous image from folder
-            unlink($userImage);
-            File::delete($userImage);
+       $photo = new Photo();
+
+        if (!empty($request->file('avatar'))) {
+            $avatar = $request->file('avatar');
+            $name = 'avatar_' . time() . '.' . $request->type;
+            $path = public_path() . '/storage/profile';
         }
+       
+        $photo->path = $name;
+        $photo->extension = $request->type;
+        $photo->user_id = Auth::user()->id;
 
-        $path = $request->file('user_profile')->store('public');
-        $filename = basename($path);
-        $extension = $request->file('user_profile')->getClientOriginalExtension();
-        
-
-        $photo = new Photo();
-        $photo->user_id = Auth::user()->id; 
-        $photo->path = $filename;
-        $photo->extension = $extension;
         try {
+            if (isset(Auth::User()->photo)) {
+                $this->deletePhoto(Auth::User()->photo->path);
+            }
             $photo->save();
-            File::delete(Auth::user()->photo);
-        } catch (\Exception $e) {
+            $avatar->move($path, $name);
+            return response()->json([
+                "msg" => "image upload"
+            ], 201);
             
-        }
+        } catch (Exception $e) {
+            $error = $e->getMessage();
 
-        return view('profile');
+            return response()->json([
+                "msg" => "error uploading image",
+                "error" => $error
+            ], 401);
+        }
     }
 
     /**

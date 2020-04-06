@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
         
         factory(Product::class, 400)->create();
         factory(Photo::class, 1000)->create();
-        // $this->call(UsersTableSeeder::class);
+
         $this->call(RolesSeeder::class);
         User::create([
             'name' => 'admin',
@@ -69,7 +69,6 @@ class DatabaseSeeder extends Seeder
             'active' => 1,
             'password' => bcrypt('admin')
         ]);
-
 
         
     }

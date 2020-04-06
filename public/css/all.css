@@ -101,7 +101,13 @@ header.index{
 /* MAS VENDIDO */
 
 
-
+.discover-btn{
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+.discover-btn:hover{
+  background-color: rgb(5, 5, 23);
+  color: rgb(247, 212, 188)!important;
+}
 
 
 /* MEDIA QUERYS */
@@ -178,6 +184,18 @@ header.index{
 .precio{
     font-weight: 400;
 }
+.fa-heart{
+  transition: box-shadow, 0.1s;
+}
+.fa-heart:active{
+  animation-name: bounce;
+  animation-duration: 0.4s;
+  animation-iteration-count: 1;
+  
+}
+.fa-heart::before :hover{
+  box-shadow: 0rem 0rem 0.5rem 0.1rem rgba(192, 25, 34, 0.8);
+}
 .list-img{
     width: 10rem;
 }
@@ -193,6 +211,15 @@ header.index{
 .divisor{
     width: 100%;
     border-top: solid 1px #C1666B;
+}
+@keyframes bounce{
+  50%{
+      transform: translate(-3.1px);
+      transform: scale(1.2);
+  }
+  100%{
+      transform: scale(1);
+  }
 }
 
 @media screen and (min-width: 1024px){

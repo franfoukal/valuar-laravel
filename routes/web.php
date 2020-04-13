@@ -27,6 +27,7 @@ Route::get('/contact', function () {
 Route::get('/cart', function () {
     return view('cart');
 });
+Route::post('/voucher/valid', 'VoucherController@isValid');
 
 Route::post('/cart/add', 'ProductController@addToCart');
 Route::get('/cart/get', 'ProductController@getCart');
@@ -112,6 +113,14 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/admin/add-product', 'ProductController@addProduct');
 
     Route::get('/admin', 'AdminController@index');
+
+    // VOUCHER
+
+    Route::get('/admin/vouchers', function(){
+        return view('admin.vouchers');
+    });
+    
+    Route::resource('/admin/voucher', 'VoucherController');
 
     Route::get('/admin/users', 'AdminController@users');
 

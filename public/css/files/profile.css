@@ -105,6 +105,22 @@
     bottom: 2.5rem;
     left: 8rem;
 }
+.profile-img-wrapper{
+ position: relative;   
+}
+.profile-img-action{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    background-color: rgba(255,255,255,.03);;
+}
+
+
 /* TABLET */
 @media (min-width: 768px) and (max-width: 1024px) {
     .profile-user-edit-img{

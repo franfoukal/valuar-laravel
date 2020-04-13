@@ -39,3 +39,49 @@ label {
     text-align: center;
     align-self: center;
 }
+
+/* VOUCHERS PAGE */
+.voucher-list{
+    font-size: 1rem;
+}
+.voucher.card-header .row{
+    justify-content: space-between;
+    align-items: center;
+}
+.voucher-form-back-arrow{
+    font-size: 1.3rem;
+}
+.voucher-form-label{
+    font-weight: 500 !important;
+}
+.voucher-form-q-selector{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* NUMBER INPUT COMPONENT */
+
+.number-input-custom{
+    order: 5;
+    color: black;
+    justify-self: center;
+}
+.number-input-control{
+    cursor: pointer;
+    font-size: .7rem;
+}
+.number-input-control:hover{
+    color:#48A9A6;
+}
+.number-input{
+    border: none;
+    width: 2rem;
+    text-align: center;
+    font-size: 1.3rem;
+    color:black;
+}
+.number-input-group{
+    justify-content: center;
+    align-items: center;
+}

@@ -3,9 +3,9 @@
 @section('main-content')
 <cart inline-template class="main-content" id="cart">
     <div class="row p-0 m-0">
-        <section class="item-list-cart col-12 col-md-9 col-lg-9">
-            <h1 class="cart-title mb-4">Tu carrito</h1>
-            <ul v-if="Object.keys(products).length > 0" class="clearlist cart-list col-12 col-md-9 col-lg-8">
+        <section class="item-list-cart col-12 col-md-7 col-lg-6">
+            <h1 class="cart-title my-2">Tu carrito</h1>
+            <ul v-if="Object.keys(products).length > 0" class="clearlist cart-list col-12 col-md-12 col-lg-12">
                 <hr class="h-separator">
                 <li class="" v-for="(product, index) in products" :key="index">
                     <div class="row cart-item mx-2 px-2">
@@ -26,25 +26,93 @@
                 </li>
             </ul>
             <div v-else class="row mt-3 cart-list align-items-center">
-                <i class="fas fa-shopping-cart fav-empty-list-icon verde col-3 col-md-2 col-lg-1"></i>
+                <i class="fas fa-shopping-cart fav-empty-list-icon verde col-3 col-md-2 col-lg-2"></i>
                 <h2 class="col-8 fav-empty-list-text">Todavía no has agregado productos al carrito!</h2>
             </div>
         </section>
-    </div>
 
+        <section class="col-12 col-md-5 col-lg-5 ml-auto bg-crema shadow-lg cart-checkout">
+            <div class="card cart-checkout-card mx-auto my-5">
+                <div class="card-body text-center p-5 dashed">
+                    <h5 class="mb-2 verde text-left">Tenés un código o vaucher? <br> Ingresalo acá!</h5>
+                    <div class="cart-promo-code">
+                        <div class="md-form mt-3">
+                            <label for="form1" class="active">Código promocional</label>
+                            <input type="text" id="form1" class="form-control" v-model="voucher.code" @blur="checkVoucher" @change="checkVoucher" :class="voucher.validation">
+                            <div class="invalid-feedback">
+                                @{{error}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <div class="row cart-total m-0 p-0 mb-3">
+                            <small>Descuento</small>
+                            <div class="cart-total-child-middle mx-3"></div>
+                            <small>@{{discount}}</small>
+                        </div>
+                        <div class="row cart-total m-0 p-0">
+                            <h5 class="m-0">Subtotal</h5>
+                            <div class="cart-total-child-middle mx-3"></div>
+                            <p class="m-0">$ @{{products.size != 0 ? subtotalPrice : 0}}</p>
+                        </div>
+                        <div class="row cart-total mt-4">
+                            <button class="btn col-12 text-white bg-verde">Continuar compra</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </cart>
 
 <script type="application/javascript">
-  
     Vue.component('cart', {
         data() {
             return {
                 products: [],
-                refreshCartItems: 0
+                refreshCartItems: 0,
+                voucher: {
+                    code: window.localStorage.getItem('voucher-code') ? window.localStorage.getItem('voucher-code') : '',
+                    isValid: undefined,
+                    type: undefined,
+                    discount: 0,
+                    validation: undefined
+                },
+                error: undefined,
             }
         },
         computed: {
+            subtotalPrice() {
+                var me = this;
+                var subtotal = this.products.reduce(function(suma, item) {
+                    return suma + (item.price * item.units);
+                }, 0);
+                switch (this.voucher.type) {
+                    case 'voucher':
+                        return (subtotal - parseFloat(this.voucher.discount)).toFixed(2);
+                        break;
+                    case 'discount':
+                        return (subtotal * (1 - this.voucher.discount)).toFixed(2);
+                        break;
+                    default:
+                        return subtotal;
+                        break;
+                }
+            },
 
+            discount() {
+                switch (this.voucher.type) {
+                    case 'voucher':
+                        return '$' + this.voucher.discount;
+                        break;
+                    case 'discount':
+                        return this.voucher.discount * 100 + '%';
+                        break;
+                    default:
+                        return 0;
+                        break;
+                }
+            },
         },
         methods: {
             listarProductos() {
@@ -86,7 +154,6 @@
                     })
                     .then(function(response) {
                         console.log(response);
-
                     })
                     .catch(function(error) {
                         // handle error
@@ -106,11 +173,42 @@
             decrement(index, attr) {
                 this.products[index][attr] == 0 ? 0 : this.products[index][attr]--;
                 this.commitChanges();
+            },
+            checkVoucher() {
+                var me = this;
+                this.error = undefined;
+                this.voucher.validation = undefined;
+                this.voucher.type = undefined;
+                this.voucher.isValid = undefined;
+                this.voucher.discount = 0;
+
+                axios.post('/voucher/valid', {
+                        code: me.voucher.code
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                        me.voucher.isValid = true;
+                        me.voucher.validation = 'is-valid';
+                        me.voucher.type = response.data.voucher.type;
+                        me.voucher.discount = response.data.voucher.value;
+                        window.localStorage.setItem('voucher-code', me.voucher.code);
+                    })
+                    .catch(function(error) {
+                        // handle error
+                        console.log(error.response);
+                        me.voucher.validation = 'is-invalid';
+                        me.error = error.response.data.msg;
+                        window.localStorage.removeItem('voucher-code');
+
+                    })
             }
         },
         mounted() {
             this.products = [];
             this.listarProductos();
+            if (this.voucher.code != '') {
+                this.checkVoucher();
+            }
         }
     });
 

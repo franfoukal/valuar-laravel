@@ -22,21 +22,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.2/css/adminlte.min.css">
     <!-- Google Font: Roboto -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"> 
-        <!-- Google Font: Montserrat -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <!-- Google Font: Montserrat -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/all.css">
     <link rel="stylesheet" href="@yield('css')">
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-     <!-- Navbar -->
+    <div class="wrapper" id="app">
+        <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/admin" class="nav-link">Panel de Control</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/home" class="nav-link">Home</a>
@@ -72,7 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">                        
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item has-treeview menu-open">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -93,8 +96,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <p>Ventas</p>
                                     </a>
                                 </li>
+                                <li class='nav-item'>
+                                    <a href="/admin/vouchers" class='nav-link'>
+                                    <i class="fas fa-ticket-alt nav-icon"></i>
+                                        <p>Cupones & Vouchers</p>
+                                    </a>
+                                </li>
                             </ul>
-                        </li>                     
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -130,9 +139,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <!-- /.content-wrapper -->
 
-        
 
-       
+
     </div>
     <!-- ./wrapper -->
 
@@ -148,4 +156,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.2/js/adminlte.min.js"></script>
 </body>
 
+
+<script>
+    new Vue({
+        el:"#app",
+    });
+</script>
 </html>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Material;
 use App\Photo;
+use Exception;
 use Illuminate\Support\Facades\Session;
 use phpDocumentor\Reflection\Types\Integer;
 
@@ -388,6 +389,7 @@ class ProductController extends Controller
         $product->material;
         $product->unique_id = uniqid();
 
+
         $request->session()->push('cart', $product);
 
         return response()->json([
@@ -398,17 +400,25 @@ class ProductController extends Controller
 
     public function deleteFromCart(Request $request)
     {
-        $cart = $request->session()->pull('cart');
-        foreach ($cart as $key => $item) {
-            if($item['unique_id'] == $request->unique_id){
-                unset($cart[$key]);
+        try {
+            $cart = $request->session()->pull('cart');
+            foreach ($cart as $key => $item) {
+                if($item['unique_id'] == $request->unique_id){
+                    unset($cart[$key]);
+                }
             }
+            
+            session()->put('cart', array_values($cart));
+            
+            return response()->json([
+                'msg' => 'Added to cart',
+                'check' => session('cart')
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'msg' => $e->getMessage()
+            ],400);
         }
-        session()->put('cart', $cart);
-        return response()->json([
-            'msg' => 'Added to cart',
-            'check' => session('cart')
-        ]);
     }
 
     public function getCart(Request $request){

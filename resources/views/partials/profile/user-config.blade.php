@@ -127,13 +127,11 @@
 @endsection
 
 @section('change-avatar')
-<div class="profile-user-edit-img row">
-    <button id="btn-edit-avatar" type="button" class="btn btn-sm rounded-circle p-3  bg-rojo crema" data-toggle="modal" data-target="#imgModal">
-        <div class="row profile-user-btn-cont p-0 m-0 far fa-edit "></div>
-    </button>
-    <label for="btn-edit-avatar" class="m-0 p-0 profile-user-btn-text">Cambiar</label>
-</div>
 
+<a class="profile-img-action row m-0 p-0 bg-noche text-white" data-toggle="modal" data-target="#imgModal">
+    <i class="far fa-edit mr-2"></i>
+    <p class="m-0">Editar</p>
+</a>
 
 <!-- Modal -->
 <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel" aria-hidden="true">
@@ -151,7 +149,12 @@
                     @csrf
                     <cropper inline-template class="row m-0 p-0 justify-content-center">
                         <div>
-                            <croppa v-model="avatar" :prevent-white-space="true" :width="225" :height="225" @mouseup="cropImage" @touchend="cropImage" @loading-end="cropImage"></croppa>
+                            <div v-if="error.exist" class="alert alert-danger" role="alert">
+                                @{{error.msg}}
+                            </div>
+                            <croppa v-model="avatar" :prevent-white-space="true" :width="225" :height="225" @mouseup="cropImage" @touchend="cropImage" @loading-end="cropImage">
+                                <img :src="previewImage" slot="initial">
+                            </croppa>
                             <button @click.prevent="create" class="btn col-12 mt-4 bg-verde">Guardar cambios</button>
                         </div>
                     </cropper>
@@ -208,6 +211,8 @@
     });
 </script>
 
+
+
 @endsection
 @section('script')
 <script>
@@ -217,7 +222,12 @@
                 avatar: {},
                 image: '',
                 formuario: '',
-                type: ''
+                type: '',
+                previewImage: "{{Auth::user()->photo ? '/storage/profile/' . Auth::user()->photo['path'] : ''}}",
+                error: {
+                    exist: false,
+                    msg: ''
+                }
             }
         },
         methods: {
@@ -253,9 +263,12 @@
                     })
                     .then(function(response) {
                         console.log(response);
+                        location.reload();
                     })
                     .catch(function(error) {
                         console.log(error.response);
+                        me.error.exist = true;
+                        me.error.msg = error.response.data.message;
                     });
             }
         },

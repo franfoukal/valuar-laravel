@@ -76,6 +76,28 @@
   align-items: center;
 }
 
+/* CHECHOUT */
+.cart-checkout{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ min-height: 60vh;
+}
+.cart-checkout-card{
+  min-height: 70%;
+}
+.cart-total-child-middle{
+  flex: 1;
+  border-bottom: dotted 1px rgba(0,0,0,.1);
+}
+.cart-total{
+  justify-content: space-between;
+}
+
+.dashed{
+    border: dashed 2px gray;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
 

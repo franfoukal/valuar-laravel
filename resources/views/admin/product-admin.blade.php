@@ -5,8 +5,8 @@
 <main class="container col-12 col-md-8">
     <div class="row admin-top-list-controls">
         @if(isset($success))
-        <div class='col-12 rounded bg-verde py-2 mb-3'>                    
-            {{ $success }}  
+        <div class='col-12 rounded bg-verde py-2 mb-3'>
+            {{ $success }}
         </div>
         @endif
         <div class="admin-prod-back-btn col-2 col-md-1 mb-3">
@@ -28,7 +28,7 @@
         <div class="col-12 col-md-3 mb-3 admin-prod-search-btn">
             <a href="/admin/add-product" class="col-12 btn text-white bg-verde">+ Nuevo</a>
         </div>
-        
+
     </div>
 
     <ul class="list-group">
@@ -36,7 +36,7 @@
         <li class="list-group-item">
             <div class="row admin-prod-item">
                 <div class="col-4 col-md-2">
-                    <img src="/storage/products/{{$product->firstPhoto['path']}}" class="img-circle shadow admin-prod-img" alt="" style="width: 4rem">
+                    <img src="{{$product->firstPhoto ? '/storage/products/' . $product->firstPhoto['path'] : ''}}" class="img-circle shadow admin-prod-img" alt="Sin foto" style="width: 4rem">
                 </div>
                 <div class="col-4 col-md-8">
                     <h5 class="admin-prod-name">{{$product->name}}</h5>

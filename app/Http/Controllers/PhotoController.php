@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Photo;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+
 
 class PhotoController extends Controller
 {
@@ -53,8 +56,10 @@ class PhotoController extends Controller
         $photo->user_id = Auth::user()->id;
 
         try {
-            if (isset(Auth::User()->photo)) {
-                $this->deletePhoto(Auth::User()->photo->path);
+            if (Auth::user()->photo) {
+                $toDelete = Photo::where('user_id', Auth::user()->id);
+                unlink(public_path() . '/storage/profile/' . Auth::user()->photo['path']);
+                $toDelete->delete();
             }
             $photo->save();
             $avatar->move($path, $name);
@@ -68,7 +73,7 @@ class PhotoController extends Controller
             return response()->json([
                 "msg" => "error uploading image",
                 "error" => $error
-            ], 401);
+            ], 400);
         }
     }
 
@@ -123,10 +128,17 @@ class PhotoController extends Controller
     }
 
     public function deleteProfilePhotos($user){
-
-        Photo::where('user_id', $user)->delete();
-
-        return back();
+        
+        try {
+            unlink(public_path() . '/storage/profile/' . Auth::user()->photo['path']);
+            return response()->json([
+                "msg" => "deleted"
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "msg" => "error" . $e
+            ], 400);
+        }
     }
 
     public function deleteProductPhotos($productID, $path){
@@ -137,7 +149,6 @@ class PhotoController extends Controller
     public function deletePhoto(string $path){
         
         Photo::where('path', $path)->delete();
-
         return back();
     }
      

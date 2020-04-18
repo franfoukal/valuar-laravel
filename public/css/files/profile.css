@@ -64,9 +64,16 @@
 }
 
 /* ADDRESS FORM COMPONENT */
-
+.address-matches{
+    max-height: 15rem;
+    overflow: scroll;
+}
 .address-form-input{
     margin-bottom: 0.5rem;
+}
+.address-list{
+    max-height: 15rem;
+    overflow: scroll;
 }
 .address-list-item{
     align-items: center;

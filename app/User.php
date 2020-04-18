@@ -45,4 +45,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Product::class);
     }
+    public function location()
+    {
+        return $this->hasMany('App\Location',  'user_id');
+    }
 }

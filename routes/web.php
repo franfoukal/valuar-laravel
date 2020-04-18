@@ -56,6 +56,8 @@ Route::get('/profile/user', function () {
 
 Route::post('/profile/user/edit-photo', 'PhotoController@store');
 
+Route::resource('/profile/location', 'LocationController');
+
 
 Route::get('/faq', function () {
     return view('faq');

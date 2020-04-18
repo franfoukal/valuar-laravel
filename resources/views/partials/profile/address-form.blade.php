@@ -31,7 +31,7 @@
 
 
         <section v-if="search">
-            <div class="list-group">
+            <div class="list-group address-matches m-0">
                 <div class="list-group-item list-group-item-action m-0" v-for="(direccion, index) in direccion.api.direcciones" :key="index">
                     <div class="row address-list-item">
                         <i class="far fa-building col-2"></i>

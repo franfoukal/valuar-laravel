@@ -112,10 +112,10 @@
                         </li>
                     </ul>
                     <button class="btn bg-verde text-white">Pagar</button>
-                    <form action="/procesar-pago" method="POST">
+                    <!-- <form action="/procesar-pago" method="POST">
                         <script src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js" data-preference-id="12">
                         </script>
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </main>

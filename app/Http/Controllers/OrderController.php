@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Andreani\Andreani;
 use Andreani\Requests\CotizarEnvio;
 
-// SDK de Mercado Pago
-use MercadoPago;
-// Agrega credenciales
-MercadoPago\SDK::setAccessToken(env('MERCADOLIBRE_ACCESS_TOKEN'));
+// // SDK de Mercado Pago
+// use MercadoPago;
+// // Agrega credenciales
+// MercadoPago\SDK::setAccessToken(env('MERCADOLIBRE_ACCESS_TOKEN'));
 
 
 /*
@@ -145,29 +145,29 @@ class OrderController extends Controller
         }
     }
 
-    public function createOrderML(Request $request){
-        $allowedPaymentMethods = config('payment-methods.enabled');
+    // public function createOrderML(Request $request){
+    //     $allowedPaymentMethods = config('payment-methods.enabled');
 
-        $request->validate([
-            'payment_method' => [
-                'required',
-                Rule::in($allowedPaymentMethods),
-            ],
-            'terms' => 'accepted',
-        ]);
+    //     $request->validate([
+    //         'payment_method' => [
+    //             'required',
+    //             Rule::in($allowedPaymentMethods),
+    //         ],
+    //         'terms' => 'accepted',
+    //     ]);
 
-        $order = $this->createOrder($request);
+    //     $order = $this->createOrder($request);
 
-        $this->notify($order);
-        $url = $this->generatePaymentGateway($request->get('payment_method'), $order);
-        return redirect()->to($url);
-    }
+    //     $this->notify($order);
+    //     $url = $this->generatePaymentGateway($request->get('payment_method'), $order);
+    //     return redirect()->to($url);
+    // }
 
-    protected function generatePaymentGateway($paymentMethod, Order $order): string
-    {
-        $method = new \App\PaymentMethods\MercadoPago;
+    // protected function generatePaymentGateway($paymentMethod, Order $order): string
+    // {
+    //     $method = new \App\PaymentMethods\MercadoPago;
 
-        return $method->setupPaymentAndGetRedirectURL($order);
-    }
+    //     return $method->setupPaymentAndGetRedirectURL($order);
+    // }
 
 }

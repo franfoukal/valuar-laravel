@@ -30,7 +30,7 @@
         <li class="list-group-item">
             <div class="row admin-prod-item">
                 <div class="col-4 col-md-2">
-                    <img src="/storage/profile/{{$user->photo['path']}}" class="img-circle shadow admin-prod-img bd-verde" alt="" style="width: 4rem">
+                    <img src="{{$user->photo ? '/storage/profile/' . $user->photo['path'] : '/img/profile/profile-default.jpeg'}}" class="img-circle shadow admin-prod-img bd-verde" alt="" style="width: 4rem">
                 </div>
                 <div class="col-4 col-md-8">
                     <h5 class="admin-prod-name">{{$user->name}} {{$user->surname}}</h5>
@@ -39,7 +39,7 @@
                     @else
                     <p class="m-0 font-weight-light rojo">Offline</p>
                     @endif
-                    
+
                     <p class="m-0 mt-1 font-weight-light">Rol: {{$user->roles_id == 1 ? ucfirst($roles[0]->name) : ucfirst($roles[1]->name)}}</p>
                 </div>
                 <a href="/admin/edit-user/{{$user->id}}" class="col-4 col-md-2 verde">

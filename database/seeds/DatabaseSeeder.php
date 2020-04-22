@@ -61,6 +61,7 @@ class DatabaseSeeder extends Seeder
         factory(Photo::class, 1000)->create();
 
         $this->call(RolesSeeder::class);
+        $this->call(VoucherSeeder::class);
         User::create([
             'name' => 'admin',
             'surname' => 'admin',

@@ -56,7 +56,7 @@
                             <p class="m-0">$ @{{products.size != 0 ? subtotalPrice : 0}}</p>
                         </div>
                         <div class="row cart-total mt-4">
-                            <button class="btn col-12 text-white bg-verde">Continuar compra</button>
+                            <a href="/checkout" class="btn col-12 text-white bg-verde">Continuar compra</a>
                         </div>
                     </div>
                 </div>
@@ -106,110 +106,114 @@
                         return '$' + this.voucher.discount;
                         break;
                     case 'discount':
-                        return this.voucher.discount * 100 + '%';
-                        break;
-                    default:
-                        return 0;
-                        break;
-                }
-            },
-        },
-        methods: {
-            listarProductos() {
-                let me = this;
-                axios.get('/cart/get')
-                    .then(function(response) {
-                        me.products = response.data.cart;
-                    })
-                    .catch(function(error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .finally(function() {
-                        // always executed
-                    });
-            },
-
-            deleteProduct(unique_id) {
-                let me = this;
-                axios.post('/cart/delete', {
-                        unique_id: unique_id
-                    })
-                    .then(function(response) {
-                        me.listarProductos();
-                        me.$root.$emit('delete-from-cart');
-                    })
-                    .catch(function(error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .finally(function() {
-                        // always executed
-                    });
-            },
-            commitChanges() {
-                let me = this;
-                axios.post('/cart/refresh', {
-                        cart: me.products
-                    })
-                    .then(function(response) {
-                        console.log(response);
-                    })
-                    .catch(function(error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .finally(function() {
-                        me.listarProductos();
-                    });
-            },
-            calculatePrice(product) {
-                return product.units * product.price;
-            },
-            increment(index, attr) {
-                this.products[index][attr]++;
-                this.commitChanges();
-            },
-            decrement(index, attr) {
-                this.products[index][attr] == 0 ? 0 : this.products[index][attr]--;
-                this.commitChanges();
-            },
-            checkVoucher() {
-                var me = this;
-                this.error = undefined;
-                this.voucher.validation = undefined;
-                this.voucher.type = undefined;
-                this.voucher.isValid = undefined;
-                this.voucher.discount = 0;
-
-                axios.post('/voucher/valid', {
-                        code: me.voucher.code
-                    })
-                    .then(function(response) {
-                        console.log(response);
-                        me.voucher.isValid = true;
-                        me.voucher.validation = 'is-valid';
-                        me.voucher.type = response.data.voucher.type;
-                        me.voucher.discount = response.data.voucher.value;
-                        window.localStorage.setItem('voucher-code', me.voucher.code);
-                    })
-                    .catch(function(error) {
-                        // handle error
-                        console.log(error.response);
-                        me.voucher.validation = 'is-invalid';
-                        me.error = error.response.data.msg;
-                        window.localStorage.removeItem('voucher-code');
-
-                    })
+                        return (this.voucher.discount * 100).toFixed(2) + '%';
+                break;
+                default:
+                return 0;
+                break;
             }
         },
-        mounted() {
-            this.products = [];
-            this.listarProductos();
-            if (this.voucher.code != '') {
-                this.checkVoucher();
-            }
+    },
+    methods: {
+        listarProductos() {
+            let me = this;
+            axios.get('/cart/get')
+                .then(function(response) {
+                    me.products = response.data.cart;
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                })
+                .finally(function() {
+                    // always executed
+                });
+        },
+
+        deleteProduct(unique_id) {
+            let me = this;
+            axios.post('/cart/delete', {
+                    unique_id: unique_id
+                })
+                .then(function(response) {
+                    me.listarProductos();
+                    me.$root.$emit('delete-from-cart');
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                })
+                .finally(function() {
+                    // always executed
+                });
+        },
+        commitChanges() {
+            let me = this;
+            axios.post('/cart/refresh', {
+                    cart: me.products
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                })
+                .finally(function() {
+                    me.listarProductos();
+                });
+        },
+        calculatePrice(product) {
+            return product.units * product.price;
+        },
+        increment(index, attr) {
+            this.products[index][attr]++;
+            this.commitChanges();
+        },
+        decrement(index, attr) {
+            this.products[index][attr] == 0 ? 0 : this.products[index][attr]--;
+            this.commitChanges();
+        },
+        checkVoucher() {
+            var me = this;
+            this.error = undefined;
+            this.voucher.validation = undefined;
+            this.voucher.type = undefined;
+            this.voucher.isValid = undefined;
+            this.voucher.discount = 0;
+
+            axios.post('/voucher/valid', {
+                    code: me.voucher.code
+                })
+                .then(function(response) {
+                    console.log(response);
+                    me.voucher.isValid = true;
+                    me.voucher.validation = 'is-valid';
+                    me.voucher.type = response.data.voucher.type;
+                    me.voucher.discount = response.data.voucher.value;
+                    window.localStorage.setItem('voucher-code', me.voucher.code);
+                    window.localStorage.setItem('voucher-value', me.voucher.discount);
+                    window.localStorage.setItem('voucher-type', me.voucher.type);
+
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error.response);
+                    me.voucher.validation = 'is-invalid';
+                    me.error = error.response.data.msg;
+                    window.localStorage.removeItem('voucher-code');
+                    window.localStorage.removeItem('voucher-value');
+                    window.localStorage.removeItem('voucher-type');
+                })
         }
+    },
+    mounted() {
+        this.products = [];
+        this.listarProductos();
+        if (this.voucher.code != '') {
+            this.checkVoucher();
+        }
+    }
     });
 
     Vue.component('number-input', {

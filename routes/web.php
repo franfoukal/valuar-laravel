@@ -35,27 +35,35 @@ Route::post('/cart/delete', 'ProductController@deleteFromCart');
 Route::post('/cart/refresh', 'ProductController@refreshCart');
 Route::get('/deleteCart', 'ProductController@deleteCart');
 
-Route::get('/profile', function () {
-    return view('profile');
-});
 
-Route::post('/profile-edit', 'PhotoController@store');
+Route::middleware(['auth'])->group(function(){
+    
+    Route::get('/profile', function () {
+        return view('profile');
+    });
+    Route::get('/checkout', 'UserController@order');
+    Route::post('/checkout/cotizarEnvio', 'OrderController@cotizarEnvio');
 
-Route::get('/profile/favs', function () {
-    return view('partials.profile.favourites');
-});
-Route::get('/profile/address', function () {
-    return view('partials.profile.address');
-});
-Route::get('/profile/address-aut', function () {
-    return view('partials.profile.address-autocomplete');
-});
-Route::get('/profile/user', function () {
-    return view('partials.profile.user-config');
-});
+    Route::post('/profile-edit', 'PhotoController@store');
+    
+    Route::get('/profile/favs', function () {
+        return view('partials.profile.favourites');
+    });
+    Route::get('/profile/address', function () {
+        return view('partials.profile.address');
+    });
+    Route::get('/profile/address-aut', function () {
+        return view('partials.profile.address-autocomplete');
+    });
+    Route::get('/profile/user', function () {
+        return view('partials.profile.user-config');
+    });
+    
+    Route::post('/profile/user/edit-photo', 'PhotoController@store');
+    
+    Route::resource('/profile/location', 'LocationController');
 
-Route::post('/profile/user/edit-photo', 'PhotoController@store');
-
+});
 
 Route::get('/faq', function () {
     return view('faq');
@@ -147,5 +155,3 @@ Route::get('/products/search', 'ProductController@search');
 Route::get('/email-check/{email}', 'Auth\RegisterController@emailCheck');
 
 Route::post('/login-check', 'Auth\LoginController@checkLogin');
-
-Route::get('/order', 'UserController@order');

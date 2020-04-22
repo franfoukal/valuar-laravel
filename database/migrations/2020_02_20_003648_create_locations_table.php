@@ -15,10 +15,16 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
             $table->integer('postal_code');
-            $table->tinyInteger('active')->default(1);
-            $table->string('address', 100);
+            $table->string('street');
+            $table->integer('number');
+            $table->string('apartment')->nullable();
+            $table->string('locality');
+            $table->string('province');
+            $table->string('province_department');
+            $table->bigInteger('user_id');
+            $table->text('indications')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -9,7 +9,6 @@
                     <h4 class="col-10">Agregar direccion</h4>
                 </div>
                 <form action="" v-on:submit.prevent>
-
                     <select class="custom-select address-form-input" v-model="direccion.provincia" @change="getDepartamentos">
                         <option selected disabled>Selecciona una provincia</option>
                         <option v-for="(provincia, index) in provincias" :value="provincia" :key="index">@{{provincia.nombre}}</option>
@@ -24,7 +23,7 @@
                     </select>
                     <div class="row m-0 address-form-input">
                         <input type="text" v-model="direccion.calle" placeholder="Calle" class="form-control col-md-8 address-form-input">
-                        <input type="text" v-model="direccion.altura" placeholder="Nº" class="form-control col-md-2 address-form-input">
+                        <input type="number" v-model="direccion.altura" placeholder="Nº" class="form-control col-md-2 address-form-input">
                         <input type="text" v-model="direccion.piso" placeholder="Dpto" class="form-control col-md-2 address-form-input">
                     </div>
                     <div class="row m-0 address-form-inpu">
@@ -36,7 +35,6 @@
                         <button type="button" @click="edit ? editAddress(direccion.id) : createAddress()" class="btn btn-link"><i class="fas fa-save mr-3"></i>Guardar</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </section>
@@ -52,13 +50,13 @@
                     <li class="list-group-item" v-for="(address, index) in user_address" :key="index">
                         <div class="address-item row m-0">
                             <i class="address-item-icon fas fa-map-marker-alt col-2"></i>
-                            <div class="address-description col-7 col-md-7">
+                            <div class="address-description col-10 col-md-7">
                                 <p class="m-0">@{{capitalize(address.street) + ' ' + address.number}} @{{address.apartment != null ? ' - ' + address.apartment : ''}}</p>
                                 <small>@{{address.locality.nombre}}, @{{address.province_department.nombre}}, @{{address.province.nombre}}</small>
                                 <small>(@{{address.postal_code}})</small>
                             </div>
-                            <a class="col-1" @click="select('address-form', address)" href="#"><i class="far fa-edit verde"></i></a>
-                            <a href="#" class="col-1" @click="deleteAddress(address.id)"><i class="fas fa-times rojo"></i></a>
+                            <a class="ml-auto col-2 col-md-1" @click="select('address-form', address)" href="#"><i class="far fa-edit verde"></i></a>
+                            <a href="#" class="col-2 col-md-1" @click="deleteAddress(address.id)"><i class="fas fa-times rojo"></i></a>
                         </div>
                     </li>
                 </ul>
@@ -110,7 +108,7 @@
         },
         methods: {
             select(page, address = null) {
-
+                let me = this;
                 if (address != null) {
                     this.direccion.calle = address.street;
                     this.direccion.indicator = address.indications || "";
@@ -121,13 +119,13 @@
                     this.direccion.localidad = address.locality;
                     this.direccion.postal_code = address.postal_code;
                     this.direccion.id = address.id;
-                    this.getProvincias();
-                    setTimeout(() => {
-                        this.getDepartamentos();
-                    }, 500);
-                    setTimeout(() => {
-                        this.getLocalidades();
-                    }, 500);
+                    
+                    this.getProvincias().then(() => {
+                        this.getDepartamentos().then(() => {
+                            this.getLocalidades();
+                        });
+                    });
+
                     this.edit = true;
                 } else {
                     this.edit = false;
@@ -137,9 +135,9 @@
                 this.selectedPage = page;
                 this.refresh++;
             },
-            getProvincias: function() {
+            async getProvincias() {
                 var me = this;
-                axios.get('https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre')
+                await axios.get('https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre')
                     .then(function(response) {
                         response.data.provincias.map(function(province) {
                             me.provincias.push(province);
@@ -149,9 +147,9 @@
                         console.log(error);
                     });
             },
-            getDepartamentos: function() {
+            async getDepartamentos() {
                 var me = this;
-                axios.get('https://apis.datos.gob.ar/georef/api/departamentos?provincia=' + me.direccion.provincia.id + '&campos=id,nombre&max=100')
+                await axios.get('https://apis.datos.gob.ar/georef/api/departamentos?provincia=' + me.direccion.provincia.id + '&campos=id,nombre&max=100')
                     .then(function(response) {
                         me.departamentos = [];
                         me.localidades = [];
@@ -163,9 +161,9 @@
                         console.log(error);
                     });
             },
-            getLocalidades: function() {
+            async getLocalidades() {
                 var me = this;
-                axios.get('https://apis.datos.gob.ar/georef/api/localidades?departamento=' + me.direccion.departamento.id + '&max=1000&campos=id,nombre')
+                await axios.get('https://apis.datos.gob.ar/georef/api/localidades?departamento=' + me.direccion.departamento.id + '&max=1000&campos=id,nombre')
                     .then(function(response) {
                         me.localidades = [];
                         response.data.localidades.map(function(locality) {
@@ -279,10 +277,10 @@
                         }
                     });
             },
-            getUserAddress: function() {
+            async getUserAddress() {
                 var me = this;
                 this.user_address = [];
-                axios.get('/profile/location')
+                await axios.get('/profile/location')
                     .then(function(response) {
                         console.log(response);
                         response.data.locations.map((location) => {
@@ -298,8 +296,10 @@
             },
             capitalize(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
-            }
+            },
+            checkout() {
 
+            }
         },
         created() {
             this.getProvincias();

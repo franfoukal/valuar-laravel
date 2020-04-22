@@ -1,0 +1,105 @@
+:root{
+    --verde: rgb(72, 169, 166);
+}
+.order-container{
+    
+}
+/* GRID */
+.order-grid-wrapper{
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr 200px 100px 1fr ;
+        column-gap: .5rem;
+        row-gap: .5rem;
+}
+.order-box.o-1{
+  grid-area: 1 / 1 / span 1 / span 1;
+}
+.order-box.o-2{
+    /* border: 1px solid ; */
+    /* background-color: #FCFBFB; */
+}
+
+
+/* LIST */
+.order-product-list{
+    max-height: 300px;
+    overflow: scroll;
+}
+.order-list-item{
+    justify-content: space-between;
+    align-items: center;
+}
+.order-total-separator{
+    flex: 1;
+    border-bottom: dotted 2px gray;
+    margin: -0.2rem 0.5rem;
+}
+.order-list-price{
+    line-height: .8rem;
+}
+
+/* ADDRESS */
+
+.order-address{
+    line-height: 0.9rem;
+}
+.trim-word{
+    max-width: 10rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* MEDIA QUERYS */
+
+/* SM - MOBILE LANDSCAPE */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .order-grid-wrapper{
+        display: grid;
+        grid-template-columns: 60% 40%;
+        grid-template-rows: 200px 100px 1fr;
+        column-gap: .5rem;
+        row-gap: .5rem;
+    }
+    .order-box.o-1{
+       grid-area: 1 / 1 / span 3 / span 1;
+    }
+}
+
+/* MD - TABLET*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .container {
+        min-width: 100%;
+    }
+     .order-grid-wrapper{
+        display: grid;
+        grid-template-columns: 65% 35%;
+        grid-template-rows: 200px 100px 1fr;
+        column-gap: .5rem;
+        row-gap: .5rem;
+    }
+    .order-box.o-1{
+       grid-area: 1 / 1 / span 3 / span 1;
+    }
+}
+
+/* LG - DESKTOP */
+@media (min-width: 992px){
+    .order-grid-wrapper{
+        display: grid;
+        justify-content: center;
+        grid-template-columns: 50% 30%;
+        grid-template-rows: 200px 100px 1fr;
+        column-gap: .5rem;
+        row-gap: .5rem;
+    }
+    .order-box.o-1{
+        grid-area: 1 / 1 / span 3 / span 1;
+    }
+}
+
+/* XL - DESKTOP */
+@media (min-width: 1200px) {
+
+}

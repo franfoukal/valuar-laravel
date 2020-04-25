@@ -38,7 +38,7 @@
 
                 <article class=" col-12 col-md-5 col-lg-3">
                     <div class="category z-depth-1-half mr-2 zoom rounded">
-                        <a href="/products">
+                        <a href="/products/filter/anillos">
                             <img src="img/ctg/anillos-mod.png" alt="" class="img-fluid ctg-img">
                             <span class="ctg-prompt bg-noche dark">Anillos</span>
                         </a>
@@ -47,16 +47,16 @@
 
                 <article class=" col-12 col-md-5 col-lg-3">
                     <div class="category z-depth-1-half mr-2 zoom rounded">
-                        <a href="/products">
+                        <a href="/products/filter/colgantes">
                             <img src="img/ctg/collar-mod.png" alt="" class="img-fluid ctg-img">
-                            <span class="ctg-prompt bg-noche dark">Collares</span>
+                            <span class="ctg-prompt bg-noche dark">Colgantes</span>
                         </a>
                     </div>
                 </article>
 
                 <article class=" col-12 col-md-5 col-lg-3">
                     <div class="category z-depth-1-half mr-2 zoom rounded">
-                        <a href="/products">
+                        <a href="/products/filter/pulseras">
                             <img src="img/ctg/pulsera-mod.png" alt="" class="img-fluid ctg-img">
                             <span class="ctg-prompt bg-noche dark">Pulseras</span>
                         </a>
@@ -65,7 +65,7 @@
 
                 <article class="col-12 col-md-5 col-lg-3">
                     <div class="category z-depth-1-half mr-2 zoom rounded">
-                        <a href="/products">
+                        <a href="/products/filter/aros">
                             <img src="img/ctg/aro-mod.png" alt="" class="img-fluid ctg-img zoom">
                             <span class="ctg-prompt bg-noche dark"> Aros</span>
                         </a>

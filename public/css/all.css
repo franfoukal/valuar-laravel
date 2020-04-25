@@ -1,3 +1,7 @@
+@font-face{
+  src: url(../fonts/HelveticaNeue.ttf) format('truetype');
+  font-family: 'Helvetica Neue';
+}
 header.index{
   background-image: url('../img/anillo2.jpg');
   background-position: top;
@@ -116,17 +120,19 @@ header.index{
 }
 
 .fa-heart{
-  transition: box-shadow, 0.1s;
+  transition: filter, 0.5s;
 }
 .fa-heart:active{
+  filter: drop-shadow(0rem 0rem 0.2rem rgba(192, 25, 34, 0.8));
   animation-name: bounce;
-  animation-duration: 0.4s;
+  animation-duration: 0.5s;
   animation-iteration-count: 1;
-  
 }
-.fa-heart::before :hover{
-  box-shadow: 0rem 0rem 0.5rem 0.1rem rgba(192, 25, 34, 0.8);
+.fa-heart:hover{
+  filter: drop-shadow(0rem 0rem 0.1rem rgba(192, 25, 34, 0.5));
+
 }
+
 @keyframes bounce{
   50%{
       transform: translate(-3.1px);
@@ -211,9 +217,9 @@ header.index{
     overflow: hidden;
 }
 .img-desc h4{
-    font-family: 'Open Sans', Helvetica;
+    font-family: 'Helvetica Neue', Helvetica;
     font-weight: 700;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.1rem;
     
 }
 .cat-title{
@@ -469,6 +475,11 @@ footer .container{
 body{
   font-family: 'Source Sans Pro', sans-serif;
 }
+
+h2{
+  font-family: 'Helvetica Neue';
+  letter-spacing: 0.1rem;
+}
 .btn{
   font-family: 'Roboto', sans-serif;
 }
@@ -608,7 +619,7 @@ body{
 }
 
 .bg-image-collar{
-  background: url("../img/ctg/collar-bg-1.jpg") no-repeat center rgba(0, 0, 0, 0.3);
+  background: url("../img/ctg/collar-bg-1.jpg") no-repeat center rgba(0, 0, 0, 0.5);
   background-size: cover;
   background-blend-mode: multiply;
 }

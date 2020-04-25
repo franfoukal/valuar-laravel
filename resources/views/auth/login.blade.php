@@ -59,7 +59,7 @@
             @endif
             <!-- Register -->
             <p>¿No sos miembro?
-                <a href="signup">Registrate acá</a>
+                <a href="/register">Registrate acá</a>
             </p>
 
         </form>

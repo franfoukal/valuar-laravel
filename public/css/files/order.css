@@ -8,7 +8,7 @@
 .order-grid-wrapper{
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 1fr 200px 100px 1fr ;
+        grid-template-rows: 1fr 200px 100px 300px ;
         column-gap: .5rem;
         row-gap: .5rem;
 }

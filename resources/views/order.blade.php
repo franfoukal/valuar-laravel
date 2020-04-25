@@ -39,7 +39,7 @@
                 <div class="order-box o-2 card p-4">
                     <h4 class="verde">Envío</h4>
                     <div class="alert p-0 m-0 bg-gris bd-piel" role="alert">
-                        <div class="row clear align-items-center justify-content-between">
+                        <div class="row clear align-items-center justify-content-between" v-if="user_address.length > 0">
                             <a class="row clear p-3 rounded " type="button" id="dropdownMenuButton12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="order-address">
                                     <p class="clear trim-word">@{{address.street + ' ' + address.number}} @{{address.apartment != null ? ' - ' + address.apartment : ''}}</p>
@@ -60,15 +60,19 @@
                                     <div class="dropdown-divider"></div>
                                 </div>
                                 <div class="dropdown-item" href="#">
-
                                     <a href="/profile/address" class="btn btn-link rojo ml-auto clear pt-3">Editar direcciones</a>
                                 </div>
 
                             </div>
                         </div>
 
+                        <div v-else class="p-3">
+                            <small>No cargaste ninguna dirección</small>
+                            <a href="/profile/address" class="btn btn-link rojo ml-auto clear pt-3">Editar direcciones</a>
+                        </div>
+
                     </div>
-                    <div class="row clear align-items-baseline mt-3">
+                    <div class="row clear align-items-baseline mt-3" v-if="user_address.length > 0">
                         <p>Envío a domicilio</p>
                         <span class="order-total-separator"></span>
                         <p>$@{{tarifa}}</p>
@@ -111,7 +115,7 @@
                             <b class="clear">$@{{total}}</b>
                         </li>
                     </ul>
-                    <button class="btn bg-verde text-white">Pagar</button>
+                    <button @click="createOrder" class="btn bg-verde text-white">Pagar</button>
                     <!-- <form action="/procesar-pago" method="POST">
                         <script src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js" data-preference-id="12">
                         </script>
@@ -126,11 +130,12 @@
     Vue.component('order', {
         data() {
             return {
-                tarifa: 0,
+
                 user_address: [],
+                tarifa: 0,
                 address: {},
                 voucher: {},
-                cart: []
+                cart: [],
             }
         },
         methods: {
@@ -172,7 +177,6 @@
                             location.locality = JSON.parse(location.locality);
                             me.user_address.push(location);
                         });
-                        // me.address = response.data.locations[0];
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -211,7 +215,29 @@
 
                         }
                     });
-            }
+            },
+
+            // METHODS FOR ORDER CREATION
+            createOrder() {
+                this.address.tarifa = this.tarifa;
+                let me = this;
+
+                axios.post('/order', {
+                        shipping_info: JSON.stringify(me.address),
+                        billing_info: JSON.stringify(me.billingInfo),
+                        product_list: JSON.stringify(me.cart),
+                        payment_method: 'mercadopago',
+                    })
+                    .then((response) => {
+                        console.log(response);
+                        window.location.href = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+
+                    });
+            },
+
         },
         computed: {
             totalProducts() {
@@ -230,8 +256,19 @@
                     return 0;
                 }
             },
+
             total() {
                 return (this.totalProducts - this.totalVoucher + parseFloat(this.tarifa)).toFixed(2);
+            },
+
+            billingInfo() {
+                return {
+                    voucher: this.voucher,
+                    descuento: this.totalVoucher,
+                    envio: this.tarifa,
+                    subtotal: this.totalProducts,
+                    total: this.total
+                }
             }
 
         },
@@ -239,8 +276,9 @@
             this.getCart();
             this.loadVoucher();
             await this.getUserAddress().then(() => {
-                this.selectAddress(this.user_address[0]);
-                this.getCotizacion();
+                if (this.user_address.length > 0) {
+                    this.selectAddress(this.user_address[0]);
+                }
             });
         },
     });

@@ -14,10 +14,11 @@
 use App\Product;
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', 'ProductController@bestSellers');
+Route::get('/', 'ProductController@bestSellers')->name('home');
 
 Route::get('/home', 'ProductController@bestSellers');
 
@@ -41,7 +42,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/profile', function () {
         return view('profile');
     });
-    Route::get('/checkout', 'UserController@order');
+    Route::get('/checkout', 'UserController@order')->name('order');
     Route::post('/checkout/cotizarEnvio', 'OrderController@cotizarEnvio');
 
     Route::post('/profile-edit', 'PhotoController@store');
@@ -62,6 +63,8 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/profile/user/edit-photo', 'PhotoController@store');
     
     Route::resource('/profile/location', 'LocationController');
+
+    Route::post('/order', 'OrderController@createOrderML');
 
 });
 

@@ -37,7 +37,7 @@
             <div class="row">
 
                 <article class=" col-12 col-md-5 col-lg-3">
-                    <div class="category z-depth-1-half mr-2 zoom rounded">
+                    <div class="category disappear z-depth-1-half mr-2 zoom rounded">
                         <a href="/products/filter/anillos">
                             <img src="img/ctg/anillos-mod.png" alt="" class="img-fluid ctg-img">
                             <span class="ctg-prompt bg-noche dark">Anillos</span>
@@ -46,7 +46,7 @@
                 </article>
 
                 <article class=" col-12 col-md-5 col-lg-3">
-                    <div class="category z-depth-1-half mr-2 zoom rounded">
+                    <div class="category disappear z-depth-1-half mr-2 zoom rounded">
                         <a href="/products/filter/colgantes">
                             <img src="img/ctg/collar-mod.png" alt="" class="img-fluid ctg-img">
                             <span class="ctg-prompt bg-noche dark">Colgantes</span>
@@ -55,7 +55,7 @@
                 </article>
 
                 <article class=" col-12 col-md-5 col-lg-3">
-                    <div class="category z-depth-1-half mr-2 zoom rounded">
+                    <div class="category disappear z-depth-1-half mr-2 zoom rounded">
                         <a href="/products/filter/pulseras">
                             <img src="img/ctg/pulsera-mod.png" alt="" class="img-fluid ctg-img">
                             <span class="ctg-prompt bg-noche dark">Pulseras</span>
@@ -64,7 +64,7 @@
                 </article>
 
                 <article class="col-12 col-md-5 col-lg-3">
-                    <div class="category z-depth-1-half mr-2 zoom rounded">
+                    <div class="category disappear z-depth-1-half mr-2 zoom rounded">
                         <a href="/products/filter/aros">
                             <img src="img/ctg/aro-mod.png" alt="" class="img-fluid ctg-img zoom">
                             <span class="ctg-prompt bg-noche dark"> Aros</span>
@@ -77,17 +77,17 @@
 
     <section class="services py-5 bg-white" id="services">
         <div class="svc-wrapper py-5 row mx-5">
-            <div class="service noche col-12 col-md-4">
+            <div class="service disappear noche col-12 col-md-4">
                 <i class="fas fa-shield-alt"></i>
                 <h3>GARANTÍA</h3>
                 <p>¡No te preocupes!. Te ofrecemos garantía de 6 meses para asegurar la excelencia del producto. <a className="text-decoration-none" href="FAQ">Saber mas...</a></p>
             </div>
-            <div class="service noche col-12 col-md-4">
+            <div class="service disappear noche col-12 col-md-4">
                 <i class="fas fa-credit-card"></i>
                 <h3>PAGOS</h3>
                 <p>¡Pagá con todos los medios, en cuotas y seguro! Aprovecha ofertas sin interés. <a className="text-decoration-none" href="FAQ">Saber mas...</a></p>
             </div>
-            <div class="service noche col-12 col-md-4">
+            <div class="service disappear noche col-12 col-md-4">
                 <i class="fas fa-truck-loading"></i>
                 <h3>ENVÍOS</h3>
                 <p>¡Enviamos a todo el país! Así de facíl hasta la puerta de tu casa. <a className="text-decoration-none" href="FAQ">Saber mas...</a></p>
@@ -96,6 +96,7 @@
         <h2 class="title display-3 noche py-4 text-center">ELEGÍ VALUAR</h2>
 
     </section>
+    
 </main>
 
 

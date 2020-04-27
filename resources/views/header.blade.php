@@ -63,9 +63,9 @@
 
 
         <div class="jumbotron animated fadeInDown slow" v-if="locationLog">
-            <div class="container ">
+            <div class="container text-center">
                 <h1 class="display-3 crema text-shadow">Hey! new season is here</h1>
-                <p class="text-white">Nuevos aires, nuevas influencias, todo vertido en la nueva colección. Dedicada a los intrépidos, entrá a ver lo nuevo de esta experiencia conceptual.</p>
+                <p class="text-white text-left title-desc">Nuevos aires, nuevas influencias, todo vertido en la nueva colección. Dedicada a los intrépidos, entrá a ver lo nuevo de esta experiencia conceptual.</p>
                 <p><a class="btn bg-verde waves-effect waves-light btn-lg mt-5 rounded text-white" href="/products" role="button">Descubrí más »</a></p>
             </div>
         </div>

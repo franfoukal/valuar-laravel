@@ -17,7 +17,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', 'ProductController@bestSellers');
+Route::get('/', 'ProductController@bestSellers')->name('home');
 
 Route::get('/home', 'ProductController@bestSellers');
 

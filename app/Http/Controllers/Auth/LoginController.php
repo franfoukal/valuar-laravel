@@ -47,7 +47,7 @@ class LoginController extends Controller
         if(!Auth::attempt($auth)){
             return response(json_encode(false));
         } else {
-            return redirect('/');
+            return redirect()->intended('/');
         }
     }
 }

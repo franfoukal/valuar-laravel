@@ -15,16 +15,13 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
-            $table->integer('subtotal');
-            $table->integer('tax_percentage');
-            $table->integer('interest_percentage');
-            $table->string('receipt-type', 255);
-            $table->integer('receipt-number');
-            $table->tinyInteger('active');
-            $table->unsignedBigInteger('users_id')->nullable();
+            $table->text('shipping_info');
+            $table->text('billing_info');
+            $table->text('product_list');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id')->nullable();
-            $table->unsignedBigInteger('shippings_id')->nullable();
+            $table->unsignedBigInteger('shipping_id')->nullable();
+            $table->timestamps();
         });
     }
 

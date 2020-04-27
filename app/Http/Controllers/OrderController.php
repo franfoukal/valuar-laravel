@@ -7,11 +7,7 @@ use App\Order;
 use Illuminate\Support\Facades\Auth;
 use Andreani\Andreani;
 use Andreani\Requests\CotizarEnvio;
-
-// // SDK de Mercado Pago
-// use MercadoPago;
-// // Agrega credenciales
-// MercadoPago\SDK::setAccessToken(env('MERCADOLIBRE_ACCESS_TOKEN'));
+use Illuminate\Validation\Rule;
 
 
 /*
@@ -54,7 +50,7 @@ class OrderController extends Controller
     */
     public function store(Request $request)
     {
-    //
+        
     }
 
     /**
@@ -105,17 +101,10 @@ class OrderController extends Controller
     public function createOrder(Request $request){
 
         $order = new Order();
-
-        $order->subtotal = $request['subtotal'];
-        $order->tax_percentage = $request['tax_percentage'];
-        $order->interest_percentage = $request['interest_percentage'];
-        $order->receipt_type = $request['receipt_type'];
-        $order->receipt_number = $request['receipt_number'];
-        $order->active = $request['active'];
-        $order->users_id = Auth::User()->id;
-        $order->status_id = $request['status_id'];
-        $order->shippings_id = $request['shippings_id'];
-
+        $order->shipping_info = $request->shipping_info;
+        $order->billing_info = $request->billing_info;
+        $order->product_list = $request->product_list;
+        $order->user_id = Auth::user()->id;
         $order->save();
 
         return $order;
@@ -145,29 +134,30 @@ class OrderController extends Controller
         }
     }
 
-    // public function createOrderML(Request $request){
-    //     $allowedPaymentMethods = config('payment-methods.enabled');
+    public function createOrderML(Request $request){
+        $allowedPaymentMethods = config('payment-methods.enabled');
 
-    //     $request->validate([
-    //         'payment_method' => [
-    //             'required',
-    //             Rule::in($allowedPaymentMethods),
-    //         ],
-    //         'terms' => 'accepted',
-    //     ]);
+        $request->validate([
+            'payment_method' => [
+                'required',
+                Rule::in($allowedPaymentMethods),
+            ],
+            // 'terms' => 'accepted',
+        ]);
 
-    //     $order = $this->createOrder($request);
+        $order = $this->createOrder($request);
 
-    //     $this->notify($order);
-    //     $url = $this->generatePaymentGateway($request->get('payment_method'), $order);
-    //     return redirect()->to($url);
-    // }
+        // $this->notify($order);
+        $url = $this->generatePaymentGateway($request->get('payment_method'), $order);
+        return $url;
+        // return redirect()->to($url);
+    }
 
-    // protected function generatePaymentGateway($paymentMethod, Order $order): string
-    // {
-    //     $method = new \App\PaymentMethods\MercadoPago;
+    protected function generatePaymentGateway($paymentMethod, Order $order): string
+    {
+        $method = new \App\PaymentMethods\MercadoPago;
 
-    //     return $method->setupPaymentAndGetRedirectURL($order);
-    // }
+        return $method->setupPaymentAndGetRedirectURL2($order);
+    }
 
 }

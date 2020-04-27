@@ -440,7 +440,6 @@ class ProductController extends Controller
     public function deleteCart(Request $request){
         return $request->session()->forget('cart');
     }
-
     
 
 }

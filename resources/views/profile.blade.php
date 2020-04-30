@@ -20,7 +20,7 @@
 
             <nav>
                 <ul class="clearlist profile-list">
-                    <li class="profile-list-item"><a href="#">Órdenes</a></li>
+                    <li class="profile-list-item"><a href="/profile/orders">Órdenes</a></li>
                     <li class="profile-list-item"><a href="/profile/favs">Favoritos</a></li>
                     <li class="profile-list-item"><a href="/profile/address">Direcciones</a></li>
                     <!-- <li class="profile-list-item"><a href="/profile/address-aut">Direcciones <small>google</small></a></li> -->

@@ -57,13 +57,13 @@
 @media (min-width: 576px) and (max-width: 767.98px) {
   .order-grid-wrapper{
         display: grid;
-        grid-template-columns: 60% 40%;
-        grid-template-rows: 200px 100px 1fr;
+        grid-template-columns: 80%;
+        grid-template-rows: 1fr 200px 100px 300px ;
         column-gap: .5rem;
         row-gap: .5rem;
     }
     .order-box.o-1{
-       grid-area: 1 / 1 / span 3 / span 1;
+  grid-area: 1 / 1 / span 1 / span 1;
     }
 }
 

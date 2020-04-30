@@ -150,14 +150,47 @@ class OrderController extends Controller
         // $this->notify($order);
         $url = $this->generatePaymentGateway($request->get('payment_method'), $order);
         return $url;
-        // return redirect()->to($url);
     }
 
     protected function generatePaymentGateway($paymentMethod, Order $order): string
     {
         $method = new \App\PaymentMethods\MercadoPago;
 
-        return $method->setupPaymentAndGetRedirectURL2($order);
+        return $method->setupPaymentAndGetRedirectURL($order);
+    }
+
+
+    public function getPaymentResponse(Request $request){
+        $querys = $request->all();
+
+        $order = Order::findOrFail($request->external_reference);
+        $order->mercadopago_info = json_encode($querys);
+        $order->save();
+
+        switch ($querys['collection_status']) {
+            case 'in_process':
+                $request->session()->forget('cart');
+                return view('payment.pending');
+                break;
+            case 'approved':
+                $request->session()->forget('cart');
+                return view('payment.success');
+                break;
+            case 'rejected':
+                return view('payment.rejected');
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+
+    public function getUserOrders(){
+        $orders = Order::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
+
+        return response()->json([
+            'orders' => json_encode($orders)
+        ],200);
     }
 
 }

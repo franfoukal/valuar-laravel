@@ -28,12 +28,12 @@ class MercadoPago
     }
 
 
-    public function setupPaymentAndGetRedirectURL2(Order $order): string
+    public function setupPaymentAndGetRedirectURL(Order $order): string
     {
         $order = json_decode($order);
         $order->product_list = json_decode($order->product_list);
         $order->billing_info = json_decode($order->billing_info);
-        
+        // return json_encode($order);
         try {
             //code...
             # Create a preference object
@@ -45,11 +45,11 @@ class MercadoPago
         # Create an item object
         $item = new Item();
         $item->id = $order->id;
-        $item->title = "Orden de compra $order->id";
+        $item->title = "Compra en VALUAR";
         $item->quantity = 1;
         $item->currency_id = 'ARS';
         $item->unit_price = $order->billing_info->total;
-        // $item->picture_url = $order->featured_img;
+
 
         # Create a payer object
         $payer = new Payer();
@@ -62,13 +62,13 @@ class MercadoPago
         # Save External Reference
         $preference->external_reference = $order->id;
         $preference->back_urls = [
-            "success" => route('order'),
-            "pending" => route('order'),
-            "failure" => route('order'),
+            "success" => route('payment_response'),
+            "pending" => route('payment_response'),
+            "failure" => route('payment_response'),
         ];
 
         $preference->auto_return = "all";
-        $preference->notification_url = route('order'); //route('ipn');
+        // $preference->notification_url = route('order'); //route('ipn');
         # Save and POST preference
         $preference->save();
 

@@ -59,12 +59,18 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/profile/user', function () {
         return view('partials.profile.user-config');
     });
-    
+    Route::get('/profile/orders', function () {
+        return view('partials.profile.orders');
+    });
     Route::post('/profile/user/edit-photo', 'PhotoController@store');
     
     Route::resource('/profile/location', 'LocationController');
 
     Route::post('/order', 'OrderController@createOrderML');
+    Route::get('/orders/get', 'OrderController@getUserOrders');
+
+    Route::get('/paymentResponse', 'OrderController@getPaymentResponse')->name('payment_response');
+
 
 });
 

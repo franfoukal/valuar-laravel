@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->text('shipping_info');
             $table->text('billing_info');
             $table->text('product_list');
+            $table->text('mercadopago_info')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id')->nullable();
             $table->unsignedBigInteger('shipping_id')->nullable();

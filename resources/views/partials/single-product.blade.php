@@ -1,11 +1,11 @@
 <div class="@php echo isset($fav) ? $fav : 'col-12 col-md-4 col-lg-3' @endphp">
-    <product inline-template class="product" id="sp{{$index}}" id_prod="{{$id}}">
+    <product inline-template class="product {{(Route::currentRouteName() == 'home') ? 'disappear' : ''}}" id="sp{{$index}}" id_prod="{{$id}}">
         <div class="card bg-white p-1 px-2">
             <div class="row">
                 <div class="col-5 col-md-12">
                     <div class="list-item text-center mb-3">
                         <a href="/product/{{$id}}">
-                            <img class='list-img rounded-lg' src="/storage/products/{{$photo}}" alt="">
+                            <img class='list-img rounded-lg' src="/storage/img/products/{{$photo}}" alt="">
                         </a>
                     </div>
                 </div>

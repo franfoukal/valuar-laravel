@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'ProductController@bestSellers')->name('home');
 
-Route::get('/home', 'ProductController@bestSellers');
+Route::get('/home', 'ProductController@bestSellers') ->name('home');
 
 Route::get('/contact', function () {
     return view('contact');

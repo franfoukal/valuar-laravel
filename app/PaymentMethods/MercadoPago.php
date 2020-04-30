@@ -68,7 +68,7 @@ class MercadoPago
         ];
 
         $preference->auto_return = "all";
-        // $preference->notification_url = route('order'); //route('ipn');
+        //$preference->notification_url = route('order'); //route('ipn');
         # Save and POST preference
         $preference->save();
 

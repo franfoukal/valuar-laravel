@@ -10,7 +10,6 @@ use App\Product;
 use App\User;
 use App\Photo;
 use App\Role;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,12 +22,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $orders = '';
-        $totalIncome = '';
-        // $orders = Order::count(); 
-        // $totalIncome = Order::sum('subtotal');
+        $soldItems = $this->getAllOrders(true);
+        $orders = count($soldItems); 
         $bestSellers = Product::orderBy('amount_sold', 'desc')->limit(4)->get();
-
+        $totalIncome = 0;
         $products = Product::where('active', 1)->count();       // Productos activos
         $totalProducts = Product::count();                      // Total de productos
         $totalUsers = User::count();                            // Total de usuarios
@@ -39,77 +36,23 @@ class AdminController extends Controller
                 $usersOnline += 1;                              // si están logueados.  
             }                                                   // Si están, ++usersonline.
         }
-        
+        foreach ($soldItems as $soldItem){
+            $decoded = json_decode($soldItem['billing_info'], true);
+            $totalIncome += $decoded['total'];
+        }
         return view('admin.admin-index', compact('products', 'totalProducts', 'totalUsers',
         'usersOnline', 'orders', 'totalIncome', 'bestSellers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    private function getAllOrders(bool $billingInfoOnly = false)
     {
-        //
+        if($billingInfoOnly){
+            return json_decode(Order::all(['billing_info']), true);
+        }
+        else{
+            return json_decode(Order::all());
+        }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
 
     private function addUserPhotos(array $request){
 
@@ -220,24 +163,28 @@ class AdminController extends Controller
 
     public function sells(){
 
-        $totalIncome = Order::sum('subtotal');
-        $sells = Order::all();
-        $totalWithTaxes = 0;
-        $totalWithInterests = 0;
-        $totalSells = Order::count();
-        foreach($sells as $order){
-            if(!is_null($order->tax_percentage)){
-                $totalWithTaxes += $order->subtotal + $order->subtotal * $order->tax_percentage;
-            } else {
-                $totalWithTaxes += $order->subtotal;
-            }
-            if(!is_null($order->interest_percentage)){
-                $totalWithInterests += $order->subtotal + $order->subtotal * $order->tax_percentage;
-            } else {
-                $totalWithInterests += $order->subtotal;
-            }
+        $sells = $this->getAllOrders();
+        $totalIncome = 0;  
+        $totalVouchersDiscount = 0;
+        $usedVouchers = 0;
+        $soldItems = [];
+
+        foreach ($sells as $sell){
+            $soldItems[] = json_decode($sell->billing_info, true);
         }
+
+        $totalSells = count($soldItems);
         
-        return view('admin.sells-admin', compact('totalWithTaxes', 'totalWithInterests', 'sells', 'totalSells', 'totalIncome'));
+        foreach ($soldItems as $soldItem){
+            $totalIncome += $soldItem['total'];
+            
+            if(count($soldItem['voucher']) > 0){
+                $usedVouchers++;
+                $totalVouchersDiscount += $soldItem['descuento'];
+            }
+        }  
+        $netIncome = $totalIncome - $totalVouchersDiscount;
+
+        return view('admin.sells-admin', compact('totalVouchersDiscount', 'usedVouchers', 'netIncome', 'totalSells', 'sells', 'totalIncome'));
     }
 }

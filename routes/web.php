@@ -16,6 +16,7 @@ use App\Product;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Order;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'ProductController@bestSellers')->name('home');
@@ -112,6 +113,9 @@ Route::get('/dd', function() {
 });
 Route::get('/ddproduct/{id}', function($id){
     return dd(Product::find($id));
+});
+Route::get('/ddsells', function(){
+    return dd(json_decode(Order::all(), true));
 });
 
 // ADMIN

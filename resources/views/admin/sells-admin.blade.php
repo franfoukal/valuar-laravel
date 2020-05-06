@@ -85,10 +85,10 @@
         <li class="list-group-item">
             <div class="row admin-prod-item">
                 <div class="col-4 col-md-4">
-                    <p class="admin-prod-name">ID: {{$sell->id}}</p>
+                    <p class="admin-prod-name my-1">Factura Nro:<span class='font-weight-bold'>  00000{{$sell->id}}</span></p>
                 </div>
                 <div class="col-4 col-md-6">
-                    <p >Total: <span class='font-weight-bold'> {{json_decode($sell->billing_info,true)['total']}}</span></p>
+                    <p class='my-1'>Total: <span class='font-weight-bold'> ${{json_decode($sell->billing_info,true)['total']}}</span></p>
                 </div>
                 <a href="/admin/order/{{$sell->id}}" class="col-4 col-md-2 verde">
                     Ver <i class="far fa-edit"></i>

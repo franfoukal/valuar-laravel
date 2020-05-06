@@ -23,8 +23,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $orders = Order::count(); 
-        $totalIncome = Order::sum('subtotal');
+        $orders = '';
+        $totalIncome = '';
+        // $orders = Order::count(); 
+        // $totalIncome = Order::sum('subtotal');
         $bestSellers = Product::orderBy('amount_sold', 'desc')->limit(4)->get();
 
         $products = Product::where('active', 1)->count();       // Productos activos

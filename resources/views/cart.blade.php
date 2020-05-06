@@ -10,7 +10,7 @@
                 <li class="" v-for="(product, index) in products" :key="index">
                     <div class="row cart-item mx-2 px-2">
                         <a class="img-wrapper-cart col-4 col-sm-3 col-md-2 col-lg-2" :href="'/product/' + product.id">
-                            <img :src="product.first_photo.path != undefined ? '/storage/products/' + product.first_photo.path  : '' " alt="" class="cart-prod-img img-fluid rounded-circle bd-verde z-depth-1-half">
+                            <img :src="product.first_photo != null ? '/storage/products/' + product.first_photo.path  : '' " alt="Sin foto" class="cart-prod-img img-fluid rounded-circle bd-verde z-depth-1-half">
                         </a>
 
                         <number-input title="cant" :initial="product.units" min="0" @increment="increment(index, 'units')" @decrement="decrement(index, 'units')" class="col-6 col-md-2 my-4"></number-input>
@@ -89,7 +89,7 @@
                 }, 0);
                 switch (this.voucher.type) {
                     case 'voucher':
-                        return (subtotal - parseFloat(this.voucher.discount)).toFixed(2);
+                        return Math.max((subtotal - parseFloat(this.voucher.discount)).toFixed(2), 0);
                         break;
                     case 'discount':
                         return (subtotal * (1 - this.voucher.discount)).toFixed(2);
@@ -120,6 +120,8 @@
             axios.get('/cart/get')
                 .then(function(response) {
                     me.products = response.data.cart;
+                    console.log(response);
+                    
                 })
                 .catch(function(error) {
                     // handle error

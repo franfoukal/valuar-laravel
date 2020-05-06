@@ -27,16 +27,18 @@
                                         <!--First slide-->
 
 
-                                        @foreach($product['photos'] as $photo)
+                                        @forelse($product['photos'] as $photo)
                                         @if ($loop->first)
                                         <div class="carousel-item active">
-                                            <img class="d-block img-fluid product-img" src="/storage/products/{{$photo['path']}}" alt="">
+                                            <img class="d-block img-fluid product-img" src="/storage/products/{{$photo['path']}}" alt="Sin foto">
                                         </div>
                                         @endif
                                         <div class="carousel-item">
-                                            <img class="d-block w-100" src="/storage/products/{{$photo['path']}}" alt="Third slide">
+                                            <img class="d-block w-100" src="/storage/products/{{$photo['path']}}" alt="Sin foto">
                                         </div>
-                                        @endforeach
+                                        @empty
+                                        <h5 class="text-center">Sin foto</h5>
+                                        @endforelse
 
                                     </div>
                                     <!--/.Slides-->

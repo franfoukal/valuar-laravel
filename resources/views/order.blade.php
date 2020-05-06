@@ -12,12 +12,12 @@
                 <div class="order-box o-1 card dashed p-4 p-lg-5">
 
                     <h4 class="m-0 verde">Tu compra</h4>
-                    <small class="mb-3 ml-1">(3 articulos)</small>
+                    <small class="mb-3 ml-1">( @{{cart.length}} articulos)</small>
 
                     <ul class="order-product-list list-group list-group-flush">
                         <li class="list-group-item" v-for="(product, index) in cart" :key="index">
                             <div class="order-list-item row m-0 p-0">
-                                <img :src="product.first_photo.path != undefined ? '/storage/products/' + product.first_photo.path  : '' " alt="" class="col-3 col-md-2 col-lg-2 p-0 m-0 order-prod-img rounded-circle bd-verde shadow-sm">
+                                <img :src="product.first_photo != null ? '/storage/products/' + product.first_photo.path  : '' " alt="Sin foto" class="col-3 col-md-2 col-lg-2 p-0 m-0 order-prod-img rounded-circle bd-verde shadow-sm">
                                 <div class="col-5 col-md-4">
                                     <h5 class="clear">@{{product.name}}</h5>
                                     <small class="clear d-block ml-1">Talle: @{{product.size}}</small>

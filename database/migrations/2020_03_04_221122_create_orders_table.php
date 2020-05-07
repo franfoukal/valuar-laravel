@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->text('billing_info');
             $table->text('product_list');
             $table->text('mercadopago_info')->nullable();
+            $table->string('preorder_id', 10);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id')->nullable();
             $table->unsignedBigInteger('shipping_id')->nullable();

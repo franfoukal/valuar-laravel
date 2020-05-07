@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Andreani\Andreani;
 use Andreani\Requests\CotizarEnvio;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+
 
 
 /*
@@ -105,7 +107,9 @@ class OrderController extends Controller
         $order->billing_info = $request->billing_info;
         $order->product_list = $request->product_list;
         $order->user_id = Auth::user()->id;
-        $order->save();
+        $order->preorder_id = $this->generatePreorderID();
+        $request->session()->forget('pre-order');
+        $request->session()->put('pre-order', $order);
 
         return $order;
     }
@@ -163,17 +167,19 @@ class OrderController extends Controller
     public function getPaymentResponse(Request $request){
         $querys = $request->all();
 
-        $order = Order::findOrFail($request->external_reference);
+        // $order = Order::findOrFail($request->external_reference);
+        $order = $request->session()->pull('pre-order');
         $order->mercadopago_info = json_encode($querys);
-        $order->save();
 
         switch ($querys['collection_status']) {
             case 'in_process':
                 $request->session()->forget('cart');
+                $order->save();
                 return view('payment.pending');
                 break;
             case 'approved':
                 $request->session()->forget('cart');
+                $order->save();
                 return view('payment.success');
                 break;
             case 'rejected':
@@ -191,6 +197,15 @@ class OrderController extends Controller
         return response()->json([
             'orders' => json_encode($orders)
         ],200);
+    }
+
+    private function generatePreorderID(){
+        $temp = Str::random(10);
+        while (Order::where('preorder_id', '=', $temp)->exists()) {
+            $temp = Str::random(10);
+        }
+
+        return $temp;
     }
 
 }

@@ -116,7 +116,7 @@
                         </li>
                     </ul>
                     <button @click="createOrder" class="btn bg-verde text-white">Pagar</button>
-                   
+
                 </div>
             </div>
         </main>
@@ -213,9 +213,24 @@
                         }
                     });
             },
+            validate() {
+                // return this.cart.length > 0 && this.tarifa > 0;
+                if (this.cart.length == 0) {
+                    swal("No tienes productos en tu carrito");
+                    return false;
+                } else if (Object.keys(this.address).length === 0) {
+                    swal("No cargaste tu direccíon de envio!");
+                    return false;
+                } else {
+                    return true;
+                }
+            },
 
             // METHODS FOR ORDER CREATION
             createOrder() {
+                if (!this.validate()) {
+                    return;
+                }
                 this.address.tarifa = this.tarifa;
                 let me = this;
 

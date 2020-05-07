@@ -2,3 +2,9 @@
     height: 16rem;
     overflow: scroll;
 }
+.order-card-back-arrow{
+    font-size: 1.5rem;
+}
+.order-product-name{
+    line-height: 0.8rem;
+}

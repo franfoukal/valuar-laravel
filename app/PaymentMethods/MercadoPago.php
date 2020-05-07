@@ -17,6 +17,7 @@ class MercadoPago
 {
     public function __construct()
     {
+        //si comentamos setClientID y setClientSecret se pasa a produccion
         SDK::setClientId(
             config("payment-methods.mercadopago.client")
         );
@@ -44,7 +45,7 @@ class MercadoPago
         
         # Create an item object
         $item = new Item();
-        $item->id = $order->id;
+        $item->id = $order->preorder_id;
         $item->title = "Compra en VALUAR";
         $item->quantity = 1;
         $item->currency_id = 'ARS';
@@ -60,7 +61,7 @@ class MercadoPago
         $preference->payer = $payer;
 
         # Save External Reference
-        $preference->external_reference = $order->id;
+        $preference->external_reference = $order->preorder_id;
         $preference->back_urls = [
             "success" => route('payment_response'),
             "pending" => route('payment_response'),

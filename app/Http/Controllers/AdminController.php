@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUser;
 use App\Http\Requests\ValidatedUser;
+use App\Location;
 use App\Order;
 use App\Product;
 use App\User;
@@ -157,8 +158,12 @@ class AdminController extends Controller
     public function getOrder(int $id){
 
         $order = Order::find($id);
-
-        return view('admin.order-admin', compact('order'));
+        $total = json_decode($order->billing_info,true);
+        $articles = json_decode($order->product_list, true);
+        $user = json_decode(User::where('id', '=', $order->user_id)->get(), true)[0];
+        
+        $location = json_decode(Location::where('user_id', '=', $order->user_id)->get(), true)[0];
+        return view('admin.admin-order', compact('order', 'articles', 'total','user', 'location'));
     }
 
     public function sells(){

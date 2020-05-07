@@ -5,6 +5,10 @@ label {
     margin-bottom: 0!important;
     margin-top: 1rem;
 }
+h1, h2, h3{
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    letter-spacing: 0;
+}
 .btn{
     border-radius: 0;
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
@@ -84,4 +88,9 @@ label {
 .number-input-group{
     justify-content: center;
     align-items: center;
+}
+/* ORDERS */
+
+.order-article-img{
+    max-width: 50%;
 }
